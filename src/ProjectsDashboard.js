@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/styles';
 import { Typography, Container, Button, Chip, Tooltip, Grid, Paper } from "@material-ui/core";
+import { IconButton, InputBase } from "@material-ui/core";
 import GitHubIcon from '@material-ui/icons/GitHub';
 import HomeIcon from '@material-ui/icons/Home';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import GavelIcon from '@material-ui/icons/Gavel';
 import BugReportIcon from '@material-ui/icons/BugReport';
+import SearchIcon from '@material-ui/icons/Search';
 import axios from 'axios';
 import { Doughnut, Pie } from 'react-chartjs-2';
 import 'chartjs-plugin-labels';
@@ -14,17 +16,31 @@ const styles = theme => ({
   paperPadding: {
     padding: theme.spacing(2, 2),
     margin: theme.spacing(2, 2),
-  }
+  },
+  paperSearch: {
+    padding: '2px 4px',
+    display: 'flex',
+    alignItems: 'center',
+    // 50% of top appbar
+    width: '30%',
+  },
+  searchInput: {
+    marginLeft: theme.spacing(1),
+    // Hardcoded width for search input
+    width: '50%',
+    fontSize: '14px',
+    flex: 1,
+  },
 })
 
 
-// TODO: add search https://gist.github.com/codegeous/437da0b2afb0246a781b9e6acf00eb4d
 class ProjectsDashboard extends Component {
   state = {
-    projects_list: []
+    projects_list: [],
+    search: ''
   }
 
-  // Query SPARQL endpoint to get the URI infos
+  // Query SPARQL endpoint to get the projects infos
   componentDidMount() {
     const endpointToQuery = 'https://graphdb.dumontierlab.com/repositories/ids-projects';
     console.log(endpointToQuery);
@@ -46,8 +62,20 @@ class ProjectsDashboard extends Component {
 
   }
 
+  searchChange = (event) => {
+    this.setState({search: event.target.value});
+  }
+
   render () {
     const { classes } = this.props;
+    const {search, projects_list} = this.state;
+
+    // Search in name and description
+    const filteredProjects = projects_list.filter( project =>{
+        return (project.name.value.toLowerCase().indexOf( search.toLowerCase() ) !== -1 
+          || project.description.value.toLowerCase().indexOf( search.toLowerCase() ) !== -1)
+    })
+
     return(
       <Container style={{marginTop: '20px'}}>
         <Typography variant="h4" style={{textAlign: 'center', marginBottom: '20px'}}>
@@ -67,8 +95,23 @@ class ProjectsDashboard extends Component {
             </Paper>
           </Grid>
         </Grid>
+
+        <Paper component="form" className={classes.paperSearch}
+          style={{marginLeft: this.context.drawer_width, marginTop: '20px' }} 
+          onSubmit={this.submitSearch}
+        >
+          <InputBase  // https://material-ui.com/api/input-base/
+            className={classes.searchInput} inputProps={{ 'aria-label': 'search' }}
+            placeholder={"Search projects"}
+            onChange={this.searchChange}
+          />
+          <IconButton type="submit" className={classes.iconButton} aria-label="search">
+            <SearchIcon />
+          </IconButton>
+        </Paper>
         
-        {this.state.projects_list.map(function(project, key){
+        {/* {this.state.projects_list.map(function(project, key){ */}
+        {filteredProjects.map(function(project, key){
           return <Paper key={key} elevation={4} style={{padding: '15px', marginTop: '25px', marginBottom: '25px'}}>
             <Typography variant="h5">
               {project.name.value}&nbsp;&nbsp;
