@@ -1,11 +1,12 @@
 {
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
     "axios": "^0.20.0",
     "expo": "~39.0.0",
     "react": "~16.13.0",
     "react-dom": "~16.13.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.2.tar.gz",
-    "react-native-paper": "^4.2.0",
     "react-native-web": "0.13.13",
     "react-router-dom": "5.1.2",
     "react-router-native": "5.1.2"
