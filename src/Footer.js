@@ -49,7 +49,7 @@ export default function Footer() {
       <footer className={classes.footer}>
         <Container maxWidth="md" style={{textAlign: 'center'}}>
           <Typography variant="body2" >
-            The code of this site is licensed under the&nbsp;
+            This website is licensed under the&nbsp;
             <a className={classes.whiteLink} target="_blank"
             href="https://github.com/MaastrichtU-IDS/ids-projects/blob/master/LICENSE">
               MIT license

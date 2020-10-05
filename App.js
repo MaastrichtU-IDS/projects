@@ -8,6 +8,7 @@ import './App.css';
 import NavBar from "./src/NavBar";
 import Footer from "./src/Footer";
 import ProjectsDashboard from "./src/ProjectsDashboard";
+import CreateDoapProject from "./src/CreateDoapProject";
 
 const About = () => <Text>About</Text>;
 
@@ -45,6 +46,7 @@ const App = () => (
         </View> */}
 
         <Route exact path="/" component={ProjectsDashboard} />
+        <Route path="/create-doap" component={CreateDoapProject} />
         <Route path="/about" component={About} />
         <Footer />
       </View>
