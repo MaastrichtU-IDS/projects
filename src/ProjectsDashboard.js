@@ -1,14 +1,22 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import Paper from '@material-ui/core/Paper';
-import { Typography, Container, Button, Chip, Tooltip, Grid } from "@material-ui/core";
+import { withStyles } from '@material-ui/styles';
+import { Typography, Container, Button, Chip, Tooltip, Grid, Paper } from "@material-ui/core";
 import GitHubIcon from '@material-ui/icons/GitHub';
 import HomeIcon from '@material-ui/icons/Home';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import GavelIcon from '@material-ui/icons/Gavel';
 import BugReportIcon from '@material-ui/icons/BugReport';
+import axios from 'axios';
 import { Doughnut, Pie } from 'react-chartjs-2';
 import 'chartjs-plugin-labels';
+
+const styles = theme => ({
+  paperPadding: {
+    padding: theme.spacing(2, 2),
+    margin: theme.spacing(2, 2),
+  }
+})
+
 
 // TODO: add search https://gist.github.com/codegeous/437da0b2afb0246a781b9e6acf00eb4d
 class ProjectsDashboard extends Component {
@@ -39,7 +47,7 @@ class ProjectsDashboard extends Component {
   }
 
   render () {
-    // const { classes } = this.props;
+    const { classes } = this.props;
     return(
       <Container style={{marginTop: '20px'}}>
         <Typography variant="h4" style={{textAlign: 'center', marginBottom: '20px'}}>
@@ -121,7 +129,7 @@ class ProjectsDashboard extends Component {
   }
 
 }
-export default ProjectsDashboard;
+export default withStyles(styles) (ProjectsDashboard);
 
 const getProjectsQuery = `PREFIX doap: <http://usefulinc.com/ns/doap#>
     PREFIX foaf: <http://xmlns.com/foaf/0.1/>

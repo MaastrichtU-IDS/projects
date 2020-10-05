@@ -11,7 +11,7 @@ import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 
 const styles = theme => ({
   settingsForm: {
-    width: '90%',
+    width: '100%',
     // textAlign: 'center',
     '& .MuiFormControl-root': {
       marginTop: theme.spacing(1),
@@ -43,9 +43,6 @@ const styles = theme => ({
     padding: theme.spacing(2, 2),
     margin: theme.spacing(2, 2),
   },
-  marginBottom: {
-    marginBottom: theme.spacing(1),
-  },
   paperTitle: {
     fontWeight: 300,
     marginBottom: theme.spacing(1),
@@ -59,18 +56,34 @@ function Alert(props) {
 class CreateDoapProject extends Component {
 
   state = {open: false, 
-    dialogOpen: false
+    dialogOpen: false,
+    license_autocomplete: ''
   }
 
+  constructor(props) {
+    super(props);
+    this.form_category_dropdown = React.createRef(); 
+  }
   // componentDidMount() {
   // }
 
   handleSubmit  = (event) => {
     event.preventDefault();
-    console.log('form submitted')
+    let doap_content = `my DOAP project RDF 
+category: ` + this.form_category_dropdown.current.value + `
+license: ` + this.state.license_autocomplete;
+
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/turtle;charset=utf-8,' + encodeURIComponent(doap_content));
+    element.setAttribute('download', '.doap-project.ttl');
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+    // console.log('form submitted')
     // setTriplestore({
-    //   sparql_endpoint: this.state.sparql_endpoint_autocomplete, 
-    //   graphs_overview: this.formGraphsOverview.current.value,
+    //   sparql_endpoint: this.state.license_autocomplete, 
+    //   graphs_overview: this.form_category_dropdown.current.value,
     //   graph_uri_resolution: this.formGraphUriResolution.current.value,
     //   openapi_url: this.state.openapi_url_autocomplete, 
     //   comunica_url: this.state.comunica_url_autocomplete,
@@ -148,11 +161,11 @@ class CreateDoapProject extends Component {
                   Project category / type
                 </InputLabel>
                 <Select
-                  labelId="form-graph-overview-label"
+                  labelId="form-category-dropdown-label"
                   label="Project category / type"
                   size='small'
                   // defaultValue={triplestore.graphs_overview}
-                  inputRef={this.formGraphsOverview}
+                  inputRef={this.form_category_dropdown}
                   // MenuProps={{
                   //   className: classes.fullWidth,
                   // }}
@@ -166,8 +179,8 @@ class CreateDoapProject extends Component {
                   }}
                   autoWidth
                 >
-                  <MenuItem value="hcls">Deep Learning</MenuItem>
-                  <MenuItem value="all">Data processing</MenuItem>
+                  <MenuItem value="Deep Learning">Deep Learning</MenuItem>
+                  <MenuItem value="Data processing">Data processing</MenuItem>
                 </Select>
               </FormControl>
               <FormHelperText id="helper-graphs-overview">Pick a category best describing your project</FormHelperText>
@@ -214,13 +227,18 @@ class CreateDoapProject extends Component {
                 }}
               />
             </Paper>
-            <Button type="submit"
-              variant="contained" 
-              className={classes.saveButton} 
-              startIcon={<GetAppIcon />}
-              color="secondary" >
-                Download DOAP description
-            </Button>
+            {/* <Download file=".doap-project.ttl" content="content here"> */}
+            <div style={{width: '100%', textAlign: 'center'}}>
+              <Button type="submit" 
+                // style={{width: '100%'}}
+                variant="contained" 
+                className={classes.saveButton} 
+                startIcon={<GetAppIcon />}
+                color="secondary" >
+                  Download DOAP description
+              </Button>
+            </div>
+            {/* </Download> */}
             {/* <Button
             variant="contained" size="small" 
             className={classes.saveButton} 
@@ -231,7 +249,7 @@ class CreateDoapProject extends Component {
             </Button> */}
             <Snackbar open={this.state.open} onClose={this.handleClose} autoHideDuration={3000}>
               <Alert severity="success">
-                Downloaded!
+                Thanks!
               </Alert>
             </Snackbar>
           </FormControl>
@@ -243,4 +261,4 @@ class CreateDoapProject extends Component {
   }
 
 }
-export default  withStyles(styles) (CreateDoapProject);
+export default withStyles(styles) (CreateDoapProject);

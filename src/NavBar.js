@@ -15,11 +15,8 @@ import MenuBookIcon from '@material-ui/icons/MenuBook';
 const styles = theme => ({
   menuButton: {
     color: theme.palette.default.main,
-    // marginRight: '1em',
-    // marginLeft: '1em',
     // textTransform: 'none',
     // textDecoration: 'none',
-    // fontSize: '14px'
   },
   linkButton: {
     textTransform: 'none',
