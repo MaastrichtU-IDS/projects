@@ -9,10 +9,12 @@ RUN yarn install
 
 COPY . .
 
-# Can also be prebuilt and served from /build folder
-# RUN expo build:web
-# RUN serve -s web-build
+# Prebuilt in /web-build folder
+RUN yarn build
 
-EXPOSE 19006
+## Serving directly does not work with router:
+# expo web --no-dev
 
-ENTRYPOINT [ "yarn", "prod" ]
+EXPOSE 5000
+
+ENTRYPOINT [ "yarn", "serve" ]

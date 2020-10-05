@@ -17,7 +17,8 @@
   },
   "devDependencies": {
     "@babel/core": "7.9.0",
-    "expo-cli": "^3.27.13"
+    "expo-cli": "^3.27.13",
+    "serve": "^11.3.2"
   },
   "scripts": {
     "start": "expo start",
@@ -25,7 +26,8 @@
     "ios": "expo start --ios",
     "web": "expo web",
     "eject": "expo eject",
-    "prod": "expo web --no-dev"
+    "build": "expo build:web",
+    "serve": "serve -s web-build"
   },
   "private": true
 }
