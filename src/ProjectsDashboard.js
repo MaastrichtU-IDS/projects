@@ -7,6 +7,8 @@ import HomeIcon from '@material-ui/icons/Home';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import GavelIcon from '@material-ui/icons/Gavel';
 import BugReportIcon from '@material-ui/icons/BugReport';
+import { Doughnut, Pie } from 'react-chartjs-2';
+import 'chartjs-plugin-labels';
 
 // TODO: add search https://gist.github.com/codegeous/437da0b2afb0246a781b9e6acf00eb4d
 class ProjectsDashboard extends Component {
@@ -44,12 +46,27 @@ class ProjectsDashboard extends Component {
   }
 
   render () {
+    const pie_data = {
+      labels: [
+        'Red',
+        'Green',
+        'Yellow'
+      ],
+      datasets: [{
+        data: [300, 50, 100],
+        backgroundColor: ['#4caf50','#FF6384', '#36A2EB', '#FFCE56'],
+        hoverBackgroundColor: ['#4caf50','#FF6384','#36A2EB','#FFCE56']
+      }]
+    };
     // const { classes } = this.props;
     return(
       <Container style={{marginTop: '20px'}}>
         <Typography variant="h4" style={{textAlign: 'center', marginBottom: '20px'}}>
           Institute of Data Science projects 🗂️
         </Typography>
+        <Doughnut data={pie_data} options={pie_options}/>
+        <Pie data={pie_data} options={pie_options}/>
+        
         {this.state.projects_list.map(function(project, key){
           return <Paper key={key} elevation={4} style={{padding: '15px', margin: '25px'}}>
             <Typography variant="h5">
@@ -148,3 +165,43 @@ const getProjectsQuery = `PREFIX doap: <http://usefulinc.com/ns/doap#>
             ?project doap:shortdesc ?shortdesc .
         }
     }`
+
+const pie_options = {
+  legend: {
+    display: false
+  },
+  plugins: {
+    labels: {
+      // render 'label', 'value', 'percentage', 'image' or custom function, default is 'percentage'
+      render: 'label',
+      // fontSize: 12,
+
+      // font color, can be color array for each data or function for dynamic color, default is defaultFontColor
+      fontColor: '#fff',
+
+      // // draw text shadows under labels, default is false
+      // textShadow: true,
+      // text shadow intensity, default is 6
+      // shadowBlur: 10,
+      // // text shadow X offset, default is 3
+      // shadowOffsetX: -5,
+      // // text shadow Y offset, default is 3
+      // shadowOffsetY: 5,
+      // // text shadow color, default is 'rgba(0,0,0,0.3)'
+      // shadowColor: 'rgba(255,0,0,0.75)',
+      // position to draw label, available value is 'default', 'border' and 'outside'
+      // bar chart ignores this
+      // default is 'default'
+      // position: 'default',
+
+      // set images when `render` is 'image'
+      // images: [
+      //   {
+      //     src: 'image.png',
+      //     width: 16,
+      //     height: 16
+      //   }
+      // ]
+    }
+  }
+}
