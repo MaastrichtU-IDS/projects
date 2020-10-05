@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  ids-projects-website:
+    build: .
+    ports:
+      - 19006:19006
+    environment:
+      VIRTUAL_HOST: ids-projects.137.120.31.102.nip.io
+      LETSENCRYPT_HOST: ids-projects.137.120.31.102.nip.io

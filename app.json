@@ -1,0 +1,15 @@
+{
+    "expo": {
+      "name": "IDS Projects website",
+      "description": "Website for projects at the Institute of Data Science at Maastricht University",
+      "slug": "ids-projects",
+      "privacy": "public",
+      "sdkVersion": "35.0.0",
+      "platforms": ["web"],
+      "version": "0.0.1",
+      "orientation": "portrait",
+      "packagerOpts": {
+        "assetExts": ["html"]
+      }
+    }
+  }  

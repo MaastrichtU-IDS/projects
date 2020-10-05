@@ -19,7 +19,9 @@ const theme = createMuiTheme({
     // primary: { light: '#63a4ff', main: blue[700], dark: blue[900] },
     // Same color as Angular into-the-graph: blue[700] / #1976d2
     // primary: { light: blue[50], main: blue[600], dark: blue[900] },
-    secondary: { light: '#f05545', main: '#b71c1c', dark: '#7f0000' },
+    // Secondary Green: 
+    secondary: { light: '#4caf50', main: '#087f23', dark: '#00600f' },
+    red: { light: '#f05545', main: '#b71c1c', dark: '#7f0000' },
     default: { light: '#fafafa', main: '#eceff1', dark: grey[600] }
   },
   typography: {
@@ -34,7 +36,7 @@ const theme = createMuiTheme({
 const App = () => (
   <MuiThemeProvider theme={theme}>
     <Router>
-      <View style={{width: '100%', height: '100%'}}>
+      <View style={{height: '100%'}}>
         <NavBar />
         {/* <View style={styles.nav}>
           <Link to="/">

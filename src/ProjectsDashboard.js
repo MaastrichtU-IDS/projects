@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Paper from '@material-ui/core/Paper';
-import { Typography, Container, Button, Chip, Tooltip } from "@material-ui/core";
+import { Typography, Container, Button, Chip, Tooltip, Grid } from "@material-ui/core";
 import GitHubIcon from '@material-ui/icons/GitHub';
 import HomeIcon from '@material-ui/icons/Home';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
@@ -12,14 +12,12 @@ import 'chartjs-plugin-labels';
 
 // TODO: add search https://gist.github.com/codegeous/437da0b2afb0246a781b9e6acf00eb4d
 class ProjectsDashboard extends Component {
-
   state = {
     projects_list: []
   }
 
   // Query SPARQL endpoint to get the URI infos
   componentDidMount() {
-
     const endpointToQuery = 'https://graphdb.dumontierlab.com/repositories/ids-projects';
     console.log(endpointToQuery);
     axios.get(endpointToQuery + `?query=` + encodeURIComponent(getProjectsQuery))
@@ -28,47 +26,42 @@ class ProjectsDashboard extends Component {
         this.setState({ projects_list: sparqlResultArray});
         sparqlResultArray.forEach((sparqlResultRow) => {
           console.log(sparqlResultRow.name.value)
-          console.log(sparqlResultRow.gitUrl.value)
           // searchResults.push({
           //   foundUri: sparqlResultRow.foundUri.value , 
           //   foundLabel: sparqlResultRow.foundLabel.value
           // })
         })
-        // this.setState({ searchResults });
-        // this.setState({ isLoading: false });
       })
       .catch(error => {
         console.log(error)
-        // this.setState({ requestError: true });
-        // this.setState({ isLoading: false });
       })
 
   }
 
   render () {
-    const pie_data = {
-      labels: [
-        'Red',
-        'Green',
-        'Yellow'
-      ],
-      datasets: [{
-        data: [300, 50, 100],
-        backgroundColor: ['#4caf50','#FF6384', '#36A2EB', '#FFCE56'],
-        hoverBackgroundColor: ['#4caf50','#FF6384','#36A2EB','#FFCE56']
-      }]
-    };
     // const { classes } = this.props;
     return(
       <Container style={{marginTop: '20px'}}>
         <Typography variant="h4" style={{textAlign: 'center', marginBottom: '20px'}}>
           Institute of Data Science projects 🗂️
         </Typography>
-        <Doughnut data={pie_data} options={pie_options}/>
-        <Pie data={pie_data} options={pie_options}/>
+        <Grid container spacing={3} style={{textAlign: 'center'}}>
+          <Grid item xs={6}>
+            <Paper>
+              <Typography variant="h6">Categories</Typography>
+              <Doughnut data={pie_data} options={pie_options}/>
+            </Paper>
+          </Grid>
+          <Grid item xs={6}>
+            <Paper>
+              <Typography variant="h6">Programming languages</Typography>
+              <Pie data={pie_data} options={pie_options}/>
+            </Paper>
+          </Grid>
+        </Grid>
         
         {this.state.projects_list.map(function(project, key){
-          return <Paper key={key} elevation={4} style={{padding: '15px', margin: '25px'}}>
+          return <Paper key={key} elevation={4} style={{padding: '15px', marginTop: '25px', marginBottom: '25px'}}>
             <Typography variant="h5">
               {project.name.value}&nbsp;&nbsp;
               <Chip label={project.programmingLanguage.value} color='primary' />
@@ -165,6 +158,19 @@ const getProjectsQuery = `PREFIX doap: <http://usefulinc.com/ns/doap#>
             ?project doap:shortdesc ?shortdesc .
         }
     }`
+
+const pie_data = {
+  labels: [
+    'Python',
+    'PHP',
+    'Java'
+  ],
+  datasets: [{
+    data: [4, 1, 2],
+    backgroundColor: ['#4caf50','#FF6384', '#36A2EB', '#FFCE56'],
+    hoverBackgroundColor: ['#4caf50','#FF6384','#36A2EB','#FFCE56']
+  }]
+};
 
 const pie_options = {
   legend: {

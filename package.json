@@ -16,14 +16,16 @@
     "react-router-native": "5.1.2"
   },
   "devDependencies": {
-    "@babel/core": "7.9.0"
+    "@babel/core": "7.9.0",
+    "expo-cli": "^3.27.13"
   },
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "prod": "expo web --no-dev"
   },
   "private": true
 }

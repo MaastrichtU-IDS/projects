@@ -65,7 +65,7 @@ class CreateDoapProject extends Component {
   // componentDidMount() {
   // }
 
-  handleSubmit  = (event, setTriplestore) => {
+  handleSubmit  = (event) => {
     event.preventDefault();
     console.log('form submitted')
     // setTriplestore({
@@ -77,8 +77,12 @@ class CreateDoapProject extends Component {
     //   filebrowser_url: this.state.filebrowser_url_autocomplete, 
     //   search_query: this.formSearchQuery.current.value, 
     // });
-    // this.setState({ open: true });
+    this.setState({ open: true });
   }
+  // Close Snackbar
+  handleClose = (event, reason) => {
+    this.setState({ open: false});
+  };
 
   handleAutocomplete = (stateToUpdate, searchText) => {
     console.log('stateToUpdate, searchText')
@@ -110,17 +114,17 @@ class CreateDoapProject extends Component {
         
 
         <form onSubmit={(event) => {
-          this.handleSubmit(event, setTriplestore)}}>
+          this.handleSubmit(event)}}>
             <FormControl className={classes.settingsForm}>
               <Paper elevation={2} className={classes.paperPadding}>
                 <Typography variant="h5" className={classes.paperTitle}>
-                  URI resolution
+                  Project informations
                 </Typography>
                 <Autocomplete
                   onChange={this.handleAutocomplete.bind(this, 'sparql_endpoint')}
                   onInputChange={this.handleAutocomplete.bind(this, 'sparql_endpoint')}
                   id="autocomplete-sparql-endpoint"
-                  options={['https://graphdb.dumontierlab.com/repositories/trek', 'https://graphdb.dumontierlab.com/repositories/bio2vec']}
+                  options={['MIT license', 'Apache license']}
                   // value={this.context.triplestore.sparql_endpoint}
                   freeSolo={true}
                   includeInputInList={true}
@@ -128,23 +132,25 @@ class CreateDoapProject extends Component {
                     className: classes.alignLeft,
                   }}
                   renderInput={params => <TextField {...params} 
-                  label="SPARQL endpoint URL" 
-                  variant="outlined" 
+                  label="License" 
+                  variant="outlined"
+                  size='small'
                   // getOptionLabel={option => option.title}
                   // style={{ width: 300 }}
                   // size='small'
                   />}
                 />
-              <FormHelperText id="helper-sparql-endpoint">SPARQL endpoint URL used by the into-the-graph app to resolve URIs.</FormHelperText>
+              <FormHelperText id="helper-sparql-endpoint">Choose a license at...</FormHelperText>
               <FormControl variant="outlined" 
                 className={classes.fullWidth}
                 >
                 <InputLabel id="form-graph-overview-label">
-                  Graphs overview query type
+                  Project category / type
                 </InputLabel>
                 <Select
                   labelId="form-graph-overview-label"
-                  label="Graphs overview query type"
+                  label="Project category / type"
+                  size='small'
                   // defaultValue={triplestore.graphs_overview}
                   inputRef={this.formGraphsOverview}
                   // MenuProps={{
@@ -160,60 +166,29 @@ class CreateDoapProject extends Component {
                   }}
                   autoWidth
                 >
-                  <MenuItem value="hcls">HCLS descriptive metadata</MenuItem>
-                  <MenuItem value="all">Get all graphs (optimized in Virtuoso)</MenuItem>
+                  <MenuItem value="hcls">Deep Learning</MenuItem>
+                  <MenuItem value="all">Data processing</MenuItem>
                 </Select>
               </FormControl>
-              <FormHelperText id="helper-graphs-overview">2 possibilities: "hcls" gets only graphs described using HCLS metadata and "all" get all graphs (optimized in Virtuoso)</FormHelperText>
-              <FormControl variant="outlined" 
-                className={classes.fullWidth}
-                >
-                <InputLabel id="form-graph-uri-resolution-label">
-                  Resolution of Graph URIs
-                </InputLabel>
-                <Select
-                  labelId="form-graph-uri-resolution-label"
-                  label="Resolution of Graph URIs"
-                  // defaultValue={triplestore.graph_uri_resolution}
-                  inputRef={this.formGraphUriResolution}
-                  // MenuProps={{
-                  //   className: classes.fullWidth,
-                  // }}
-                  // SelectDisplayProps={{
-                  //   className: classes.smallerFont,
-                  //   style: {width: '100%'}
-                  // }}
-                  InputProps={{
-                    className: classes.smallerFont,
-                    // style: {width: '100%'}
-                  }}
-                  autoWidth
-                >
-                  <MenuItem value="classes">Show only classes in the graph</MenuItem>
-                  <MenuItem value="triples">Show all triples in the graph (LDP, Nanopubs)</MenuItem>
-                </Select>
-              </FormControl>
-              <FormHelperText id="helper-graph-uri-resolution">What is shown when resolving a URI as a graph</FormHelperText>
+              <FormHelperText id="helper-graphs-overview">Pick a category best describing your project</FormHelperText>
             </Paper>
             <Paper elevation={2} className={classes.paperPadding}>
               <Typography variant="h5" className={classes.paperTitle}>
-                Search query
+                Contact details
               </Typography>
               <FormHelperText>
-                Change here the SPARQL query used when searching in the navbar search box. 
-                Use $TEXT_TO_SEARCH to define where the text to search will be replaced in the query.
-                It should return a ?foundUri and a ?foundLabel to be displayed by the app.
+                Informations about the developers and responsibles of this project. 
               </FormHelperText>
               <TextField
                 id="textfield-search-query"
-                label="Search query used by the app"
-                placeholder="Search query used by the app"
+                label="Contributor name"
+                placeholder="Contributor name"
                 className={classes.fullWidth}
                 // defaultValue={triplestore.search_query}
                 variant="outlined"
                 inputRef={this.formSearchQuery}
                 multiline={true}
-                // size='small'
+                size='small'
                 InputProps={{
                   className: classes.normalFont
                 }}
@@ -221,58 +196,30 @@ class CreateDoapProject extends Component {
                   className: classes.normalFont
                 }}
               />
-              <FormHelperText>
-                You can use those examples queries to use GraphDB or Virtuoso Search Index (it needs to have been enabled in the triplestore before):
-              </FormHelperText>
-              <TextField 
+              <TextField
+                id="textfield-email"
+                label="Contributor email"
+                placeholder="Contributor email"
                 className={classes.fullWidth}
-                id="search-graphdb" 
-                label="Search query for Ontotext GraphDB" 
-                variant="outlined" multiline={true}
-                // value={example_search_graphdb}
+                // defaultValue={triplestore.search_query}
+                variant="outlined"
+                inputRef={this.formSearchQuery}
+                multiline={true}
                 size='small'
                 InputProps={{
-                  className: classes.smallerFont
+                  className: classes.normalFont
                 }}
                 InputLabelProps={{
-                  className: classes.smallerFont
-                }}
-              />
-              <TextField 
-                className={classes.fullWidth}
-                id="search-virtuoso" 
-                label="Search query for OpenLink Virtuoso" 
-                variant="outlined" multiline={true}
-                // value={example_search_virtuoso}
-                size='small'
-                InputProps={{
-                  className: classes.smallerFont
-                }}
-                InputLabelProps={{
-                  className: classes.smallerFont
-                }}
-              />
-            <TextField 
-                className={classes.fullWidth}
-                id="search-default" 
-                label="Default search query" 
-                variant="outlined" multiline={true}
-                // value={example_search_default}
-                size='small'
-                InputProps={{
-                  className: classes.smallerFont
-                }}
-                InputLabelProps={{
-                  className: classes.smallerFont
+                  className: classes.normalFont
                 }}
               />
             </Paper>
             <Button type="submit"
-            variant="contained" 
-            className={classes.saveButton} 
-            startIcon={<GetAppIcon />}
-            color="primary" >
-              Download DOAP description
+              variant="contained" 
+              className={classes.saveButton} 
+              startIcon={<GetAppIcon />}
+              color="secondary" >
+                Download DOAP description
             </Button>
             {/* <Button
             variant="contained" size="small" 
@@ -284,7 +231,7 @@ class CreateDoapProject extends Component {
             </Button> */}
             <Snackbar open={this.state.open} onClose={this.handleClose} autoHideDuration={3000}>
               <Alert severity="success">
-                Settings has been saved
+                Downloaded!
               </Alert>
             </Snackbar>
           </FormControl>
