@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { withStyles } from '@material-ui/styles';
-import { Typography, Container, Button, Chip, Tooltip, Grid, Paper } from "@material-ui/core";
+import { withStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { WithStyles, Typography, Container, Button, Chip, Tooltip, Grid, Paper } from "@material-ui/core";
 import { IconButton, InputBase } from "@material-ui/core";
 import GitHubIcon from '@material-ui/icons/GitHub';
 import HomeIcon from '@material-ui/icons/Home';
@@ -12,7 +12,7 @@ import axios from 'axios';
 import { Doughnut, Pie } from 'react-chartjs-2';
 import 'chartjs-plugin-labels';
 
-const styles = theme => ({
+const styles = (theme: Theme) => createStyles({
   paperPadding: {
     padding: theme.spacing(2, 2),
     margin: theme.spacing(2, 2),
@@ -33,8 +33,10 @@ const styles = theme => ({
   },
 })
 
+interface Props extends WithStyles<typeof styles> {
+}
 
-class ProjectsDashboard extends Component {
+class ProjectsDashboard extends Component<Props> {
   state = {
     projects_list: [],
     search: ''
@@ -106,7 +108,7 @@ class ProjectsDashboard extends Component {
             placeholder={"Search projects"}
             onChange={this.searchChange}
           />
-          <IconButton type="submit" className={classes.iconButton} aria-label="search">
+          <IconButton type="submit" aria-label="search">
             <SearchIcon />
           </IconButton>
         </Paper>

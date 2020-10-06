@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { withRouter, Link } from "react-router-dom";
 
-import {AppBar, Toolbar, Button} from '@material-ui/core';
+import {WithStyles, AppBar, Toolbar, Button} from '@material-ui/core';
 import Tooltip from '@material-ui/core/Tooltip';
 
 import GitHubIcon from '@material-ui/icons/GitHub';
@@ -12,9 +12,10 @@ import CreateNewFolderIcon from '@material-ui/icons/CreateNewFolder';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 
 // const useStyles = makeStyles(theme => ({
-const styles = theme => ({
+// const styles = theme => ({
+const styles = ({ palette, spacing }: Theme) => createStyles({
   menuButton: {
-    color: theme.palette.default.main,
+    color: palette.common.white,
     // textTransform: 'none',
     // textDecoration: 'none',
   },
@@ -23,9 +24,13 @@ const styles = theme => ({
     textDecoration: 'none'
   }
 })
+
+interface Props extends WithStyles<typeof styles> {
+}
  
 // export default function NavBar() {
-class NavBar extends Component {
+// const DecoratedClass = withStyles(styles)(
+class NavBar extends Component<Props> {
   state = { 
     searchText: '',
     open: true
