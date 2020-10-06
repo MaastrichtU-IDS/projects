@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { withStyles } from '@material-ui/styles';
-import { Typography, Container, Paper, Button } from "@material-ui/core";
+import { withStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { WithStyles, Typography, Container, Paper, Button } from "@material-ui/core";
 import { FormControl, TextField, Input, InputLabel, FormHelperText, Select } from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 import GetAppIcon from '@material-ui/icons/GetApp';
@@ -9,7 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 
-const styles = theme => ({
+const styles = (theme: Theme) => createStyles({
   settingsForm: {
     width: '100%',
     // textAlign: 'center',
@@ -49,20 +49,24 @@ const styles = theme => ({
   }
 })
 
+interface Props extends WithStyles<typeof styles> {
+}
+
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-class CreateDoapProject extends Component {
+class CreateDoapProject extends Component<Props> {
 
   state = {open: false, 
     dialogOpen: false,
     license_autocomplete: ''
   }
+  form_category_dropdown = React.createRef(); 
 
   constructor(props) {
     super(props);
-    this.form_category_dropdown = React.createRef(); 
+    // this.form_category_dropdown = React.createRef(); 
   }
   // componentDidMount() {
   // }
@@ -83,7 +87,7 @@ license: ` + this.state.license_autocomplete;
     // console.log('form submitted')
     // setTriplestore({
     //   sparql_endpoint: this.state.license_autocomplete, 
-    //   graphs_overview: this.form_category_dropdown.current.value,
+      graphs_overview: this.form_category_dropdown.current.value,
     //   graph_uri_resolution: this.formGraphUriResolution.current.value,
     //   openapi_url: this.state.openapi_url_autocomplete, 
     //   comunica_url: this.state.comunica_url_autocomplete,
@@ -163,9 +167,8 @@ license: ` + this.state.license_autocomplete;
                 <Select
                   labelId="form-category-dropdown-label"
                   label="Project category / type"
-                  size='small'
                   // defaultValue={triplestore.graphs_overview}
-                  inputRef={this.form_category_dropdown}
+                  // inputRef={this.form_category_dropdown}
                   // MenuProps={{
                   //   className: classes.fullWidth,
                   // }}
@@ -173,10 +176,6 @@ license: ` + this.state.license_autocomplete;
                   //   className: classes.smallerFont,
                   //   style: {width: '100%'}
                   // }}
-                  InputProps={{
-                    className: classes.smallerFont,
-                    // style: {width: '100%'}
-                  }}
                   autoWidth
                 >
                   <MenuItem value="Deep Learning">Deep Learning</MenuItem>
@@ -199,7 +198,7 @@ license: ` + this.state.license_autocomplete;
                 className={classes.fullWidth}
                 // defaultValue={triplestore.search_query}
                 variant="outlined"
-                inputRef={this.formSearchQuery}
+                // inputRef={this.formSearchQuery}
                 multiline={true}
                 size='small'
                 InputProps={{
@@ -216,7 +215,7 @@ license: ` + this.state.license_autocomplete;
                 className={classes.fullWidth}
                 // defaultValue={triplestore.search_query}
                 variant="outlined"
-                inputRef={this.formSearchQuery}
+                // inputRef={this.formSearchQuery}
                 multiline={true}
                 size='small'
                 InputProps={{

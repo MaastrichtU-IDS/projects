@@ -21,8 +21,8 @@ const theme = createMuiTheme({
     // primary: { light: blue[50], main: blue[600], dark: blue[900] },
     // Secondary Green: 
     secondary: { light: '#4caf50', main: '#087f23', dark: '#00600f' },
-    red: { light: '#f05545', main: '#b71c1c', dark: '#7f0000' },
-    default: { light: '#fafafa', main: '#eceff1', dark: grey[600] }
+    // red: { light: '#f05545', main: '#b71c1c', dark: '#7f0000' },
+    // default: { light: '#fafafa', main: '#eceff1', dark: grey[600] }
   },
   typography: {
     "fontFamily": "\"Open Sans\", \"Roboto\", \"Arial\"",
