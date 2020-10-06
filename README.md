@@ -1,6 +1,13 @@
 Website for projects at the **Institute of Data Science** at Maastricht University.
 
-### Run in dev ⚙️
+### Run in development ⚙️
+
+Clone the repository:
+
+```bash
+git clone https://github.com/MaastrichtU-IDS/ids-projects-website
+cd ids-projects-website
+```
 
 Install dependencies 📥
 
@@ -8,7 +15,7 @@ Install dependencies 📥
 yarn
 ```
 
-Run on http://localhost:19006
+Run at http://localhost:19006
 
 ```bash
 yarn web
@@ -18,19 +25,14 @@ yarn web
 
 ### Run in production 🚀
 
-Build in `/web-build` folder 📦
+You can build locally in `/web-build` folder and serve at http://localhost:5000 📦
 
 ```bash
 yarn build
-```
-
-Run on http://localhost:5000
-
-```bash
 yarn serve
 ```
 
-Or run using Docker 🐳
+Or run directly using Docker 🐳
 
 ```bash
 docker-compose up

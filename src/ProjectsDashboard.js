@@ -70,15 +70,17 @@ class ProjectsDashboard extends Component {
     const { classes } = this.props;
     const {search, projects_list} = this.state;
 
-    // Search in name and description
+    // Search in name, description and programming language
     const filteredProjects = projects_list.filter( project =>{
         return (project.name.value.toLowerCase().indexOf( search.toLowerCase() ) !== -1 
-          || project.description.value.toLowerCase().indexOf( search.toLowerCase() ) !== -1)
+          || project.description.value.toLowerCase().indexOf( search.toLowerCase() ) !== -1
+          || project.programmingLanguage.value.toLowerCase().indexOf( search.toLowerCase() ) !== -1
+        )
     })
 
     return(
-      <Container style={{marginTop: '20px'}}>
-        <Typography variant="h4" style={{textAlign: 'center', marginBottom: '20px'}}>
+      <Container className='mainContainer'>
+        <Typography variant="h4" style={{textAlign: 'center', marginBottom: '30px'}}>
           Institute of Data Science projects 🗂️
         </Typography>
         <Grid container spacing={3} style={{textAlign: 'center'}}>

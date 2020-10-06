@@ -1,16 +1,16 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans");
 
 .flexGrow {
-  flex-grow: 1; }
+  flex-grow: 1; 
+}
 
-/*   
-@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+.mainContainer {
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+  
+/* @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 body {
   margin: 0;
   padding: 0;
-  text-align: center; }
-
-.mainContainer {
-  height: 100%;
-  margin-top: 20px; }
- */
+  text-align: center; } */

@@ -36,7 +36,7 @@ const theme = createMuiTheme({
 const App = () => (
   <MuiThemeProvider theme={theme}>
     <Router>
-      <View style={{height: '100%'}}>
+      <View style={{height: '100%', backgroundColor: '#eceff1'}}>
         <NavBar />
         {/* <View style={styles.nav}>
           <Link to="/">
@@ -46,7 +46,6 @@ const App = () => (
             <Text>About</Text>
           </Link>
         </View> */}
-
         <Route exact path="/" component={ProjectsDashboard} />
         <Route path="/create-doap" component={CreateDoapProject} />
         <Route path="/about" component={About} />

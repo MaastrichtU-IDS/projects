@@ -120,7 +120,7 @@ license: ` + this.state.license_autocomplete;
   render () {
     const { classes } = this.props;
     return(
-      <Container style={{marginTop: '20px'}}>
+      <Container className='mainContainer'>
         <Typography variant="h4" style={{textAlign: 'center', marginBottom: '20px'}}>
           Create a DOAP description for your project 📝
         </Typography>
