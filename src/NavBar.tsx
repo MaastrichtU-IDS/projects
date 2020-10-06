@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { withRouter, Link } from "react-router-dom";
 
 import {AppBar, Toolbar, Button} from '@material-ui/core';
@@ -11,7 +11,7 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import CreateNewFolderIcon from '@material-ui/icons/CreateNewFolder';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 
-
+// const useStyles = makeStyles(theme => ({
 const styles = theme => ({
   menuButton: {
     color: theme.palette.default.main,
@@ -88,4 +88,5 @@ class NavBar extends Component {
     );
   }
 }
-export default withRouter((withStyles(styles)(NavBar))) ;
+export default withStyles(styles)(NavBar);
+// export default withRouter((withStyles(styles)(NavBar))) ;

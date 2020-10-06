@@ -99,8 +99,7 @@ class ProjectsDashboard extends Component {
         </Grid>
 
         <Paper component="form" className={classes.paperSearch}
-          style={{marginLeft: this.context.drawer_width, marginTop: '20px' }} 
-          onSubmit={this.submitSearch}
+          style={{marginLeft: this.context.drawer_width, marginTop: '20px' }}
         >
           <InputBase  // https://material-ui.com/api/input-base/
             className={classes.searchInput} inputProps={{ 'aria-label': 'search' }}
