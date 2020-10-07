@@ -13,6 +13,11 @@ import { Doughnut, Pie } from 'react-chartjs-2';
 import 'chartjs-plugin-labels';
 import iconImage from '../assets/icon.png';
 
+import {newEngine} from '@comunica/actor-init-sparql';
+import {ActorInitSparql} from '@comunica/actor-init-sparql/lib/ActorInitSparql-browser';
+import {IQueryOptions, newEngineDynamicArged} from "@comunica/actor-init-sparql/lib/QueryDynamic";
+
+
 const styles = (theme: Theme) => createStyles({
   paperPadding: {
     padding: theme.spacing(2, 2),
@@ -52,7 +57,7 @@ class ProjectsDashboard extends Component<Props> {
         const sparqlResultArray = res.data.results.bindings;
         this.setState({ projects_list: sparqlResultArray});
         sparqlResultArray.forEach((sparqlResultRow) => {
-          console.log(sparqlResultRow.name.value)
+          // console.log(sparqlResultRow.name.value)
           // searchResults.push({
           //   foundUri: sparqlResultRow.foundUri.value , 
           //   foundLabel: sparqlResultRow.foundLabel.value
@@ -62,7 +67,30 @@ class ProjectsDashboard extends Component<Props> {
       .catch(error => {
         console.log(error)
       })
+    const comunicaEngine = newEngine();
+    comunicaEngine.query(`
+      SELECT ?s ?o WHERE {
+        ?s a ?o .
+      } LIMIT 100`, {
+      sources: ['https://dbpedia.org/sparql'],
+    }).then(res => {
+      console.log(res);
+      res.bindingsStream.on('data', (binding) => {
+        console.log(binding.get('?s').value);
+        console.log(binding.get('?s').termType);
+        console.log(binding.get('?o').value);
+      });
+    });
 
+    // Error: Could not retrieve URL. 400 unknown error
+    // comunicaEngine.query(getProjectsQuery, {
+    //   sources: ['https://graphdb.dumontierlab.com/repositories/ids-projects'],
+    // }).then(res => {
+    //   console.log(res);
+    //   res.bindingsStream.on('data', (binding) => {
+    //     console.log(binding.get('?name').value);
+    //   });
+    // });
   }
 
   searchChange = (event) => {
