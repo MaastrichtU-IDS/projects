@@ -40,19 +40,10 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-// interface Props extends WithStyles<typeof styles> {
-// }
-// class ProjectsDashboard extends Component<Props> {
-
 export default function ProjectsDashboard() {
   const classes = useStyles();
   // Set state in functional style:
   const [state, setState] = React.useState({projects_list: [], search: ''});
-
-  // state = {
-  //   projects_list: [],
-  //   search: ''
-  // }
 
   // Query SPARQL endpoint to get the projects infos
   React.useEffect(() => {
@@ -63,8 +54,9 @@ export default function ProjectsDashboard() {
     axios.get(endpointToQuery + `?query=` + encodeURIComponent(getProjectsQuery))
       .then(res => {
         const sparqlResultArray = res.data.results.bindings;
-        // setState({ projects_list: sparqlResultArray});
         setState({...state, projects_list: sparqlResultArray})
+        // TODO: Normalize to put multiple language under the same object
+        // https://github.com/paularmstrong/normalizr
         // sparqlResultArray.forEach((sparqlResultRow) => {
         //   console.log(sparqlResultRow.name.value)
         //   searchResults.push({
@@ -93,22 +85,9 @@ export default function ProjectsDashboard() {
         console.log(binding.get('?o').value);
       });
     });
-
-    // TODO: error Could not retrieve URL. 400 unknown error
-    // comunicaEngine.query(getProjectsQuery, {
-    //   sources: ['https://graphdb.dumontierlab.com/repositories/ids-projects'],
-    // }).then(res => {
-    //   console.log(res);
-    //   res.bindingsStream.on('data', (binding) => {
-    //     console.log(binding.get('?name').value);
-    //   });
-    // });
-  // })
   }, []) 
 
   const searchChange = (event: Event) => {
-    // this.setState({search: event.target.value});
-    console.log(state.search);
     setState({...state, search: event.target.value})
   }
 
@@ -118,18 +97,6 @@ export default function ProjectsDashboard() {
         || project.programmingLanguage.value.toLowerCase().indexOf( state.search.toLowerCase() ) !== -1
       )
   })
-
-  // render () {
-  //   const { classes } = this.props;
-  //   const {search, projects_list} = this.state;
-
-  //   // Search in name, description and programming language
-  //   const filteredProjects = projects_list.filter( project =>{
-  //       return (project.name.value.toLowerCase().indexOf( search.toLowerCase() ) !== -1 
-  //         || project.description.value.toLowerCase().indexOf( search.toLowerCase() ) !== -1
-  //         || project.programmingLanguage.value.toLowerCase().indexOf( search.toLowerCase() ) !== -1
-  //       )
-  //   })
 
   return(
     <Container className='mainContainer'>
@@ -228,9 +195,6 @@ export default function ProjectsDashboard() {
     </Container>
   )
 }
-
-// }
-// export default withStyles(styles) (ProjectsDashboard);
 
 const getProjectsQuery = `PREFIX doap: <http://usefulinc.com/ns/doap#>
     PREFIX foaf: <http://xmlns.com/foaf/0.1/>

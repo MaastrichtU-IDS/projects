@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { withStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { Link } from "react-router-dom";
 
-import {WithStyles, AppBar, Toolbar, Button} from '@material-ui/core';
+import { AppBar, Toolbar, Button } from '@material-ui/core';
 import Tooltip from '@material-ui/core/Tooltip';
 
 import GitHubIcon from '@material-ui/icons/GitHub';
@@ -11,68 +11,57 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import CreateNewFolderIcon from '@material-ui/icons/CreateNewFolder';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 
-const styles = ({ palette, spacing }: Theme) => createStyles({
+const useStyles = makeStyles(theme => ({
   menuButton: {
-    color: palette.common.white
+    color: theme.palette.common.white
   },
   linkButton: {
     textTransform: 'none',
     textDecoration: 'none'
   }
-})
-
-interface Props extends WithStyles<typeof styles> {
-}
- 
-class NavBar extends Component<Props> {
-  state = { 
-    searchText: '',
-    open: true
-  }
+}))
   
-  render() {
-    const { classes } = this.props;
+export default function NavBar() {
+  const classes = useStyles();
 
-    return (
-      <AppBar title="" position='sticky'>
-        <Toolbar variant='dense'>
-          <Link to="/" className={classes.linkButton}>
-            <Tooltip title='IDS Projects dashboard'>
-              <Button className={classes.menuButton}>
-                <DashboardIcon />
-              </Button>
-            </Tooltip>
-          </Link>
-          <Link to="/create-doap" className={classes.linkButton}>
-            <Tooltip title='Create a DOAP description for your project'>
-              <Button className={classes.menuButton}>
-                <CreateNewFolderIcon />
-              </Button>
-            </Tooltip>
-          </Link>
-          <div className="flexGrow"></div>
-          <Link to="/about" className={classes.linkButton}>
-            <Tooltip title='About the Institute of Data Science'>
-              <Button className={classes.menuButton}>
-                <InfoIcon />
-              </Button>
-            </Tooltip>
-          </Link>
-          <Tooltip title='Go to IDS Best Practices documentation'>
-            <Button className={classes.menuButton} target="_blank"
-            href="https://maastrichtu-ids.github.io/best-practices">
-              <MenuBookIcon />
+  return (
+    <AppBar title="" position='sticky'>
+      <Toolbar variant='dense'>
+        <Link to="/" className={classes.linkButton}>
+          <Tooltip title='IDS Projects dashboard'>
+            <Button className={classes.menuButton}>
+              <DashboardIcon />
             </Button>
           </Tooltip>
-          <Tooltip title='Go to https://github.com/MaastrichtU-IDS'>
-            <Button className={classes.menuButton} target="_blank"
-            href="https://github.com/MaastrichtU-IDS">
-              <GitHubIcon />
+        </Link>
+        <Link to="/create-doap" className={classes.linkButton}>
+          <Tooltip title='Create a DOAP description for your project'>
+            <Button className={classes.menuButton}>
+              <CreateNewFolderIcon />
             </Button>
           </Tooltip>
-        </Toolbar>
-      </AppBar>
-    );
-  }
+        </Link>
+        <div className="flexGrow"></div>
+        <Link to="/about" className={classes.linkButton}>
+          <Tooltip title='About the Institute of Data Science'>
+            <Button className={classes.menuButton}>
+              <InfoIcon />
+            </Button>
+          </Tooltip>
+        </Link>
+        <Tooltip title='Go to IDS Best Practices documentation'>
+          <Button className={classes.menuButton} target="_blank"
+          href="https://maastrichtu-ids.github.io/best-practices">
+            <MenuBookIcon />
+          </Button>
+        </Tooltip>
+        <Tooltip title='Go to https://github.com/MaastrichtU-IDS'>
+          <Button className={classes.menuButton} target="_blank"
+          href="https://github.com/MaastrichtU-IDS">
+            <GitHubIcon />
+          </Button>
+        </Tooltip>
+      </Toolbar>
+    </AppBar>
+  );
 }
-export default withStyles(styles)(NavBar);
