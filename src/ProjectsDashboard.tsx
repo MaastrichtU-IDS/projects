@@ -19,6 +19,9 @@ import {IQueryOptions, newEngineDynamicArged} from "@comunica/actor-init-sparql/
 // Import UM logo from assets
 import iconImage from '../assets/icon.png';
 
+import { normalize, schema } from 'normalizr';
+import { ColorPropType } from 'react-native';
+
 const useStyles = makeStyles(theme => ({
   paperPadding: {
     padding: theme.spacing(2, 2),
@@ -41,26 +44,47 @@ const useStyles = makeStyles(theme => ({
 export default function ProjectsDashboard() {
   const classes = useStyles();
   
-  const [state, setState] = React.useState({projects_list: [], search: ''});
+  const [state, setState] = React.useState({
+    projects_list: [],
+    search: ''
+  });
 
   // componentDidMount: Query SPARQL endpoint to get the projects infos
   React.useEffect(() => {
     const endpointToQuery = 'https://graphdb.dumontierlab.com/repositories/ids-projects';
     console.log(endpointToQuery);
+
     // Query directly using Axios
     axios.get(endpointToQuery + `?query=` + encodeURIComponent(getProjectsQuery))
       .then(res => {
         const sparqlResultArray = res.data.results.bindings;
-        setState({...state, projects_list: sparqlResultArray})
-        // TODO: Normalize to put multiple language under the same object
-        // https://github.com/paularmstrong/normalizr
-        // sparqlResultArray.forEach((sparqlResultRow) => {
-        //   console.log(sparqlResultRow.name.value)
-        //   searchResults.push({
-        //     foundUri: sparqlResultRow.foundUri.value , 
-        //     foundLabel: sparqlResultRow.foundLabel.value
-        //   })
-        // })
+
+        // Convert array to object: {0:"a", 1:"b", 2:"c"}
+        const projects_converted_hash = { ...sparqlResultArray }
+        let projects_hash: any = {}
+        // Iterate over projects
+        Object.keys(projects_converted_hash).forEach(function(project) {
+          const projectName = projects_converted_hash[project]['project']['value']
+          // Use the project URI as key in the hash
+          if (!projects_hash[projectName]){
+            projects_hash[projectName] = {programmingLanguage: []}
+          }
+          // Iterate over project properties
+          Object.keys(projects_converted_hash[project]).forEach(function(property: any) {
+            const propertyHash = projects_converted_hash[project][property]
+            if (propertyHash) {
+              if (property == 'programmingLanguage') {
+                // Exception for programming language which is a list
+                projects_hash[projectName][property].push(propertyHash.value);
+              } else {
+                projects_hash[projectName][property] = propertyHash.value 
+              }
+            }
+          })
+        })
+        // Convert back to array for filtering
+        const project_final_array: any = Object.keys(projects_hash).map((key) => projects_hash[key]);
+        setState({...state, projects_list: project_final_array})
       })
       .catch(error => {
         console.log(error)
@@ -77,9 +101,9 @@ export default function ProjectsDashboard() {
     }).then((res: any) => {
       console.log(res);
       res.bindingsStream.on('data', (binding: any) => {
-        console.log(binding.get('?s').value);
-        console.log(binding.get('?s').termType);
-        console.log(binding.get('?o').value);
+        // console.log(binding.get('?s').value);
+        // console.log(binding.get('?s').termType);
+        // console.log(binding.get('?o').value);
       });
     });
   }, []) 
@@ -89,10 +113,12 @@ export default function ProjectsDashboard() {
   }
 
   const filteredProjects = state.projects_list.filter( (project: any) =>{
-      return (project.name.value.toLowerCase().indexOf( state.search.toLowerCase() ) !== -1 
-        || project.description.value.toLowerCase().indexOf( state.search.toLowerCase() ) !== -1
-        || project.programmingLanguage.value.toLowerCase().indexOf( state.search.toLowerCase() ) !== -1
+    if (project.name) {
+      return (project.name.toLowerCase().indexOf( state.search.toLowerCase() ) !== -1 
+        || project.description.toLowerCase().indexOf( state.search.toLowerCase() ) !== -1
+        || project.programmingLanguage.join(' ').toLowerCase().indexOf( state.search.toLowerCase() ) !== -1
       )
+    }
   })
 
   return(
@@ -127,7 +153,7 @@ export default function ProjectsDashboard() {
           placeholder={"Search projects"}
           onChange={searchChange}
         />
-        <IconButton type="submit" aria-label="search">
+        <IconButton aria-label="search">
           <SearchIcon />
         </IconButton>
       </Paper>
@@ -136,21 +162,23 @@ export default function ProjectsDashboard() {
       {filteredProjects.map(function(project: any, key: any){
         return <Paper key={key} elevation={4} style={{padding: '15px', marginTop: '25px', marginBottom: '25px'}}>
           <Typography variant="h5">
-            {project.name.value}&nbsp;&nbsp;
-            <Chip label={project.programmingLanguage.value} color='primary' />
+            {project.name}&nbsp;&nbsp;
+            {project.programmingLanguage.map((language: string) => {
+              return <Chip label={language} color='primary' style={{marginRight: '5px'}}/>
+            })}
           </Typography>
           <Typography style={{marginBottom: '10px', marginTop: '5px'}}>
-            {project.description.value}
+            {project.description}
           </Typography>
           {project.category && ( 
             <Typography style={{marginBottom: '10px'}}>
-              Category: {project.category.value}
+              Category: {project.category}
             </Typography>
           )}
           {project.gitUrl && ( 
             <Tooltip title='Git repository'>
               <Button target="_blank"
-              href={project.gitUrl.value}>
+              href={project.gitUrl}>
                 <GitHubIcon />
               </Button>
             </Tooltip>
@@ -158,7 +186,7 @@ export default function ProjectsDashboard() {
           {project.homepage && ( 
             <Tooltip title='Project homepage'>
               <Button target="_blank"
-              href={project.homepage.value}>
+              href={project.homepage}>
                 <HomeIcon />
               </Button>
             </Tooltip>
@@ -166,7 +194,7 @@ export default function ProjectsDashboard() {
           {project.downloadpage && ( 
             <Tooltip title='Download page'>
               <Button target="_blank"
-              href={project.downloadpage.value}>
+              href={project.downloadpage}>
                 <CloudDownloadIcon />
               </Button>
             </Tooltip>
@@ -174,7 +202,7 @@ export default function ProjectsDashboard() {
           {project.bugdatabase && ( 
             <Tooltip title='Issue tracker'>
               <Button target="_blank"
-              href={project.bugdatabase.value}>
+              href={project.bugdatabase}>
                 <BugReportIcon />
               </Button>
             </Tooltip>
@@ -182,7 +210,7 @@ export default function ProjectsDashboard() {
           {project.license && (
             <Tooltip title='License'>
               <Button target="_blank"
-              href={project.license.value}>
+              href={project.license}>
                 <GavelIcon />
               </Button>
             </Tooltip> 
