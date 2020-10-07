@@ -52,21 +52,25 @@ class ProjectsDashboard extends Component<Props> {
   componentDidMount() {
     const endpointToQuery = 'https://graphdb.dumontierlab.com/repositories/ids-projects';
     console.log(endpointToQuery);
+    // Query directly using Axios
     axios.get(endpointToQuery + `?query=` + encodeURIComponent(getProjectsQuery))
       .then(res => {
         const sparqlResultArray = res.data.results.bindings;
         this.setState({ projects_list: sparqlResultArray});
-        sparqlResultArray.forEach((sparqlResultRow) => {
-          // console.log(sparqlResultRow.name.value)
-          // searchResults.push({
-          //   foundUri: sparqlResultRow.foundUri.value , 
-          //   foundLabel: sparqlResultRow.foundLabel.value
-          // })
-        })
+        // sparqlResultArray.forEach((sparqlResultRow) => {
+        //   console.log(sparqlResultRow.name.value)
+        //   searchResults.push({
+        //     foundUri: sparqlResultRow.foundUri.value , 
+        //     foundLabel: sparqlResultRow.foundLabel.value
+        //   })
+        // })
       })
       .catch(error => {
         console.log(error)
       })
+
+    // Query with the Comunica engine
+    // https://comunica.dev/docs/query/getting_started/query_app/
     const comunicaEngine = newEngine();
     comunicaEngine.query(`
       SELECT ?s ?o WHERE {
@@ -82,7 +86,7 @@ class ProjectsDashboard extends Component<Props> {
       });
     });
 
-    // Error: Could not retrieve URL. 400 unknown error
+    // TODO: error Could not retrieve URL. 400 unknown error
     // comunicaEngine.query(getProjectsQuery, {
     //   sources: ['https://graphdb.dumontierlab.com/repositories/ids-projects'],
     // }).then(res => {
@@ -115,6 +119,8 @@ class ProjectsDashboard extends Component<Props> {
           <img src={iconImage} style={{height: '1em', width: '1em', marginRight: '10px'}} alt="Logo" />
           Institute of Data Science projects 🗂️
         </Typography>
+
+        {/* Pie charts */}
         <Grid container spacing={3} style={{textAlign: 'center'}}>
           <Grid item xs={6}>
             <Paper>
@@ -129,7 +135,8 @@ class ProjectsDashboard extends Component<Props> {
             </Paper>
           </Grid>
         </Grid>
-
+      
+        {/* Search box */}
         <Paper component="form" className={classes.paperSearch}
           style={{marginLeft: this.context.drawer_width, marginTop: '20px' }}
         >
@@ -143,7 +150,7 @@ class ProjectsDashboard extends Component<Props> {
           </IconButton>
         </Paper>
         
-        {/* {this.state.projects_list.map(function(project, key){ */}
+        {/* Iterate over projects */}
         {filteredProjects.map(function(project, key){
           return <Paper key={key} elevation={4} style={{padding: '15px', marginTop: '25px', marginBottom: '25px'}}>
             <Typography variant="h5">

@@ -9,7 +9,7 @@ RUN yarn install
 
 COPY . .
 
-# Prebuilt in /web-build folder
+# Build in /web-build folder
 RUN yarn build
 
 ## Serving directly does not work with router:

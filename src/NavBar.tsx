@@ -11,13 +11,9 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import CreateNewFolderIcon from '@material-ui/icons/CreateNewFolder';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 
-// const useStyles = makeStyles(theme => ({
-// const styles = theme => ({
 const styles = ({ palette, spacing }: Theme) => createStyles({
   menuButton: {
-    color: palette.common.white,
-    // textTransform: 'none',
-    // textDecoration: 'none',
+    color: palette.common.white
   },
   linkButton: {
     textTransform: 'none',
@@ -28,22 +24,10 @@ const styles = ({ palette, spacing }: Theme) => createStyles({
 interface Props extends WithStyles<typeof styles> {
 }
  
-// export default function NavBar() {
-// const DecoratedClass = withStyles(styles)(
 class NavBar extends Component<Props> {
   state = { 
     searchText: '',
     open: true
-  }
-
-  // static contextType = TriplestoreContext;
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      searchText: '',
-      open: true
-    }
   }
   
   render() {
@@ -94,4 +78,3 @@ class NavBar extends Component<Props> {
   }
 }
 export default withStyles(styles)(NavBar);
-// export default withRouter((withStyles(styles)(NavBar))) ;

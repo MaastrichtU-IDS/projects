@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { withStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { WithStyles, Typography, Container, Paper, Button } from "@material-ui/core";
 import { FormControl, TextField, Input, InputLabel, FormHelperText, Select } from '@material-ui/core';
-import SaveIcon from '@material-ui/icons/Save';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -25,7 +24,6 @@ const styles = (theme: Theme) => createStyles({
   saveButton: {
     textTransform: 'none',
     margin: theme.spacing(2, 2),
-    // maxWidth: '400px'
   },
   fullWidth: {
     width: '100%',
@@ -64,10 +62,10 @@ class CreateDoapProject extends Component<Props> {
   }
   form_category_dropdown = React.createRef(); 
 
-  constructor(props) {
-    super(props);
-    // this.form_category_dropdown = React.createRef(); 
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.form_category_dropdown = React.createRef(); 
+  // }
   // componentDidMount() {
   // }
 
@@ -84,20 +82,10 @@ license: ` + this.state.license_autocomplete;
     document.body.appendChild(element);
     element.click();
     document.body.removeChild(element);
-    // console.log('form submitted')
-    // setTriplestore({
-    //   sparql_endpoint: this.state.license_autocomplete, 
-      graphs_overview: this.form_category_dropdown.current.value,
-    //   graph_uri_resolution: this.formGraphUriResolution.current.value,
-    //   openapi_url: this.state.openapi_url_autocomplete, 
-    //   comunica_url: this.state.comunica_url_autocomplete,
-    //   filebrowser_url: this.state.filebrowser_url_autocomplete, 
-    //   search_query: this.formSearchQuery.current.value, 
-    // });
     this.setState({ open: true });
   }
   // Close Snackbar
-  handleClose = (event, reason) => {
+  handleClose = () => {
     this.setState({ open: false});
   };
 
@@ -113,11 +101,6 @@ license: ` + this.state.license_autocomplete;
       } else {
         this.setState({ [autocompleteStateKey]: searchText.target.innerText})
       }
-    } 
-    else {
-      // If nothing in field, we get from the context
-      // const fromContext = this.context.triplestore[]
-      this.setState({ [autocompleteStateKey]: this.context.triplestore[[stateToUpdate]]})
     }
   }
 
@@ -129,7 +112,6 @@ license: ` + this.state.license_autocomplete;
           Create a DOAP description for your project 📝
         </Typography>
         
-
         <form onSubmit={(event) => {
           this.handleSubmit(event)}}>
             <FormControl className={classes.settingsForm}>
@@ -152,9 +134,6 @@ license: ` + this.state.license_autocomplete;
                   label="License" 
                   variant="outlined"
                   size='small'
-                  // getOptionLabel={option => option.title}
-                  // style={{ width: 300 }}
-                  // size='small'
                   />}
                 />
               <FormHelperText id="helper-sparql-endpoint">Choose a license at...</FormHelperText>
@@ -167,15 +146,6 @@ license: ` + this.state.license_autocomplete;
                 <Select
                   labelId="form-category-dropdown-label"
                   label="Project category / type"
-                  // defaultValue={triplestore.graphs_overview}
-                  // inputRef={this.form_category_dropdown}
-                  // MenuProps={{
-                  //   className: classes.fullWidth,
-                  // }}
-                  // SelectDisplayProps={{
-                  //   className: classes.smallerFont,
-                  //   style: {width: '100%'}
-                  // }}
                   autoWidth
                 >
                   <MenuItem value="Deep Learning">Deep Learning</MenuItem>
@@ -213,9 +183,7 @@ license: ` + this.state.license_autocomplete;
                 label="Contributor email"
                 placeholder="Contributor email"
                 className={classes.fullWidth}
-                // defaultValue={triplestore.search_query}
                 variant="outlined"
-                // inputRef={this.formSearchQuery}
                 multiline={true}
                 size='small'
                 InputProps={{
@@ -224,9 +192,11 @@ license: ` + this.state.license_autocomplete;
                 InputLabelProps={{
                   className: classes.normalFont
                 }}
+                // inputRef={this.formSearchQuery}
+                // defaultValue={triplestore.search_query}
               />
             </Paper>
-            {/* <Download file=".doap-project.ttl" content="content here"> */}
+
             <div style={{width: '100%', textAlign: 'center'}}>
               <Button type="submit" 
                 // style={{width: '100%'}}
@@ -237,15 +207,7 @@ license: ` + this.state.license_autocomplete;
                   Download DOAP description
               </Button>
             </div>
-            {/* </Download> */}
-            {/* <Button
-            variant="contained" size="small" 
-            className={classes.saveButton} 
-            onClick={this.confirmDeleteCache}
-            startIcon={<Icon>delete</Icon>}
-            color="secondary" >
-              Delete cache
-            </Button> */}
+
             <Snackbar open={this.state.open} onClose={this.handleClose} autoHideDuration={3000}>
               <Alert severity="success">
                 Thanks!
@@ -254,10 +216,8 @@ license: ` + this.state.license_autocomplete;
           </FormControl>
         </form>
 
-
       </Container>
     )
   }
-
 }
 export default withStyles(styles) (CreateDoapProject);
