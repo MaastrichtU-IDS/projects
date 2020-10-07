@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { withStyles, createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { WithStyles, Typography, Container, Button, Chip, Tooltip, Grid, Paper } from "@material-ui/core";
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { Typography, Container, Button, Chip, Tooltip, Grid, Paper } from "@material-ui/core";
 import { IconButton, InputBase } from "@material-ui/core";
 import GitHubIcon from '@material-ui/icons/GitHub';
 import HomeIcon from '@material-ui/icons/Home';
@@ -17,8 +17,6 @@ import {newEngine} from '@comunica/actor-init-sparql';
 import {ActorInitSparql} from '@comunica/actor-init-sparql/lib/ActorInitSparql-browser';
 import {IQueryOptions, newEngineDynamicArged} from "@comunica/actor-init-sparql/lib/QueryDynamic";
 
-
-// const styles = (theme: Theme) => createStyles({
 const useStyles = makeStyles(theme => ({
   paperPadding: {
     padding: theme.spacing(2, 2),
@@ -28,12 +26,10 @@ const useStyles = makeStyles(theme => ({
     padding: '2px 4px',
     display: 'flex',
     alignItems: 'center',
-    // 50% of top appbar
     width: '30%',
   },
   searchInput: {
     marginLeft: theme.spacing(1),
-    // Hardcoded width for search input
     width: '50%',
     fontSize: '14px',
     flex: 1,
@@ -42,12 +38,11 @@ const useStyles = makeStyles(theme => ({
 
 export default function ProjectsDashboard() {
   const classes = useStyles();
-  // Set state in functional style:
+  
   const [state, setState] = React.useState({projects_list: [], search: ''});
 
-  // Query SPARQL endpoint to get the projects infos
+  // componentDidMount: Query SPARQL endpoint to get the projects infos
   React.useEffect(() => {
-  // componentDidMount() {
     const endpointToQuery = 'https://graphdb.dumontierlab.com/repositories/ids-projects';
     console.log(endpointToQuery);
     // Query directly using Axios
@@ -77,9 +72,9 @@ export default function ProjectsDashboard() {
         ?s a ?o .
       } LIMIT 100`, {
       sources: ['https://dbpedia.org/sparql'],
-    }).then(res => {
+    }).then((res: any) => {
       console.log(res);
-      res.bindingsStream.on('data', (binding) => {
+      res.bindingsStream.on('data', (binding: any) => {
         console.log(binding.get('?s').value);
         console.log(binding.get('?s').termType);
         console.log(binding.get('?o').value);
@@ -87,11 +82,11 @@ export default function ProjectsDashboard() {
     });
   }, []) 
 
-  const searchChange = (event: Event) => {
+  const searchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setState({...state, search: event.target.value})
   }
 
-  const filteredProjects = state.projects_list.filter( project =>{
+  const filteredProjects = state.projects_list.filter( (project: any) =>{
       return (project.name.value.toLowerCase().indexOf( state.search.toLowerCase() ) !== -1 
         || project.description.value.toLowerCase().indexOf( state.search.toLowerCase() ) !== -1
         || project.programmingLanguage.value.toLowerCase().indexOf( state.search.toLowerCase() ) !== -1
@@ -136,7 +131,7 @@ export default function ProjectsDashboard() {
       </Paper>
       
       {/* Iterate over projects */}
-      {filteredProjects.map(function(project, key){
+      {filteredProjects.map(function(project: any, key: any){
         return <Paper key={key} elevation={4} style={{padding: '15px', marginTop: '25px', marginBottom: '25px'}}>
           <Typography variant="h5">
             {project.name.value}&nbsp;&nbsp;
