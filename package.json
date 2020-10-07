@@ -12,7 +12,7 @@
     "react-dom": "~16.13.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.2.tar.gz",
     "react-native-web": "0.13.13",
-    "react-router-dom": "5.1.2",
+    "react-router-dom": "^5.2.0",
     "react-router-native": "5.1.2"
   },
   "devDependencies": {
@@ -23,6 +23,7 @@
     "@types/react": "^16.9.51",
     "@types/react-dom": "^16.9.8",
     "@types/react-native": "^0.63.25",
+    "@types/react-router-dom": "^5.1.6",
     "expo-cli": "^3.27.13",
     "serve": "^11.3.2",
     "typescript": "^4.0.3"

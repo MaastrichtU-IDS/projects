@@ -11,6 +11,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import axios from 'axios';
 import { Doughnut, Pie } from 'react-chartjs-2';
 import 'chartjs-plugin-labels';
+import iconImage from '../assets/icon.png';
 
 const styles = (theme: Theme) => createStyles({
   paperPadding: {
@@ -83,6 +84,7 @@ class ProjectsDashboard extends Component<Props> {
     return(
       <Container className='mainContainer'>
         <Typography variant="h4" style={{textAlign: 'center', marginBottom: '30px'}}>
+          <img src={iconImage} style={{height: '1em', width: '1em', marginRight: '10px'}} alt="Logo" />
           Institute of Data Science projects 🗂️
         </Typography>
         <Grid container spacing={3} style={{textAlign: 'center'}}>
