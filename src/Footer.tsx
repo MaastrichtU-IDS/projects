@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -44,6 +44,24 @@ function Copyright() {
 
 export default function Footer() {
   const classes = useStyles();
+  // Set state in functional style:
+  // const [state, setState] = React.useState({search: '', name: 'Vincent'});
+  // console.log(state.search);
+  // // Set search without chaging name
+  // setState({...state, search: 'yo'})
+  // const onNameChange = React.useCallback((filterName) => {
+  //   console.log('callback', state.name);
+  // },
+  // [state.name]);
+  // // Tells callback to reload when change to state.name
+
+  // React.useEffect(() => {
+  //   console.log('componentDID mount');
+  //   return () => {
+  //     console.log('willMount');
+  //   }
+  // }, []) 
+  // Empty dep list: will only run when componentDidMount
 
   return (
       <footer className={classes.footer}>

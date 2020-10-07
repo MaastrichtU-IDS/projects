@@ -34,46 +34,44 @@ class NavBar extends Component<Props> {
     const { classes } = this.props;
 
     return (
-      <React.Fragment>
-        <AppBar title="" position='sticky'>
-          <Toolbar variant='dense'>
-            <Link to="/" className={classes.linkButton}>
-              <Tooltip title='IDS Projects dashboard'>
-                <Button className={classes.menuButton}>
-                  <DashboardIcon />
-                </Button>
-              </Tooltip>
-            </Link>
-            <Link to="/create-doap" className={classes.linkButton}>
-              <Tooltip title='Create a DOAP description for your project'>
-                <Button className={classes.menuButton}>
-                  <CreateNewFolderIcon />
-                </Button>
-              </Tooltip>
-            </Link>
-            <div className="flexGrow"></div>
-            <Link to="/about" className={classes.linkButton}>
-              <Tooltip title='About the Institute of Data Science'>
-                <Button className={classes.menuButton}>
-                  <InfoIcon />
-                </Button>
-              </Tooltip>
-            </Link>
-            <Tooltip title='Go to IDS Best Practices documentation'>
-              <Button className={classes.menuButton} target="_blank"
-              href="https://maastrichtu-ids.github.io/best-practices">
-                <MenuBookIcon />
+      <AppBar title="" position='sticky'>
+        <Toolbar variant='dense'>
+          <Link to="/" className={classes.linkButton}>
+            <Tooltip title='IDS Projects dashboard'>
+              <Button className={classes.menuButton}>
+                <DashboardIcon />
               </Button>
             </Tooltip>
-            <Tooltip title='Go to https://github.com/MaastrichtU-IDS'>
-              <Button className={classes.menuButton} target="_blank"
-              href="https://github.com/MaastrichtU-IDS">
-                <GitHubIcon />
+          </Link>
+          <Link to="/create-doap" className={classes.linkButton}>
+            <Tooltip title='Create a DOAP description for your project'>
+              <Button className={classes.menuButton}>
+                <CreateNewFolderIcon />
               </Button>
             </Tooltip>
-          </Toolbar>
-        </AppBar>
-      </React.Fragment>
+          </Link>
+          <div className="flexGrow"></div>
+          <Link to="/about" className={classes.linkButton}>
+            <Tooltip title='About the Institute of Data Science'>
+              <Button className={classes.menuButton}>
+                <InfoIcon />
+              </Button>
+            </Tooltip>
+          </Link>
+          <Tooltip title='Go to IDS Best Practices documentation'>
+            <Button className={classes.menuButton} target="_blank"
+            href="https://maastrichtu-ids.github.io/best-practices">
+              <MenuBookIcon />
+            </Button>
+          </Tooltip>
+          <Tooltip title='Go to https://github.com/MaastrichtU-IDS'>
+            <Button className={classes.menuButton} target="_blank"
+            href="https://github.com/MaastrichtU-IDS">
+              <GitHubIcon />
+            </Button>
+          </Tooltip>
+        </Toolbar>
+      </AppBar>
     );
   }
 }

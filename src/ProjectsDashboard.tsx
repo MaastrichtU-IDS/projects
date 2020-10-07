@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { withStyles, createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { WithStyles, Typography, Container, Button, Chip, Tooltip, Grid, Paper } from "@material-ui/core";
 import { IconButton, InputBase } from "@material-ui/core";
 import GitHubIcon from '@material-ui/icons/GitHub';
@@ -18,7 +18,8 @@ import {ActorInitSparql} from '@comunica/actor-init-sparql/lib/ActorInitSparql-b
 import {IQueryOptions, newEngineDynamicArged} from "@comunica/actor-init-sparql/lib/QueryDynamic";
 
 
-const styles = (theme: Theme) => createStyles({
+// const styles = (theme: Theme) => createStyles({
+const useStyles = makeStyles(theme => ({
   paperPadding: {
     padding: theme.spacing(2, 2),
     margin: theme.spacing(2, 2),
@@ -37,26 +38,33 @@ const styles = (theme: Theme) => createStyles({
     fontSize: '14px',
     flex: 1,
   },
-})
+}))
 
-interface Props extends WithStyles<typeof styles> {
-}
+// interface Props extends WithStyles<typeof styles> {
+// }
+// class ProjectsDashboard extends Component<Props> {
 
-class ProjectsDashboard extends Component<Props> {
-  state = {
-    projects_list: [],
-    search: ''
-  }
+export default function ProjectsDashboard() {
+  const classes = useStyles();
+  // Set state in functional style:
+  const [state, setState] = React.useState({projects_list: [], search: ''});
+
+  // state = {
+  //   projects_list: [],
+  //   search: ''
+  // }
 
   // Query SPARQL endpoint to get the projects infos
-  componentDidMount() {
+  React.useEffect(() => {
+  // componentDidMount() {
     const endpointToQuery = 'https://graphdb.dumontierlab.com/repositories/ids-projects';
     console.log(endpointToQuery);
     // Query directly using Axios
     axios.get(endpointToQuery + `?query=` + encodeURIComponent(getProjectsQuery))
       .then(res => {
         const sparqlResultArray = res.data.results.bindings;
-        this.setState({ projects_list: sparqlResultArray});
+        // setState({ projects_list: sparqlResultArray});
+        setState({...state, projects_list: sparqlResultArray})
         // sparqlResultArray.forEach((sparqlResultRow) => {
         //   console.log(sparqlResultRow.name.value)
         //   searchResults.push({
@@ -95,124 +103,134 @@ class ProjectsDashboard extends Component<Props> {
     //     console.log(binding.get('?name').value);
     //   });
     // });
+  // })
+  }, []) 
+
+  const searchChange = (event: Event) => {
+    // this.setState({search: event.target.value});
+    console.log(state.search);
+    setState({...state, search: event.target.value})
   }
 
-  searchChange = (event) => {
-    this.setState({search: event.target.value});
-  }
+  const filteredProjects = state.projects_list.filter( project =>{
+      return (project.name.value.toLowerCase().indexOf( state.search.toLowerCase() ) !== -1 
+        || project.description.value.toLowerCase().indexOf( state.search.toLowerCase() ) !== -1
+        || project.programmingLanguage.value.toLowerCase().indexOf( state.search.toLowerCase() ) !== -1
+      )
+  })
 
-  render () {
-    const { classes } = this.props;
-    const {search, projects_list} = this.state;
+  // render () {
+  //   const { classes } = this.props;
+  //   const {search, projects_list} = this.state;
 
-    // Search in name, description and programming language
-    const filteredProjects = projects_list.filter( project =>{
-        return (project.name.value.toLowerCase().indexOf( search.toLowerCase() ) !== -1 
-          || project.description.value.toLowerCase().indexOf( search.toLowerCase() ) !== -1
-          || project.programmingLanguage.value.toLowerCase().indexOf( search.toLowerCase() ) !== -1
-        )
-    })
+  //   // Search in name, description and programming language
+  //   const filteredProjects = projects_list.filter( project =>{
+  //       return (project.name.value.toLowerCase().indexOf( search.toLowerCase() ) !== -1 
+  //         || project.description.value.toLowerCase().indexOf( search.toLowerCase() ) !== -1
+  //         || project.programmingLanguage.value.toLowerCase().indexOf( search.toLowerCase() ) !== -1
+  //       )
+  //   })
 
-    return(
-      <Container className='mainContainer'>
-        <Typography variant="h4" style={{textAlign: 'center', marginBottom: '30px'}}>
-          <img src={iconImage} style={{height: '1em', width: '1em', marginRight: '10px'}} alt="Logo" />
-          Institute of Data Science projects 🗂️
-        </Typography>
+  return(
+    <Container className='mainContainer'>
+      <Typography variant="h4" style={{textAlign: 'center', marginBottom: '30px'}}>
+        <img src={iconImage} style={{height: '1em', width: '1em', marginRight: '10px'}} alt="Logo" />
+        Institute of Data Science projects 🗂️
+      </Typography>
 
-        {/* Pie charts */}
-        <Grid container spacing={3} style={{textAlign: 'center'}}>
-          <Grid item xs={6}>
-            <Paper>
-              <Typography variant="h6">Categories</Typography>
-              <Doughnut data={pie_data} options={pie_options}/>
-            </Paper>
-          </Grid>
-          <Grid item xs={6}>
-            <Paper>
-              <Typography variant="h6">Programming languages</Typography>
-              <Pie data={pie_data} options={pie_options}/>
-            </Paper>
-          </Grid>
-        </Grid>
-      
-        {/* Search box */}
-        <Paper component="form" className={classes.paperSearch}
-          style={{marginLeft: this.context.drawer_width, marginTop: '20px' }}
-        >
-          <InputBase  // https://material-ui.com/api/input-base/
-            className={classes.searchInput} inputProps={{ 'aria-label': 'search' }}
-            placeholder={"Search projects"}
-            onChange={this.searchChange}
-          />
-          <IconButton type="submit" aria-label="search">
-            <SearchIcon />
-          </IconButton>
-        </Paper>
-        
-        {/* Iterate over projects */}
-        {filteredProjects.map(function(project, key){
-          return <Paper key={key} elevation={4} style={{padding: '15px', marginTop: '25px', marginBottom: '25px'}}>
-            <Typography variant="h5">
-              {project.name.value}&nbsp;&nbsp;
-              <Chip label={project.programmingLanguage.value} color='primary' />
-            </Typography>
-            <Typography style={{marginBottom: '10px', marginTop: '5px'}}>
-              {project.description.value}
-            </Typography>
-            {project.category && ( 
-              <Typography style={{marginBottom: '10px'}}>
-                Category: {project.category.value}
-              </Typography>
-            )}
-            {project.gitUrl && ( 
-              <Tooltip title='Git repository'>
-                <Button target="_blank"
-                href={project.gitUrl.value}>
-                  <GitHubIcon />
-                </Button>
-              </Tooltip>
-            )}
-            {project.homepage && ( 
-              <Tooltip title='Project homepage'>
-                <Button target="_blank"
-                href={project.homepage.value}>
-                  <HomeIcon />
-                </Button>
-              </Tooltip>
-            )}
-            {project.downloadpage && ( 
-              <Tooltip title='Download page'>
-                <Button target="_blank"
-                href={project.downloadpage.value}>
-                  <CloudDownloadIcon />
-                </Button>
-              </Tooltip>
-            )}
-            {project.bugdatabase && ( 
-              <Tooltip title='Issue tracker'>
-                <Button target="_blank"
-                href={project.bugdatabase.value}>
-                  <BugReportIcon />
-                </Button>
-              </Tooltip>
-            )}
-            {project.license && (
-              <Tooltip title='License'>
-                <Button target="_blank"
-                href={project.license.value}>
-                  <GavelIcon />
-                </Button>
-              </Tooltip> 
-            )}
+      {/* Pie charts */}
+      <Grid container spacing={3} style={{textAlign: 'center'}}>
+        <Grid item xs={6}>
+          <Paper>
+            <Typography variant="h6">Categories</Typography>
+            <Doughnut data={pie_data} options={pie_options}/>
           </Paper>
-        })}
-      </Container>
-    )
-  }
-
+        </Grid>
+        <Grid item xs={6}>
+          <Paper>
+            <Typography variant="h6">Programming languages</Typography>
+            <Pie data={pie_data} options={pie_options}/>
+          </Paper>
+        </Grid>
+      </Grid>
+    
+      {/* Search box */}
+      <Paper component="form" className={classes.paperSearch}
+        style={{marginTop: '20px' }}
+      >
+        <InputBase  // https://material-ui.com/api/input-base/
+          className={classes.searchInput} inputProps={{ 'aria-label': 'search' }}
+          placeholder={"Search projects"}
+          onChange={searchChange}
+        />
+        <IconButton type="submit" aria-label="search">
+          <SearchIcon />
+        </IconButton>
+      </Paper>
+      
+      {/* Iterate over projects */}
+      {filteredProjects.map(function(project, key){
+        return <Paper key={key} elevation={4} style={{padding: '15px', marginTop: '25px', marginBottom: '25px'}}>
+          <Typography variant="h5">
+            {project.name.value}&nbsp;&nbsp;
+            <Chip label={project.programmingLanguage.value} color='primary' />
+          </Typography>
+          <Typography style={{marginBottom: '10px', marginTop: '5px'}}>
+            {project.description.value}
+          </Typography>
+          {project.category && ( 
+            <Typography style={{marginBottom: '10px'}}>
+              Category: {project.category.value}
+            </Typography>
+          )}
+          {project.gitUrl && ( 
+            <Tooltip title='Git repository'>
+              <Button target="_blank"
+              href={project.gitUrl.value}>
+                <GitHubIcon />
+              </Button>
+            </Tooltip>
+          )}
+          {project.homepage && ( 
+            <Tooltip title='Project homepage'>
+              <Button target="_blank"
+              href={project.homepage.value}>
+                <HomeIcon />
+              </Button>
+            </Tooltip>
+          )}
+          {project.downloadpage && ( 
+            <Tooltip title='Download page'>
+              <Button target="_blank"
+              href={project.downloadpage.value}>
+                <CloudDownloadIcon />
+              </Button>
+            </Tooltip>
+          )}
+          {project.bugdatabase && ( 
+            <Tooltip title='Issue tracker'>
+              <Button target="_blank"
+              href={project.bugdatabase.value}>
+                <BugReportIcon />
+              </Button>
+            </Tooltip>
+          )}
+          {project.license && (
+            <Tooltip title='License'>
+              <Button target="_blank"
+              href={project.license.value}>
+                <GavelIcon />
+              </Button>
+            </Tooltip> 
+          )}
+        </Paper>
+      })}
+    </Container>
+  )
 }
-export default withStyles(styles) (ProjectsDashboard);
+
+// }
+// export default withStyles(styles) (ProjectsDashboard);
 
 const getProjectsQuery = `PREFIX doap: <http://usefulinc.com/ns/doap#>
     PREFIX foaf: <http://xmlns.com/foaf/0.1/>
