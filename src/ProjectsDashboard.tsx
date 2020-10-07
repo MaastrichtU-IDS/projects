@@ -11,11 +11,13 @@ import SearchIcon from '@material-ui/icons/Search';
 import axios from 'axios';
 import { Doughnut, Pie } from 'react-chartjs-2';
 import 'chartjs-plugin-labels';
-import iconImage from '../assets/icon.png';
 
 import {newEngine} from '@comunica/actor-init-sparql';
 import {ActorInitSparql} from '@comunica/actor-init-sparql/lib/ActorInitSparql-browser';
 import {IQueryOptions, newEngineDynamicArged} from "@comunica/actor-init-sparql/lib/QueryDynamic";
+
+// Import UM logo from assets
+import iconImage from '../assets/icon.png';
 
 const useStyles = makeStyles(theme => ({
   paperPadding: {

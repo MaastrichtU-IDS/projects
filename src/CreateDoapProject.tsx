@@ -58,7 +58,6 @@ export default function CreateDoapProject() {
   });
   // const form_category_dropdown = React.createRef(); 
   
-
   const handleSubmit  = (event: React.FormEvent) => {
     event.preventDefault();
     let doap_content = `my DOAP project RDF 
