@@ -150,24 +150,27 @@ export default function ProjectsDashboard() {
         console.log(error)
       })
 
+    // TODO: this seems to interfer with the pies states
     // Query with the Comunica engine
     // Not working on SPARQL endpoint, only on the examples they provide
     // https://comunica.dev/docs/query/getting_started/query_app/
-    const comunicaEngine = newEngine();
-    comunicaEngine.query(`
-      SELECT ?s ?o WHERE {
-        ?s a ?o .
-      } LIMIT 100`, {
-      sources: ['https://dbpedia.org/sparql'],
-    }).then((res: any) => {
-      console.log(res);
-      res.bindingsStream.on('data', (binding: any) => {
-        // console.log(binding.get('?s').value);
-        // console.log(binding.get('?s').termType);
-        // console.log(binding.get('?o').value);
-      });
-    });
-  }, []) 
+    // const comunicaEngine = newEngine();
+    // comunicaEngine.query(`
+    //   SELECT ?s ?o WHERE {
+    //     ?s a ?o .
+    //   } LIMIT 100`, {
+    //   sources: ['https://dbpedia.org/sparql'],
+    // }).then((res: any) => {
+    //   console.log(res);
+    //   res.bindingsStream.on('data', (binding: any) => {
+    //     // console.log(binding.get('?s').value);
+    //     // console.log(binding.get('?s').termType);
+    //     // console.log(binding.get('?o').value);
+    //   });
+    // });
+
+  }, [])
+  // This useless array needs to be added for React to understand he needs to use the state inside...
 
   const searchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setState({...state, search: event.target.value})
