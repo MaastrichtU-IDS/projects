@@ -2,26 +2,55 @@
 @prefix asf: <http://projects.apache.org/ns/asfext#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 
+  # MISSING FIELDS: fields to link to the different distributions of the software
+  # See the DOAP ontology properties: https://vemonet.github.io/doap/entities-tree-properties.html
+  
+  # * URL to the package on pip/maven/conda-forge if relevant
+
+  # * Software in a Docker registry (DockerHub or GitHub registry)
+  # we should (also?) ask directly for the Docker image
+  # We could use sioc:Container type? But no property for this
+  # https://vemonet.github.io/doap/class-httprdfsorgsiocnscontainer.html
+
+#   See sioc:container definition (but not used anywhere in DOAP ontology):
+# <owl:Class rdf:about="http://rdfs.org/sioc/ns#Container">
+# <rdfs:label xml:lang="en">Container</rdfs:label>
+# <rdfs:comment xml:lang="en">An area in which content Items are contained.</rdfs:comment>
+# <rdfs:isDefinedBy rdf:resource="http://rdfs.org/sioc/ns#"/>
+# <owl:disjointWith rdf:resource="http://rdfs.org/sioc/ns#Item"/>
+# <owl:disjointWith rdf:resource="http://rdfs.org/sioc/ns#Role"/>
+# <owl:disjointWith rdf:resource="http://rdfs.org/sioc/ns#UserAccount"/>
+# <owl:disjointWith rdf:resource="http://rdfs.org/sioc/ns#Usergroup"/>
+
 <http://bio2rdf.org/>
   a doap:Project ;
   doap:created "2020-06-29" ;
   doap:name "Bio2RDF" ;
   doap:description "Bio2RDF defines a set of simple conventions to create RDF(S) compatible Linked Data from a diverse set of heterogeneously formatted sources obtained from multiple data providers. The online version of Bio2RDF is meant to be demonstrative of semantic web technologies, and is not currently kept up to date. It contains ~11 billion triples across 35 datasets. If you want the latest version, you can check out the code and build it yourself!" ;
 
-  # Redundant with name and description? Or we want the slug?
+  # Redundant with name and description? Or do we want the slug?
   # doap:shortname "Bio2RDF" ;
   # doap:shortdesc "Bio2RDF is an open-source project that uses Semantic Web technologies to build and provide the largest network of Linked Data for the Life Sciences." ;
 
-  # URI or label for license (e.g. MIT License)
+  # Should we enforce URI or label for license? (e.g. MIT License)
   doap:license <https://github.com/bio2rdf/bio2rdf-scripts/blob/master/MIT-LICENSE.txt> ;
   doap:homepage <http://bio2rdf.org/> ;
   doap:bug-database <https://github.com/bio2rdf/bio2rdf-scripts/issues> ;
   doap:mailing-list <http://groups.google.com/group/bio2rdf> ;
   doap:download-page <https://download.bio2rdf.org> ;
   doap:download-mirror <https://download.bio2rdf.org> ;
-  doap:wiki <https://github.com/bio2rdf/bio2rdf-scripts/wiki>
+  doap:wiki <https://github.com/bio2rdf/bio2rdf-scripts/wiki> ;
 
-  # Array
+  # To add?
+  doap:support-forum "A forum or community that supports this project." ;
+
+  # To add?
+  doap:developer-forum "A forum or community for developers of this project." ;
+
+  # To add?
+  doap:service-endpoint "The URI of a web service endpoint where software as a service may be accessed" ;
+
+  # Array, should we use string or URI?
   doap:programming-language "ActionScript",
                             "C",
                             "C#",
@@ -45,7 +74,11 @@
                             "SVG",
                             "Tcl" ;
   
-  # Array?
+  # Array with multiple categories for each project?
+  # Should we use different category for IDS projects?
+  # e.g. Deep Learning, Machine Learning, Data Science, Data Visualization, 
+  # Knowledge graphs, web API...
+  # See Apache categories:
   doap:category <http://projects.apache.org/category/big-data> ,
     <http://projects.apache.org/category/cloud> ,
     <http://projects.apache.org/category/database> ,
@@ -54,19 +87,28 @@
     <http://projects.apache.org/category/library> ,
     <http://projects.apache.org/category/retired> ;
 
+  # Do we want this? Maybe by default with those 3
+  # Today code runs in Linux everywhere (sorry guys!)
+  # And then MacOS and Windows always provides way to run it for development
   doap:os "Linux", "MacOS", "Windows" ;
 
-  # Automatically defined on GitHub?
+  # Automatically defined on GitHub? e.g. v0.1.5 (semantic versioning: MAJOR.MINOR.PATCH)
+  # Or maybe define the latest major releases here
+  # But will require manually updating the DOAP file from time to time
+  # See Version: https://vemonet.github.io/doap/class-doapversion.html
   # doap:release [
   #   a doap:Version ;
   #   doap:name "Release3" ;
   #   doap:created "2015-11-07" ;
-  #   doap:revision "3"
+  #   doap:revision "3";
+  #   doap:platform " Indicator of software platform (non-OS specific), e.g. Java, Firefox, ECMA CLR " ;
+  #   doap:file-release "URI of download associated with this release"
   # ] ;
+
   doap:repository [
     a doap:GitRepository ;
     doap:location <https://github.com/bio2rdf/bio2rdf-scripts> ;
-    doap:browse <https://github.com/bio2rdf/bio2rdf-scripts/wiki>
+    # doap:browse <https://github.com/bio2rdf/bio2rdf-scripts/wiki>
   ] ;
   doap:maintainer [
     a foaf:Person ;
@@ -83,9 +125,17 @@
     foaf:name "Pedro V" ;
     foaf:homepage <https://github.com/pedrohserrano>
   ] ;
+  doap:documenter [
+    a foaf:Person ;
+    foaf:name "Pedro V" ;
+    foaf:homepage <https://github.com/pedrohserrano>
+  ] ;
 
 
   # Do we need the following?
+  # Can be replaced by doap:implements
+  # With the standard described as doap:Specification
+
   # Specific to Apache project: http://projects.apache.org/ns/asfext#
   # asf:pmc <http://velocity.apache.org> ;
   asf:implements [
