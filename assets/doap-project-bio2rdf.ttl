@@ -1,0 +1,41 @@
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix ns0: <http://projects.apache.org/ns/asfext#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+<http://bio2rdf.org/>
+  a doap:Project ;
+  doap:created "2020-06-29" ;
+  doap:license <https://github.com/bio2rdf/bio2rdf-scripts/blob/master/MIT-LICENSE.txt> ;
+  doap:name "Bio2RDF" ;
+  doap:homepage <http://bio2rdf.org/> ;
+  ns0:pmc <http://velocity.apache.org> ;
+  doap:shortdesc "Bio2RDF is an open-source project that uses Semantic Web technologies to build and provide the largest network of Linked Data for the Life Sciences." ;
+  doap:description "Bio2RDF defines a set of simple conventions to create RDF(S) compatible Linked Data from a diverse set of heterogeneously formatted sources obtained from multiple data providers. The online version of Bio2RDF is meant to be demonstrative of semantic web technologies, and is not currently kept up to date. It contains ~11 billion triples across 35 datasets. If you want the latest version, you can check out the code and build it yourself!" ;
+  doap:bug-database <https://github.com/bio2rdf/bio2rdf-scripts/issues> ;
+  doap:mailing-list <http://groups.google.com/group/bio2rdf> ;
+  doap:download-page <https://download.bio2rdf.org> ;
+  doap:programming-language "PHP" ;
+  doap:category <http://projects.apache.org/category/big-data> ;
+  doap:release [
+    a doap:Version ;
+    doap:name "Release3" ;
+    doap:created "2015-11-07" ;
+    doap:revision "3"
+  ] ;
+  doap:repository [
+    a doap:GitRepository ;
+    doap:location <https://github.com/bio2rdf/bio2rdf-scripts> ;
+    doap:browse <https://github.com/bio2rdf/bio2rdf-scripts/wiki>
+  ] ;
+  doap:maintainer [
+    a foaf:Person ;
+    foaf:name "Michel Dumontier" ;
+    foaf:mbox <mailto:michel.dumontier@maastrichtuniversity.nl>
+  ] ;
+  ns0:implements [
+    a ns0:Standard ;
+    ns0:title "RDF Schema 1.1" ;
+    ns0:body "W3C" ;
+    ns0:id "RDFS" ;
+    ns0:url <https://www.w3.org/TR/rdf-schema/>
+  ] .

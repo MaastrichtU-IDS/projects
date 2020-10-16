@@ -1,0 +1,97 @@
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix asf: <http://projects.apache.org/ns/asfext#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+<http://bio2rdf.org/>
+  a doap:Project ;
+  doap:created "2020-06-29" ;
+  doap:name "Bio2RDF" ;
+  doap:description "Bio2RDF defines a set of simple conventions to create RDF(S) compatible Linked Data from a diverse set of heterogeneously formatted sources obtained from multiple data providers. The online version of Bio2RDF is meant to be demonstrative of semantic web technologies, and is not currently kept up to date. It contains ~11 billion triples across 35 datasets. If you want the latest version, you can check out the code and build it yourself!" ;
+
+  # Redundant with name and description? Or we want the slug?
+  # doap:shortname "Bio2RDF" ;
+  # doap:shortdesc "Bio2RDF is an open-source project that uses Semantic Web technologies to build and provide the largest network of Linked Data for the Life Sciences." ;
+
+  # URI or label for license (e.g. MIT License)
+  doap:license <https://github.com/bio2rdf/bio2rdf-scripts/blob/master/MIT-LICENSE.txt> ;
+  doap:homepage <http://bio2rdf.org/> ;
+  doap:bug-database <https://github.com/bio2rdf/bio2rdf-scripts/issues> ;
+  doap:mailing-list <http://groups.google.com/group/bio2rdf> ;
+  doap:download-page <https://download.bio2rdf.org> ;
+  doap:download-mirror <https://download.bio2rdf.org> ;
+  doap:wiki <https://github.com/bio2rdf/bio2rdf-scripts/wiki>
+
+  # Array
+  doap:programming-language "ActionScript",
+                            "C",
+                            "C#",
+                            "C++",
+                            "Cocoa",
+                            "D",
+                            "Delphi",
+                            "Erlang",
+                            "Go",
+                            "Haskell",
+                            "Java",
+                            "JavaScript",
+                            "Objective-C",
+                            "OCaml",
+                            "Perl",
+                            "PHP",
+                            "Python",
+                            "Ruby",
+                            "Scala",
+                            "Smalltalk",
+                            "SVG",
+                            "Tcl" ;
+  
+  # Array?
+  doap:category <http://projects.apache.org/category/big-data> ,
+    <http://projects.apache.org/category/cloud> ,
+    <http://projects.apache.org/category/database> ,
+    <http://projects.apache.org/category/library> ,
+    <http://projects.apache.org/category/web-framework> ,
+    <http://projects.apache.org/category/library> ,
+    <http://projects.apache.org/category/retired> ;
+
+  doap:os "Linux", "MacOS", "Windows" ;
+
+  # Automatically defined on GitHub?
+  # doap:release [
+  #   a doap:Version ;
+  #   doap:name "Release3" ;
+  #   doap:created "2015-11-07" ;
+  #   doap:revision "3"
+  # ] ;
+  doap:repository [
+    a doap:GitRepository ;
+    doap:location <https://github.com/bio2rdf/bio2rdf-scripts> ;
+    doap:browse <https://github.com/bio2rdf/bio2rdf-scripts/wiki>
+  ] ;
+  doap:maintainer [
+    a foaf:Person ;
+    foaf:name "Michel Dumontier" ;
+    foaf:mbox <mailto:michel.dumontier@maastrichtuniversity.nl>
+  ] ;
+  doap:developer [
+    a foaf:Person ;
+    foaf:name "Pedro V" ;
+    foaf:homepage <https://github.com/pedrohserrano>
+  ] ;
+  doap:helper [
+    a foaf:Person ;
+    foaf:name "Pedro V" ;
+    foaf:homepage <https://github.com/pedrohserrano>
+  ] ;
+
+
+  # Do we need the following?
+  # Specific to Apache project: http://projects.apache.org/ns/asfext#
+  # asf:pmc <http://velocity.apache.org> ;
+  asf:implements [
+    a asf:Standard ;
+    asf:title "RDF Schema 1.1" ;
+    asf:body "W3C" ;
+    asf:id "RDFS" ;
+    asf:url <https://www.w3.org/TR/rdf-schema/>
+  ] .
