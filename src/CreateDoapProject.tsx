@@ -205,7 +205,7 @@ export default function CreateDoapProject() {
               🔗 Project links
             </Typography>
             <FormHelperText>
-              Informations about the developers and responsibles of this project. 
+              Links to the resources of this project. 
             </FormHelperText>
             <TextField
               id="project_git_repository"
