@@ -87,7 +87,7 @@ export default function ProjectsDashboard() {
         // Convert back to array for filtering
         const project_final_array: any = Object.keys(projects_hash).map((key) => projects_hash[key]);
         setState({...state, projects_list: project_final_array})
-      })
+      }, [])
       .catch(error => {
         console.log(error)
       })
@@ -113,13 +113,17 @@ export default function ProjectsDashboard() {
           language_pie.datasets[0].data.push(result.projectCount.value);
         }
 
-        console.log('TODO: State of language_pie shows that the labels are not handled by react, only the count. Do I need to build a new charting lib for React? Are dev really happy with such crappy libs?');
+        console.log('TODO: State of language_pie after ComponentDidMount (got labels)');
         console.log(language_pie);
         setState({...state, language_pie: language_pie})
-      })
+      }, [])
       .catch(error => {
         console.log(error)
       })
+      // TODO: do we need to add the stupid empty state array in the axios call too ? 
+      // This shit: }, [])
+      // Seems not, the issue is that some of the state variable are reset by React
+      // to make sure the state is properly passed
 
       // Get project Categories count
       let category_pie = {
@@ -142,10 +146,8 @@ export default function ProjectsDashboard() {
           category_pie.datasets[0].data.push(result.projectCount.value);
         }
 
-        console.log('TODO: State of language_pie shows that the labels are not handled by react, only the count. Do I need to build a new charting lib for React? Are dev really happy with such crappy libs?');
-        console.log(category_pie);
         setState({...state, category_pie: category_pie})
-      })
+      }, [])
       .catch(error => {
         console.log(error)
       })
@@ -184,6 +186,8 @@ export default function ProjectsDashboard() {
       )
     }
   })
+  console.log('Filtered project:')
+  console.log(state.projects_list);
 
   return(
     <Container className='mainContainer'>
@@ -197,6 +201,7 @@ export default function ProjectsDashboard() {
         <Grid item xs={6}>
           <Paper>
             <Typography variant="h6">Programming languages</Typography>
+            {console.log('Right before displaying the pie:')}
             {console.log(state.language_pie)}
             <Pie data={state.language_pie} options={pie_options}/>
           </Paper>
@@ -204,7 +209,6 @@ export default function ProjectsDashboard() {
         <Grid item xs={6}>
           <Paper>
             <Typography variant="h6">Categories</Typography>
-            {console.log(state.category_pie)}
             <Doughnut data={state.category_pie} options={pie_options}/>
           </Paper>
         </Grid>
