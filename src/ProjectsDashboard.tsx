@@ -18,6 +18,7 @@ import {IQueryOptions, newEngineDynamicArged} from "@comunica/actor-init-sparql/
 
 // Import UM logo from assets
 import iconImage from '../assets/icon.png';
+// import { ActionYoutubeSearchedFor } from 'material-ui/svg-icons';
 
 // import { normalize, schema } from 'normalizr';
 // import { ColorPropType } from 'react-native';
@@ -50,6 +51,15 @@ export default function ProjectsDashboard() {
     language_pie: {},
     category_pie: {}
   });
+
+  const stateRef = React.useRef(state);
+
+  // Avoid conflict when async calls
+  // Can be done with another lib (cf. Turgay)
+  const updateState = React.useCallback((update) => {
+    stateRef.current = {...stateRef.current, ...update};
+    setState(stateRef.current);
+  }, [setState]);
 
   // componentDidMount: Query SPARQL endpoint to get the projects infos
   React.useEffect(() => {
@@ -86,8 +96,9 @@ export default function ProjectsDashboard() {
         })
         // Convert back to array for filtering
         const project_final_array: any = Object.keys(projects_hash).map((key) => projects_hash[key]);
-        setState({...state, projects_list: project_final_array})
-      }, [])
+        // setState({...state, projects_list: project_final_array})
+        updateState({projects_list: project_final_array})
+      })
       .catch(error => {
         console.log(error)
       })
@@ -115,8 +126,9 @@ export default function ProjectsDashboard() {
 
         console.log('TODO: State of language_pie after ComponentDidMount (got labels)');
         console.log(language_pie);
-        setState({...state, language_pie: language_pie})
-      }, [])
+        // setState({...state, language_pie: language_pie})
+        updateState({language_pie: language_pie})
+      })
       .catch(error => {
         console.log(error)
       })
@@ -146,8 +158,9 @@ export default function ProjectsDashboard() {
           category_pie.datasets[0].data.push(result.projectCount.value);
         }
 
-        setState({...state, category_pie: category_pie})
-      }, [])
+        // setState({...state, category_pie: category_pie})
+        updateState({category_pie: category_pie})
+      })
       .catch(error => {
         console.log(error)
       })
