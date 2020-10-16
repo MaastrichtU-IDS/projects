@@ -19,8 +19,8 @@ import {IQueryOptions, newEngineDynamicArged} from "@comunica/actor-init-sparql/
 // Import UM logo from assets
 import iconImage from '../assets/icon.png';
 
-import { normalize, schema } from 'normalizr';
-import { ColorPropType } from 'react-native';
+// import { normalize, schema } from 'normalizr';
+// import { ColorPropType } from 'react-native';
 
 const useStyles = makeStyles(theme => ({
   paperPadding: {
@@ -46,7 +46,8 @@ export default function ProjectsDashboard() {
   
   const [state, setState] = React.useState({
     projects_list: [],
-    search: ''
+    search: '',
+    language_pie: {}
   });
 
   // componentDidMount: Query SPARQL endpoint to get the projects infos
@@ -90,7 +91,36 @@ export default function ProjectsDashboard() {
         console.log(error)
       })
 
+    let language_pie = {
+      labels: [],
+      datasets: [{
+        data: [],
+        backgroundColor: ['#4caf50','#FF6384', '#36A2EB', '#FFCE56'],
+        hoverBackgroundColor: ['#4caf50','#FF6384','#36A2EB','#FFCE56']
+      }]
+    }
+    axios.get(endpointToQuery + `?query=` + encodeURIComponent(countLanguagesQuery))
+      .then(res => {
+        const sparqlResultArray = res.data.results.bindings;
+        console.log(sparqlResultArray);
+
+        // Typescript ridiculously requires to do a forEach to avoid its dumb warnings
+        // Typescript dev should learn that playing with Objects is the basis of dev
+        for (let result of sparqlResultArray) {
+          language_pie.labels.push(result.programmingLanguage.value);
+          language_pie.datasets[0].data.push(result.projectCount.value);
+        }
+
+        console.log('TODO: State of language_pie shows that the labels are not handled by react, only the count. Do I need to build a new charting lib for React? Are dev really happy with such crappy libs?');
+        console.log(language_pie);
+        setState({...state, language_pie: language_pie})
+      })
+      .catch(error => {
+        console.log(error)
+      })
+
     // Query with the Comunica engine
+    // Not working on SPARQL endpoint, only on the examples they provide
     // https://comunica.dev/docs/query/getting_started/query_app/
     const comunicaEngine = newEngine();
     comunicaEngine.query(`
@@ -139,7 +169,9 @@ export default function ProjectsDashboard() {
         <Grid item xs={6}>
           <Paper>
             <Typography variant="h6">Programming languages</Typography>
-            <Pie data={pie_data} options={pie_options}/>
+            {console.log(state.language_pie)}
+            <Pie data={state.language_pie} />
+            {/* <Pie data={state.language_pie} options={pie_options}/> */}
           </Paper>
         </Grid>
       </Grid>
@@ -159,12 +191,18 @@ export default function ProjectsDashboard() {
       </Paper>
       
       {/* Iterate over projects */}
-      {filteredProjects.map(function(project: any, key: any){
-        return <Paper key={key} elevation={4} style={{padding: '15px', marginTop: '25px', marginBottom: '25px'}}>
+      {/* TODO: Changing key here at some pointbroke the search, 
+          but fixed the pie chart which is completly independant!
+          Fucking geniuses */}
+
+      {/* {filteredProjects.map(function(project: any, key: number){ */}
+      {/* return <Paper key={key} elevation={4} style={{padding: '15px', marginTop: '25px', marginBottom: '25px'}}> */}
+      {filteredProjects.map(function(project: any, key: number){
+        return <Paper key={key.toString()} elevation={4} style={{padding: '15px', marginTop: '25px', marginBottom: '25px'}}>
           <Typography variant="h5">
             {project.name}&nbsp;&nbsp;
-            {project.programmingLanguage.map((language: string) => {
-              return <Chip label={language} color='primary' style={{marginRight: '5px'}}/>
+            {project.programmingLanguage.map((language: string, key: number) => {
+              return <Chip label={language} color='primary' style={{marginRight: '5px'}} key={key.toString()}/>
             })}
           </Typography>
           <Typography style={{marginBottom: '10px', marginTop: '5px'}}>
@@ -222,40 +260,47 @@ export default function ProjectsDashboard() {
 }
 
 const getProjectsQuery = `PREFIX doap: <http://usefulinc.com/ns/doap#>
-    PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-    select * where { 
-        ?project a doap:Project ;
-           doap:name ?name ;
-           doap:description ?description ;
-           doap:programming-language ?programmingLanguage .
-        OPTIONAL {
-            ?project doap:repository [
-                a doap:GitRepository ;
-                doap:browse ?gitUrl
-              ] .
-        }
-        OPTIONAL {
-            ?project doap:bug-database ?bugdatabase .
-        }
-        OPTIONAL {
-            ?project doap:category ?category .
-        }
-        OPTIONAL {
-            ?project doap:created ?created .
-        }
-        OPTIONAL {
-            ?project doap:download-page ?downloadpage .
-        }
-        OPTIONAL {
-            ?project doap:homepage ?homepage .
-        }
-        OPTIONAL {
-            ?project doap:license ?license .
-        }
-        OPTIONAL {
-            ?project doap:shortdesc ?shortdesc .
-        }
-    }`
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+select * where { 
+    ?project a doap:Project ;
+        doap:name ?name ;
+        doap:description ?description ;
+        doap:programming-language ?programmingLanguage .
+    OPTIONAL {
+        ?project doap:repository [
+            a doap:GitRepository ;
+            doap:browse ?gitUrl
+          ] .
+    }
+    OPTIONAL {
+        ?project doap:bug-database ?bugdatabase .
+    }
+    OPTIONAL {
+        ?project doap:category ?category .
+    }
+    OPTIONAL {
+        ?project doap:created ?created .
+    }
+    OPTIONAL {
+        ?project doap:download-page ?downloadpage .
+    }
+    OPTIONAL {
+        ?project doap:homepage ?homepage .
+    }
+    OPTIONAL {
+        ?project doap:license ?license .
+    }
+    OPTIONAL {
+        ?project doap:shortdesc ?shortdesc .
+    }
+}`
+
+const countLanguagesQuery = `PREFIX doap: <http://usefulinc.com/ns/doap#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+select ?programmingLanguage (count(?project) as ?projectCount) where { 
+    ?project a doap:Project ;
+             doap:programming-language ?programmingLanguage .
+} GROUP BY ?programmingLanguage`
 
 const pie_data = {
   labels: [
@@ -271,13 +316,13 @@ const pie_data = {
 };
 
 const pie_options = {
-  legend: {
-    display: false
-  },
+  // legend: {
+  //   display: false
+  // },
   plugins: {
     labels: {
       // render 'label', 'value', 'percentage', 'image' or custom function, default is 'percentage'
-      render: 'label',
+      // render: 'label',
       // fontSize: 12,
 
       // font color, can be color array for each data or function for dynamic color, default is defaultFontColor
