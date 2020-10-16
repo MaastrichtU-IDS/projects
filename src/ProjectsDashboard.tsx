@@ -47,7 +47,8 @@ export default function ProjectsDashboard() {
   const [state, setState] = React.useState({
     projects_list: [],
     search: '',
-    language_pie: {}
+    language_pie: {},
+    category_pie: {}
   });
 
   // componentDidMount: Query SPARQL endpoint to get the projects infos
@@ -91,6 +92,7 @@ export default function ProjectsDashboard() {
         console.log(error)
       })
 
+    // Get programming languages counts
     let language_pie = {
       labels: [],
       datasets: [{
@@ -105,7 +107,7 @@ export default function ProjectsDashboard() {
         console.log(sparqlResultArray);
 
         // Typescript ridiculously requires to do a forEach to avoid its dumb warnings
-        // Typescript dev should learn that playing with Objects is the basis of dev
+        // Default Objects should accepts any fields by default.
         for (let result of sparqlResultArray) {
           language_pie.labels.push(result.programmingLanguage.value);
           language_pie.datasets[0].data.push(result.projectCount.value);
@@ -114,6 +116,35 @@ export default function ProjectsDashboard() {
         console.log('TODO: State of language_pie shows that the labels are not handled by react, only the count. Do I need to build a new charting lib for React? Are dev really happy with such crappy libs?');
         console.log(language_pie);
         setState({...state, language_pie: language_pie})
+      })
+      .catch(error => {
+        console.log(error)
+      })
+
+      // Get project Categories count
+      let category_pie = {
+        labels: [],
+        datasets: [{
+          data: [],
+          backgroundColor: ['#4caf50','#FF6384', '#36A2EB', '#FFCE56'],
+          hoverBackgroundColor: ['#4caf50','#FF6384','#36A2EB','#FFCE56']
+        }]
+      }
+      axios.get(endpointToQuery + `?query=` + encodeURIComponent(countCategoryQuery))
+      .then(res => {
+        const sparqlResultArray = res.data.results.bindings;
+        console.log(sparqlResultArray);
+
+        // Typescript ridiculously requires to do a forEach to avoid its dumb warnings
+        // Default Objects should accepts any fields by default.
+        for (let result of sparqlResultArray) {
+          category_pie.labels.push(result.category.value);
+          category_pie.datasets[0].data.push(result.projectCount.value);
+        }
+
+        console.log('TODO: State of language_pie shows that the labels are not handled by react, only the count. Do I need to build a new charting lib for React? Are dev really happy with such crappy libs?');
+        console.log(category_pie);
+        setState({...state, category_pie: category_pie})
       })
       .catch(error => {
         console.log(error)
@@ -162,16 +193,16 @@ export default function ProjectsDashboard() {
       <Grid container spacing={3} style={{textAlign: 'center'}}>
         <Grid item xs={6}>
           <Paper>
-            <Typography variant="h6">Categories</Typography>
-            <Doughnut data={pie_data} options={pie_options}/>
+            <Typography variant="h6">Programming languages</Typography>
+            {console.log(state.language_pie)}
+            <Pie data={state.language_pie} options={pie_options}/>
           </Paper>
         </Grid>
         <Grid item xs={6}>
           <Paper>
-            <Typography variant="h6">Programming languages</Typography>
-            {console.log(state.language_pie)}
-            <Pie data={state.language_pie} />
-            {/* <Pie data={state.language_pie} options={pie_options}/> */}
+            <Typography variant="h6">Categories</Typography>
+            {console.log(state.category_pie)}
+            <Doughnut data={state.category_pie} options={pie_options}/>
           </Paper>
         </Grid>
       </Grid>
@@ -301,6 +332,13 @@ select ?programmingLanguage (count(?project) as ?projectCount) where {
     ?project a doap:Project ;
              doap:programming-language ?programmingLanguage .
 } GROUP BY ?programmingLanguage`
+
+const countCategoryQuery = `PREFIX doap: <http://usefulinc.com/ns/doap#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+select ?category (count(?project) as ?projectCount) where { 
+    ?project a doap:Project ;
+             doap:category ?category .
+} GROUP BY ?category`
 
 const pie_data = {
   labels: [
