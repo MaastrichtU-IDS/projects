@@ -1,5 +1,7 @@
 Website for projects at the **Institute of Data Science** at Maastricht University.
 
+Requirements:  [npm](https://www.npmjs.com/get-npm) and [yarn](https://classic.yarnpkg.com/en/docs/install/#debian-stable) installed.
+
 ### Run in development ⚙️
 
 Clone the repository:
