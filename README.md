@@ -1,4 +1,4 @@
-
+[![Build Docker Image](https://github.com/MaastrichtU-IDS/ids-projects-website/workflows/Build%20Docker%20Image/badge.svg)](https://github.com/MaastrichtU-IDS/ids-projects-website/actions?query=workflow%3A%22Build+Docker+Image%22) [![CodeQL analysis](https://github.com/MaastrichtU-IDS/ids-projects-website/workflows/CodeQL%20analysis/badge.svg)](https://github.com/MaastrichtU-IDS/ids-projects-website/actions?query=workflow%3A%22CodeQL+analysis%22)
 
 Website for projects at the **Institute of Data Science** at Maastricht University.
 
