@@ -64,6 +64,7 @@ export default function CreateDoapProject() {
     project_mailinglist: '',
     project_downloadpage: '',
     project_wiki: '',
+    project_service_endpoint: '',
     project_contributor_name: '',
     project_contributor_email: ''
   });
@@ -87,6 +88,7 @@ export default function CreateDoapProject() {
   doap:mailing-list <` + state.project_mailinglist + `> ;
   doap:download-page <` + state.project_downloadpage + `> ;
   doap:wiki <` + state.project_wiki + `>
+  doap:service-endpoint <` + state.project_service_endpoint + `>
 
   doap:category "` + state.category_dropdown + `" ;
   doap:repository [
@@ -210,18 +212,18 @@ export default function CreateDoapProject() {
 
             <FormControl size='small' variant="outlined" className={classes.fullWidth}>
               <InputLabel id="form-graph-overview-label">
-                Type of project
+                Type of project 🗂️
               </InputLabel>
               <Select
                 id="category_dropdown"
                 // value={state.category_dropdown}
                 onChange={handleCategoryDropdown}
-                label="Type of project"
+                label="Type of project 🗂️"
                 autoWidth
               >
-                <MenuItem value="Research">Research</MenuItem>
-                <MenuItem value="Development">Development</MenuItem>
-                <MenuItem value="Education">Education</MenuItem>
+                <MenuItem value="Research">🧪 Research</MenuItem>
+                <MenuItem value="Development">👨‍💻 Development</MenuItem>
+                <MenuItem value="Education">🎓 Education</MenuItem>
               </Select>
             </FormControl>
             <FormHelperText id="helper-graphs-overview">Is your project for <b>research</b>, <b>education</b>, or <b>development</b> of a tool?</FormHelperText>
@@ -316,6 +318,21 @@ export default function CreateDoapProject() {
               id="project_wiki"
               label="Project wiki 📖"
               placeholder="Project wiki 📖"
+              onChange={handleChange}
+              className={classes.fullWidth}
+              variant="outlined"
+              size='small'
+              InputProps={{
+                className: classes.normalFont
+              }}
+              InputLabelProps={{
+                className: classes.normalFont
+              }}
+            />
+            <TextField
+              id="project_service_endpoint"
+              label="Service endpoint URL"
+              placeholder="Service endpoint URL"
               onChange={handleChange}
               className={classes.fullWidth}
               variant="outlined"
