@@ -137,6 +137,7 @@ export default function CreateDoapProject() {
             <Typography variant="h5" className={classes.paperTitle}>
               📋 Project informations
             </Typography>
+            <FormHelperText id="helper-programming-language">Required fields are marked with an <b>*</b></FormHelperText>
             <TextField
               id="project_name"
               label="Project name"
@@ -173,8 +174,8 @@ export default function CreateDoapProject() {
 
             <TextField
               id="project_license"
-              label="License URL ⚖️"
-              placeholder="License URL ⚖️"
+              label="⚖️ License URL"
+              placeholder="⚖️ License URL"
               required
               className={classes.fullWidth}
               variant="outlined"
@@ -203,8 +204,8 @@ export default function CreateDoapProject() {
                   {...params}
                   variant="outlined"
                   size='small'
-                  label="Programming languages ☕"
-                  placeholder="Programming languages ☕"
+                  label="☕ Programming languages *"
+                  placeholder="☕ Programming languages *"
                 />
               )}
             />
@@ -212,13 +213,13 @@ export default function CreateDoapProject() {
 
             <FormControl size='small' variant="outlined" className={classes.fullWidth}>
               <InputLabel id="form-graph-overview-label">
-                Type of project 🗂️
+                🗂️ Type of project *
               </InputLabel>
               <Select
                 id="category_dropdown"
                 // value={state.category_dropdown}
                 onChange={handleCategoryDropdown}
-                label="Type of project 🗂️"
+                label="🗂️ Type of project *"
                 autoWidth
               >
                 <MenuItem value="Research">🧪 Research</MenuItem>
@@ -238,8 +239,8 @@ export default function CreateDoapProject() {
             </FormHelperText>
             <TextField
               id="project_git_repository"
-              label="Git repository URL (GitHub/GitLab)"
-              placeholder="Git repository URL (GitHub/GitLab)"
+              label="💾 Git repository URL (GitHub/GitLab)"
+              placeholder="💾 Git repository URL (GitHub/GitLab)"
               required
               className={classes.fullWidth}
               variant="outlined"
@@ -254,8 +255,8 @@ export default function CreateDoapProject() {
             />
             <TextField
               id="project_homepage"
-              label="Project homepage URL 🏠"
-              placeholder="Project homepage URL 🏠"
+              label="🏠 Project homepage URL"
+              placeholder="🏠 Project homepage URL"
               required
               className={classes.fullWidth}
               variant="outlined"
@@ -270,8 +271,8 @@ export default function CreateDoapProject() {
             />
             <TextField
               id="project_issues"
-              label="Issue tracker URL 🚧"
-              placeholder="Issue tracker URL 🚧"
+              label="🚧 Issue tracker URL"
+              placeholder="🚧 Issue tracker URL"
               required
               className={classes.fullWidth}
               variant="outlined"
@@ -285,12 +286,12 @@ export default function CreateDoapProject() {
               }}
             />
             <TextField
-              id="project_mailinglist"
-              label="Mailing list or chat URL 💬"
-              placeholder="Mailing list or chat URL 💬"
+              id="project_wiki"
+              label="📖 Project wiki"
+              placeholder="📖 Project wiki"
+              onChange={handleChange}
               className={classes.fullWidth}
               variant="outlined"
-              onChange={handleChange}
               size='small'
               InputProps={{
                 className: classes.normalFont
@@ -301,23 +302,8 @@ export default function CreateDoapProject() {
             />
             <TextField
               id="project_downloadpage"
-              label="Project download page 📥"
-              placeholder="Project download page 📥"
-              onChange={handleChange}
-              className={classes.fullWidth}
-              variant="outlined"
-              size='small'
-              InputProps={{
-                className: classes.normalFont
-              }}
-              InputLabelProps={{
-                className: classes.normalFont
-              }}
-            />
-            <TextField
-              id="project_wiki"
-              label="Project wiki 📖"
-              placeholder="Project wiki 📖"
+              label="📥 Project download page"
+              placeholder="📥 Project download page"
               onChange={handleChange}
               className={classes.fullWidth}
               variant="outlined"
@@ -331,11 +317,26 @@ export default function CreateDoapProject() {
             />
             <TextField
               id="project_service_endpoint"
-              label="Service endpoint URL"
-              placeholder="Service endpoint URL"
+              label="🛩️ Service endpoint URL"
+              placeholder="🛩️ Service endpoint URL"
               onChange={handleChange}
               className={classes.fullWidth}
               variant="outlined"
+              size='small'
+              InputProps={{
+                className: classes.normalFont
+              }}
+              InputLabelProps={{
+                className: classes.normalFont
+              }}
+            />
+            <TextField
+              id="project_mailinglist"
+              label="💬 Mailing list or community chat URL"
+              placeholder="💬 Mailing list or community chat URL"
+              className={classes.fullWidth}
+              variant="outlined"
+              onChange={handleChange}
               size='small'
               InputProps={{
                 className: classes.normalFont
@@ -355,8 +356,8 @@ export default function CreateDoapProject() {
             </FormHelperText>
             <TextField
               id="project_contributor_name"
-              label="Contributor name 🏷️"
-              placeholder="Contributor name 🏷️"
+              label="🏷️ Contributor name"
+              placeholder="🏷️ Contributor name"
               required
               className={classes.fullWidth}
               onChange={handleChange}
@@ -373,8 +374,8 @@ export default function CreateDoapProject() {
             />
             <TextField
               id="project_contributor_email"
-              label="Contributor email 📬"
-              placeholder="Contributor email 📬"
+              label="📬 Contributor email"
+              placeholder="📬 Contributor email"
               required
               className={classes.fullWidth}
               variant="outlined"
