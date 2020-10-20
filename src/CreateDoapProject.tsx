@@ -53,7 +53,8 @@ export default function CreateDoapProject() {
   const [state, setState] = React.useState({
     open: false,
     dialogOpen: false,
-    license_autocomplete: '',
+    project_license: '',
+    language_autocomplete: [],
     category_dropdown: '',
     project_git_repository: '',
     project_name: '',
@@ -79,7 +80,8 @@ export default function CreateDoapProject() {
   doap:name "` + state.project_name + `" ;
   doap:description "` + state.project_description + `" ;
 
-  doap:license "` + state.license_autocomplete + `" ;
+  doap:programming-language "` + state.language_autocomplete.join('", "') + `" ;
+  doap:license "` + state.project_license + `" ;
   doap:homepage <` + state.project_homepage + `> ;
   doap:bug-database <` + state.project_issues + `> ;
   doap:mailing-list <` + state.project_mailinglist + `> ;
@@ -124,7 +126,7 @@ export default function CreateDoapProject() {
   return(
     <Container className='mainContainer'>
       <Typography variant="h4" style={{textAlign: 'center', marginBottom: '20px'}}>
-        Create a DOAP description for your project 📝
+        📝 Create a DOAP description for your project
       </Typography>
       
       <form onSubmit={handleSubmit}>
@@ -167,37 +169,62 @@ export default function CreateDoapProject() {
               }}
             />
 
-            <Autocomplete
-              id="license_autocomplete"
-              onInputChange={(event, newInputValue) => {
-                setState({...state, 'license_autocomplete': newInputValue})
-              }}
-              options={['MIT license', 'Apache license']}
-              freeSolo={true}
-              includeInputInList={true}
-              renderInput={params => <TextField {...params} 
-              label="License ⚖️" 
+            <TextField
+              id="project_license"
+              label="License URL ⚖️"
+              placeholder="License URL ⚖️"
+              required
+              className={classes.fullWidth}
               variant="outlined"
+              onChange={handleChange}
               size='small'
-              />}
+              InputProps={{
+                className: classes.normalFont
+              }}
+              InputLabelProps={{
+                className: classes.normalFont
+              }}
             />
-            <FormHelperText id="helper-sparql-endpoint">Choose a license at...</FormHelperText>
-            <FormControl variant="outlined" className={classes.fullWidth}>
+            <FormHelperText id="helper-sparql-endpoint">Provide the URL to the LICENSE file</FormHelperText>
+
+            <Autocomplete
+              multiple
+              id="language_autocomplete"
+              options={['Python', 'Java', 'JavaScript', 'TypeScript', 'PHP', 'Ruby', 'Perl', 'Scala', 'Go', 'Haskell', 'C', 'C#', 'C++', 'Objective-C', 'Cocoa', 'ActionScript', 'D', 'Delphi', 'Erlang', 'OCaml', 'Smalltalk', 'SVG', 'Tcl']}
+              onChange={(event, newInputValue) => {
+                setState({...state, 'language_autocomplete': newInputValue})
+              }}
+              // getOptionLabel={option => option.title}
+              // defaultValue={[top100Films[13]]}
+              renderInput={params => (
+                <TextField
+                  {...params}
+                  variant="outlined"
+                  size='small'
+                  label="Programming languages ☕"
+                  placeholder="Programming languages ☕"
+                />
+              )}
+            />
+            <FormHelperText id="helper-programming-language">Provide the different languages used in the project</FormHelperText>
+
+            <FormControl size='small' variant="outlined" className={classes.fullWidth}>
               <InputLabel id="form-graph-overview-label">
-                Project category
+                Type of project
               </InputLabel>
               <Select
                 id="category_dropdown"
                 // value={state.category_dropdown}
                 onChange={handleCategoryDropdown}
-                label="Project category / type"
+                label="Type of project"
                 autoWidth
               >
-                <MenuItem value="Deep Learning">Deep Learning</MenuItem>
-                <MenuItem value="Data processing">Data processing</MenuItem>
+                <MenuItem value="Research">Research</MenuItem>
+                <MenuItem value="Development">Development</MenuItem>
+                <MenuItem value="Education">Education</MenuItem>
               </Select>
             </FormControl>
-            <FormHelperText id="helper-graphs-overview">Pick a category best describing your project</FormHelperText>
+            <FormHelperText id="helper-graphs-overview">Is your project for <b>research</b>, <b>education</b>, or <b>development</b> of a tool?</FormHelperText>
           </Paper>
 
           <Paper elevation={2} className={classes.paperPadding}>
@@ -209,8 +236,8 @@ export default function CreateDoapProject() {
             </FormHelperText>
             <TextField
               id="project_git_repository"
-              label="Project Git repository (GitHub/GitLab)"
-              placeholder="Project Git repository (GitHub/GitLab)"
+              label="Git repository URL (GitHub/GitLab)"
+              placeholder="Git repository URL (GitHub/GitLab)"
               required
               className={classes.fullWidth}
               variant="outlined"
@@ -225,8 +252,8 @@ export default function CreateDoapProject() {
             />
             <TextField
               id="project_homepage"
-              label="Project homepage 🏠"
-              placeholder="Project homepage 🏠"
+              label="Project homepage URL 🏠"
+              placeholder="Project homepage URL 🏠"
               required
               className={classes.fullWidth}
               variant="outlined"
@@ -241,8 +268,8 @@ export default function CreateDoapProject() {
             />
             <TextField
               id="project_issues"
-              label="Project issue tracker 🚧"
-              placeholder="Project issue tracker 🚧"
+              label="Issue tracker URL 🚧"
+              placeholder="Issue tracker URL 🚧"
               required
               className={classes.fullWidth}
               variant="outlined"
@@ -257,8 +284,8 @@ export default function CreateDoapProject() {
             />
             <TextField
               id="project_mailinglist"
-              label="Project mailing list or chat URL 💬"
-              placeholder="Project mailing list or chat URL 💬"
+              label="Mailing list or chat URL 💬"
+              placeholder="Mailing list or chat URL 💬"
               className={classes.fullWidth}
               variant="outlined"
               onChange={handleChange}
@@ -311,8 +338,8 @@ export default function CreateDoapProject() {
             </FormHelperText>
             <TextField
               id="project_contributor_name"
-              label="Contributor name"
-              placeholder="Contributor name"
+              label="Contributor name 🏷️"
+              placeholder="Contributor name 🏷️"
               required
               className={classes.fullWidth}
               onChange={handleChange}
@@ -329,8 +356,8 @@ export default function CreateDoapProject() {
             />
             <TextField
               id="project_contributor_email"
-              label="Contributor email"
-              placeholder="Contributor email"
+              label="Contributor email 📬"
+              placeholder="Contributor email 📬"
               required
               className={classes.fullWidth}
               variant="outlined"

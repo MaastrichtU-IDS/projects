@@ -82,10 +82,13 @@
   doap:category <http://projects.apache.org/category/big-data> ,
     <http://projects.apache.org/category/cloud> ,
     <http://projects.apache.org/category/database> ,
-    <http://projects.apache.org/category/library> ,
     <http://projects.apache.org/category/web-framework> ,
     <http://projects.apache.org/category/library> ,
     <http://projects.apache.org/category/retired> ;
+    # IDS categories:
+    # Research
+    # Education
+    # Development?
 
   # Do we want this? Maybe by default with those 3
   # Today code runs in Linux everywhere (sorry guys!)
