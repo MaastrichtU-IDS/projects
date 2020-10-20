@@ -19,7 +19,7 @@ Install dependencies 📥
 yarn
 ```
 
-Run at http://localhost:19006
+Run on http://localhost:19006
 
 ```bash
 yarn web
@@ -27,7 +27,7 @@ yarn web
 
 > The website should reload automatically at each changes to the code 🔃
 
-Upgrade the packages:
+Upgrade the packages in `yarn.lock`:
 
 ```bash
 yarn upgrade
@@ -35,7 +35,7 @@ yarn upgrade
 
 ### Run in production 🚀
 
-You can build locally in `/web-build` folder and serve at http://localhost:5000 📦
+You can build locally in `/web-build` folder and serve on [http://localhost:5000 📦](http://localhost:5000)
 
 ```bash
 yarn build
@@ -48,7 +48,7 @@ Or run directly using [Docker 🐳](https://docs.docker.com/get-docker/) (requir
 docker-compose up
 ```
 
-> Checkout the [docker-compose.yml](/docker-compose.yml) file to see how the Docker container is run.
+> Checkout the [docker-compose.yml](/docker-compose.yml) file to see how we run the Docker image.
 
 ### Deploy to Netlify
 
