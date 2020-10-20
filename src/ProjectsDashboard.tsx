@@ -172,7 +172,7 @@ export default function ProjectsDashboard() {
     // const comunicaEngine = newEngine();
     // comunicaEngine.query(`
     //   SELECT ?s ?o WHERE {
-    //     ?s a ?o .
+    //    ?s a ?o .
     //   } LIMIT 100`, {
     //   sources: ['https://dbpedia.org/sparql'],
     // }).then((res: any) => {
