@@ -8,8 +8,7 @@ import NavBar from "./src/NavBar";
 import Footer from "./src/Footer";
 import ProjectsDashboard from "./src/ProjectsDashboard";
 import CreateDoapProject from "./src/CreateDoapProject";
-
-const About = () => <Text>About</Text>;
+import About from "./src/About";
 
 // Change theme color and typography here
 const theme = createMuiTheme({
