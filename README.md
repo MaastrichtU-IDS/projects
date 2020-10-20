@@ -4,7 +4,7 @@ Website for projects at the [Institute of Data Science](http://maastrichtunivers
 
 Requirements:  [npm](https://www.npmjs.com/get-npm) and [yarn](https://classic.yarnpkg.com/en/docs/install/#debian-stable) installed.
 
-### Run in development ⚙️
+### Run in development :construction:
 
 Clone the repository:
 
@@ -13,7 +13,7 @@ git clone https://github.com/MaastrichtU-IDS/ids-projects-website
 cd ids-projects-website
 ```
 
-Install dependencies 📥
+Install dependencies :inbox_tray:
 
 ```bash
 yarn
@@ -25,24 +25,24 @@ Run on http://localhost:19006
 yarn web
 ```
 
-> The website should reload automatically at each changes to the code 🔃
+> The website should reload automatically at each changes to the code :arrows_clockwise:
 
-Upgrade the packages in `yarn.lock`:
+Upgrade the packages in `yarn.lock`
 
 ```bash
 yarn upgrade
 ```
 
-### Run in production 🚀
+### Run in production :rocket:
 
-You can build locally in `/web-build` folder and serve on [http://localhost:5000 📦](http://localhost:5000)
+You can build locally in `/web-build` folder and serve on [http://localhost:5000 :package:](http://localhost:5000)
 
 ```bash
 yarn build
 yarn serve
 ```
 
-Or run directly using [Docker 🐳](https://docs.docker.com/get-docker/) (requires [docker installed](https://docs.docker.com/get-docker/))
+Or run directly using [Docker :whale:](https://docs.docker.com/get-docker/) (requires [docker installed](https://docs.docker.com/get-docker/))
 
 ```bash
 docker-compose up
