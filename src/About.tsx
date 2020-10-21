@@ -71,7 +71,7 @@ export default function About() {
       {/* image: {iconImage} */}
       {/* Color: https://perfectgraph-5c619.web.app/?path=/story/components-components--view */}
       <Graph
-        style={{ width: '100%', height: 250, backgroundColor: '#eceff1' }}
+        style={{ width: '100%', height: 250 }}
         nodes={[
           {
             id: 1,
@@ -102,6 +102,7 @@ export default function About() {
           name={data.name}
           image={data.image}
           story={data.story}
+          style={{ backgroundColor: '#eceff1' }}
         />
       )}
       />

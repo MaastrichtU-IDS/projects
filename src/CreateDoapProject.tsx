@@ -138,6 +138,25 @@ export default function CreateDoapProject() {
               📋 Project informations
             </Typography>
             <FormHelperText id="helper-programming-language">Required fields are marked with an <b>*</b></FormHelperText>
+
+            <FormControl size='small' variant="outlined" className={classes.fullWidth}>
+              <InputLabel id="form-graph-overview-label">
+                🗂️ Type of project *
+              </InputLabel>
+              <Select
+                id="category_dropdown"
+                // value={state.category_dropdown}
+                onChange={handleCategoryDropdown}
+                label="🗂️ Type of project *"
+                autoWidth
+              >
+                <MenuItem value="Research">🧪 Research</MenuItem>
+                <MenuItem value="Development">👨‍💻 Development</MenuItem>
+                <MenuItem value="Education">🎓 Education</MenuItem>
+              </Select>
+            </FormControl>
+            <FormHelperText id="helper-graphs-overview">Is your project for <b>research</b>, <b>education</b>, or <b>development</b> of a tool?</FormHelperText>
+
             <TextField
               id="project_name"
               label="Project name"
@@ -209,25 +228,8 @@ export default function CreateDoapProject() {
                 />
               )}
             />
-            <FormHelperText id="helper-programming-language">Provide the different languages used in the project</FormHelperText>
+            <FormHelperText id="helper-programming-language">Provide the different programming languages used in the project</FormHelperText>
 
-            <FormControl size='small' variant="outlined" className={classes.fullWidth}>
-              <InputLabel id="form-graph-overview-label">
-                🗂️ Type of project *
-              </InputLabel>
-              <Select
-                id="category_dropdown"
-                // value={state.category_dropdown}
-                onChange={handleCategoryDropdown}
-                label="🗂️ Type of project *"
-                autoWidth
-              >
-                <MenuItem value="Research">🧪 Research</MenuItem>
-                <MenuItem value="Development">👨‍💻 Development</MenuItem>
-                <MenuItem value="Education">🎓 Education</MenuItem>
-              </Select>
-            </FormControl>
-            <FormHelperText id="helper-graphs-overview">Is your project for <b>research</b>, <b>education</b>, or <b>development</b> of a tool?</FormHelperText>
           </Paper>
 
           <Paper elevation={2} className={classes.paperPadding}>
