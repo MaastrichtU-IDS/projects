@@ -2,6 +2,10 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Container, Button, Chip, Tooltip, Grid, Paper } from "@material-ui/core";
 import { IconButton, InputBase } from "@material-ui/core";
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+
 import GitHubIcon from '@material-ui/icons/GitHub';
 import HomeIcon from '@material-ui/icons/Home';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
@@ -18,16 +22,13 @@ import {IQueryOptions, newEngineDynamicArged} from "@comunica/actor-init-sparql/
 
 // Import UM logo from assets
 import iconImage from '../assets/icon.png';
+import githubData from '../assets/ids_github_data.json';
 // import { ActionYoutubeSearchedFor } from 'material-ui/svg-icons';
 
 // import { normalize, schema } from 'normalizr';
 // import { ColorPropType } from 'react-native';
 
 const useStyles = makeStyles(theme => ({
-  paperPadding: {
-    padding: theme.spacing(2, 2),
-    margin: theme.spacing(2, 2),
-  },
   paperSearch: {
     padding: '2px 4px',
     display: 'flex',
@@ -39,6 +40,21 @@ const useStyles = makeStyles(theme => ({
     width: '50%',
     fontSize: '14px',
     flex: 1,
+  },
+  link: {
+    textDecoration: 'none',
+    color: 'inherit',
+    '&:hover': {
+      color: theme.palette.primary.dark,
+      textDecoration: 'none',
+    },
+  },
+  title: {
+    fontSize: 14,
+    marginTop: 8,
+  },
+  pos: {
+    // marginBottom: 12,
   },
 }))
 
@@ -63,6 +79,7 @@ export default function ProjectsDashboard() {
 
   // componentDidMount: Query SPARQL endpoint to get the projects infos
   React.useEffect(() => {
+    console.log(githubData['recent_releases']);
     const endpointToQuery = 'https://graphdb.dumontierlab.com/repositories/ids-projects';
     console.log(endpointToQuery);
 
@@ -208,6 +225,42 @@ export default function ProjectsDashboard() {
         <img src={iconImage} style={{height: '1em', width: '1em', marginRight: '10px'}} alt="Logo" />
         Institute of Data Science projects 🗂️
       </Typography>
+
+      <Typography variant="h6" style={{marginBottom: '20px'}}>
+        🏷️ Recent releases
+      </Typography>
+      <Grid container spacing={2} style={{textAlign: 'center', marginBottom: '30px'}}>
+        {/* githubData['recent_releases'] */}
+        {githubData['recent_releases'].map(function(release: any, key: number){
+          return <Grid item xs={4}>
+            <Tooltip title={release.release_description}>
+              <Card style={{height: '100%'}}>
+                <CardContent>
+                  <a href={release.release_url} className={classes.link}>
+                    <Typography variant="h6" component="h2">
+                      <Chip label={release.release_tag} color='primary' style={{marginRight: '5px'}}/>
+                      {release.repo}
+                    </Typography>
+                  </a>
+                  <Typography className={classes.pos} color="textSecondary">
+                    {release.release_name}
+                  </Typography>
+                  <Typography className={classes.title} color="textSecondary" gutterBottom>
+                    📅 Released the {release.published_at}<br/>
+                    👤 By {release.release_author}
+                  </Typography>
+                  {/* <Typography variant="body2" component="p">
+                    well meaning and kindly.
+                  </Typography> */}
+                </CardContent>
+                {/* <CardActions>
+                  <Button size="small">Learn More</Button>
+                </CardActions> */}
+              </Card>
+            </Tooltip>
+          </Grid>
+        })}
+      </Grid>
 
       {/* Pie charts */}
       <Grid container spacing={3} style={{textAlign: 'center'}}>
