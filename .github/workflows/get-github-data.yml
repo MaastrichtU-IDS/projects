@@ -1,14 +1,17 @@
-name: Get data from GitHub GraphQL
-
+name: Get data from GitHub GraphQL API
 on:
-  push:
   workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+    - '.github/workflows/get-github-data.yml'
+    - 'get_github_data/query_graphql.py'
   schedule:
-    - cron:  '00 03 * * *'
-    # Everyday at 03:00 am
+    - cron:  '00 03,13 * * *'
+    # Everyday at 03:00am and 13:00
 
 jobs:
-  build:
+  query-graphql:
     runs-on: ubuntu-latest
     steps:
     - name: Check out repo
@@ -27,7 +30,7 @@ jobs:
     - name: Install Python dependencies
       run: |
         python -m pip install -r get_github_data/requirements.txt
-    - name: Update README
+    - name: Query GitHub GraphQL API with Python
       env:
         GITHUB_TOKEN: ${{ secrets.API_GITHUB_TOKEN }}
       run: |-
