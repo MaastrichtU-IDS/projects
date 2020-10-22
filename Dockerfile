@@ -15,6 +15,6 @@ RUN yarn build
 ## Serving directly does not work with router:
 # expo web --no-dev
 
-EXPOSE 8080
+EXPOSE 5000
 
 ENTRYPOINT [ "yarn", "serve" ]

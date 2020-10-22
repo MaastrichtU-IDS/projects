@@ -39,7 +39,7 @@
     "web": "expo web",
     "eject": "expo eject",
     "build": "expo build:web",
-    "serve": "serve -s web-build -l 0.0.0.0:8080",
+    "serve": "serve -s web-build",
     "start": "npm run build && npm run serve "
   },
   "private": true
