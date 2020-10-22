@@ -27,6 +27,8 @@ jobs:
         key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
         restore-keys: |
           ${{ runner.os }}-pip-
+    
+    # Important part here (can be reused to run locally):
     - name: Install Python dependencies
       run: |
         python -m pip install -r get_github_data/requirements.txt
@@ -36,6 +38,7 @@ jobs:
       run: |-
         python get_github_data/query_graphql.py
         cat assets/ids_github_data.json
+
     - name: Commit and push if changed
       run: |-
         git diff
