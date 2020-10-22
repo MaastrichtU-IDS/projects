@@ -45,11 +45,11 @@ const useStyles = makeStyles(theme => ({
     textDecoration: 'none',
     color: 'inherit',
     '&:hover': {
-      color: theme.palette.primary.dark,
+      color: theme.palette.primary.main,
       textDecoration: 'none',
     },
   },
-  title: {
+  cardSubtitle: {
     fontSize: 14,
     marginTop: 8,
   },
@@ -221,37 +221,37 @@ export default function ProjectsDashboard() {
 
   return(
     <Container className='mainContainer'>
-      <Typography variant="h4" style={{textAlign: 'center', marginBottom: '30px'}}>
-        <img src={iconImage} style={{height: '1em', width: '1em', marginRight: '10px'}} alt="Logo" />
-        Institute of Data Science projects 🗂️
+      <Typography variant="h4" style={{textAlign: 'center'}}>
+        {/* <img src={iconImage} style={{height: '1em', width: '1em', marginRight: '10px'}} alt="Logo" /> */}
+        Institute of Data Science
       </Typography>
+      {/* <div style={{textAlign: 'center'}}>
+        <img src={iconImage} style={{height: '3em', width: '3em', marginRight: '10px'}} alt="Logo" />
+      </div> */}
 
-      <Typography variant="h6" style={{marginBottom: '20px'}}>
+      <Typography variant="h6" style={{marginBottom: '1em'}}>
         🏷️ Recent releases
       </Typography>
-      <Grid container spacing={2} style={{textAlign: 'center', marginBottom: '30px'}}>
-        {/* githubData['recent_releases'] */}
-        {githubData['recent_releases'].map(function(release: any, key: number){
+      <Grid container spacing={2} style={{textAlign: 'center', marginBottom: '1em'}}>
+        {/* Iterate over the 6 most recent releases from JSON file */}
+        {githubData['recent_releases'].slice(0, 6).map(function(release: any, key: number){
           return <Grid item xs={4}>
             <Tooltip title={release.release_description}>
               <Card style={{height: '100%'}}>
-                <CardContent>
+                <CardContent style={{padding: '1em'}}>
                   <a href={release.release_url} className={classes.link}>
                     <Typography variant="h6" component="h2">
-                      <Chip label={release.release_tag} color='primary' style={{marginRight: '5px'}}/>
                       {release.repo}
+                      <Chip label={release.release_tag} color='primary' style={{marginLeft: '0.5em', cursor: 'pointer'}}/>
                     </Typography>
                   </a>
                   <Typography className={classes.pos} color="textSecondary">
                     {release.release_name}
                   </Typography>
-                  <Typography className={classes.title} color="textSecondary" gutterBottom>
-                    📅 Released the {release.published_at}<br/>
+                  <Typography className={classes.cardSubtitle} color="textSecondary" gutterBottom>
+                    📅 Released on the {release.published_at}<br/>
                     👤 By {release.release_author}
                   </Typography>
-                  {/* <Typography variant="body2" component="p">
-                    well meaning and kindly.
-                  </Typography> */}
                 </CardContent>
                 {/* <CardActions>
                   <Button size="small">Learn More</Button>
@@ -262,20 +262,21 @@ export default function ProjectsDashboard() {
         })}
       </Grid>
 
+      <Typography variant="h6" style={{marginBottom: '1em', marginTop: '1em'}}>
+        🗂️ Projects
+      </Typography>
       {/* Pie charts */}
       <Grid container spacing={3} style={{textAlign: 'center'}}>
         <Grid item xs={6}>
           <Paper>
-            <Typography variant="h6">Programming languages</Typography>
-            {console.log('Right before displaying the pie:')}
-            {console.log(state.language_pie)}
-            <Pie data={state.language_pie} options={pie_options}/>
+            <Typography variant="h6">Categories</Typography>
+            <Doughnut data={state.category_pie} options={pie_options}/>
           </Paper>
         </Grid>
         <Grid item xs={6}>
           <Paper>
-            <Typography variant="h6">Categories</Typography>
-            <Doughnut data={state.category_pie} options={pie_options}/>
+            <Typography variant="h6">Programming languages</Typography>
+            <Pie data={state.language_pie} options={pie_options}/>
           </Paper>
         </Grid>
       </Grid>

@@ -11,6 +11,8 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import CreateNewFolderIcon from '@material-ui/icons/CreateNewFolder';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 
+import iconImage from '../assets/icon.png';
+
 const useStyles = makeStyles(theme => ({
   menuButton: {
     color: theme.palette.common.white
@@ -18,7 +20,13 @@ const useStyles = makeStyles(theme => ({
   linkButton: {
     textTransform: 'none',
     textDecoration: 'none'
-  }
+  },
+  linkLogo: {
+    // Seems to fit the 48px navbar height...
+    // height: '48px',
+    alignItems: 'center',
+    display: 'flex',
+  },
 }))
   
 export default function NavBar() {
@@ -27,11 +35,9 @@ export default function NavBar() {
   return (
     <AppBar title="" position='sticky'>
       <Toolbar variant='dense'>
-        <Link to="/" className={classes.linkButton}>
+        <Link to="/" className={classes.linkLogo}>
           <Tooltip title='IDS Projects dashboard'>
-            <Button className={classes.menuButton}>
-              <DashboardIcon />
-            </Button>
+            <img src={iconImage} style={{height: '2em', width: '2em', marginRight: '10px'}} alt="Logo" />
           </Tooltip>
         </Link>
         <Link to="/create-doap" className={classes.linkButton}>
