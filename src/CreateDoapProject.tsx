@@ -122,7 +122,7 @@ export default function CreateDoapProject() {
     // Trigger file download
     var element = document.createElement('a');
     element.setAttribute('href', 'data:text/turtle;charset=utf-8,' + encodeURIComponent(doap_content));
-    element.setAttribute('download', '.doap-project.ttl');
+    element.setAttribute('download', 'doap-project.ttl');
     element.style.display = 'none';
     document.body.appendChild(element);
     element.click();
