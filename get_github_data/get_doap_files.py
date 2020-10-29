@@ -66,7 +66,7 @@ def fetch_doap_files(oauth_token):
             query=get_projects_query(after_cursor),
             headers={"Authorization": "Bearer {}".format(oauth_token)},
         )
-        print(json.dumps(data, indent=4))
+        # print(json.dumps(data, indent=4))
         for repo in data["data"]["node"]["repositories"]["nodes"]:
             if repo["object"] and repo["object"]["text"] and repo["name"] not in repo_names:
                 repos.append(repo)
@@ -76,6 +76,7 @@ def fetch_doap_files(oauth_token):
                 doap_filepath = '../doap-rdf/doap-' + repo["name"] + '.ttl'
                 # Write doap file in doap-rdf folder to upload later
                 with open(root / doap_filepath, 'w') as f:
+                    print('Write doap file ' + doap_filepath)
                     f.write(doap_file_content)
                 
                 doap_files[repo["name"]] = {
