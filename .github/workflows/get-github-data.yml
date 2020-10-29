@@ -37,13 +37,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.API_GITHUB_TOKEN }}
       run: |-
         python get_github_data/get_doap_files.py
-
-
-    - name: Upload RDF output artifact
-      uses: actions/upload-artifact@v1
-      with:
-        name: rdf-output
-        path: doap-rdf
+        ls doap-rdf
 
     # - name: Clear older graph in the triplestore
     #   uses: vemonet/sparql-operations-action@v1
@@ -62,7 +56,11 @@ jobs:
         password: ${{ secrets.GRAPHDB_PASSWORD }}
         graph: "https://w3id.org/umids/graph/projects"
 
-
+    - name: Upload RDF output artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: rdf-output
+        path: doap-rdf
 
   query-graphql:
     runs-on: ubuntu-latest
