@@ -53,6 +53,8 @@ query {
 
 # Retrieve releases in projects returned by the GraphQL calls
 def fetch_doap_files(oauth_token):
+    if not os.path.exists(root / '../doap-rdf'):
+        os.makedirs(root / '../doap-rdf')
     repos = []
     doap_files = {}
     repo_names = set()
@@ -71,8 +73,6 @@ def fetch_doap_files(oauth_token):
                 repo_names.add(repo["name"])
                 doap_file_content = repo["object"]["text"]
                 
-                if not os.path.exists(root / '../doap-rdf'):
-                    os.makedirs(root / '../doap-rdf')
                 doap_filepath = '../doap-rdf/doap-' + repo["name"] + '.ttl'
                 # Write doap file in doap-rdf folder to upload later
                 with open(root / doap_filepath, 'w') as f:
