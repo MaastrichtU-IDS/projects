@@ -13,6 +13,33 @@ on:
     - '.github/workflows/get-doap-projects.yml'
 
 jobs:
+  # get-external-projects:
+  #   runs-on: ubuntu-latest
+  #   # if: always()
+  #   strategy:
+  #     matrix: 
+  #       external-doap-files: ['https://raw.githubusercontent.com/kodymoodley/simpleowlapi/main/doap-project.ttl']
+
+  #   steps:
+  #   - run: wget ${{ matrix.external-doap-files }}
+
+  #   - name: Upload RDF output artifact
+  #     if: ${{ matrix.doap-file.node.object != null }}
+  #     uses: actions/upload-artifact@v1
+  #     with:
+  #       name: rdf-output
+  #       path: doap-rdf
+
+  #   - name: Upload the RDF to the triplestore
+  #     uses: MaastrichtU-IDS/RdfUpload@master
+  #     with:
+  #       file: doap-rdf/*
+  #       endpoint: https://graphdb.dumontierlab.com/repositories/ids-projects/statements
+  #       user: ${{ secrets.GRAPHDB_USER }}
+  #       password: ${{ secrets.GRAPHDB_PASSWORD }}
+  #       graph: "https://w3id.org/umids/graph/projects"
+
+  
   get-doap-projects:
     runs-on: ubuntu-latest
     outputs:
