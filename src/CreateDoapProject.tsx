@@ -72,6 +72,8 @@ export default function CreateDoapProject() {
   
   const handleSubmit  = (event: React.FormEvent) => {
     event.preventDefault();
+    // Generate the project URI based on its name:
+    const project_uri = `https://w3id.org/idsproject/project/` + encodeURI(state.project_name.toLowerCase().trim().replaceAll(' ', '-'))
     let wiki_triple = ``
     if (state.project_wiki) {
       wiki_triple = `doap:wiki <${state.project_wiki}>`
@@ -93,13 +95,13 @@ export default function CreateDoapProject() {
 @prefix asf: <http://projects.apache.org/ns/asfext#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 
-[]
+<${project_uri}>
   a doap:Project ;
   doap:name "` + state.project_name + `" ;
   doap:description "` + state.project_description + `" ;
 
   doap:programming-language "` + state.language_autocomplete.join('", "') + `" ;
-  doap:license "` + state.project_license + `" ;
+  doap:license <` + state.project_license + `> ;
   doap:homepage <` + state.project_homepage + `> ;
   doap:bug-database <` + state.project_issues + `> ;
   ${wiki_triple}
