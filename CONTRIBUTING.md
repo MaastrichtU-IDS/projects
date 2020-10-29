@@ -1,10 +1,10 @@
 # Contributing
 
-When contributing to this repository, please first discuss the change you wish to make via an [issue](https://github.com/MaastrichtU-IDS/best-practices/issues).
+When contributing to this repository, please first discuss the change you wish to make via an [issue](https://github.com/MaastrichtU-IDS/ids-projects-website/issues).
 
 ## Development process
 
-See how to run the API in development at https://github.com/MaastrichtU-IDS/best-practices
+See how to run the API in development at https://github.com/MaastrichtU-IDS/ids-projects-website
 
 ## Pull Request process
 
@@ -14,6 +14,6 @@ cd website
 yarn install
 yarn start
 ```
-2. [Send a pull request](https://github.com/MaastrichtU-IDS/best-practices/compare) to the `main` branch.
+2. [Send a pull request](https://github.com/MaastrichtU-IDS/ids-projects-website/compare) to the `main` branch.
 3. Project contributors will review your change as soon as they can!
 

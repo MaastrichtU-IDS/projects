@@ -80,6 +80,10 @@ python3 get_github_data/query_graphql.py
 
 > Try out the GitHub GraphQL API [here](https://developer.github.com/v4/explorer/).
 
+## Contribute
+
+Contributions are welcome! See the [guidelines to contribute 👨‍💻](/CONTRIBUTING.md).
+
 ### Deploy to Netlify
 
 When you visit pages other than the root (ex: `coolproject.netlify.com/about`), Netlify won't know how to redirect the route. To fix it, create a `web/_redirects` file to redirect all routes to the `index.html` with this content:
