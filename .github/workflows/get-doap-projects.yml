@@ -39,7 +39,7 @@ jobs:
   #       password: ${{ secrets.GRAPHDB_PASSWORD }}
   #       graph: "https://w3id.org/umids/graph/projects"
 
-  
+
   get-doap-projects:
     runs-on: ubuntu-latest
     outputs:
@@ -142,9 +142,10 @@ jobs:
     #     password: ${{ secrets.GRAPHDB_PASSWORD }}
 
     - name: Upload the RDF to the triplestore
+      if: ${{ matrix.doap-file.node.object != null }}
       uses: MaastrichtU-IDS/RdfUpload@master
       with:
-        file: doap-rdf/*
+        file: doap-rdf/*.ttl
         endpoint: https://graphdb.dumontierlab.com/repositories/ids-projects/statements
         user: ${{ secrets.GRAPHDB_USER }}
         password: ${{ secrets.GRAPHDB_PASSWORD }}
