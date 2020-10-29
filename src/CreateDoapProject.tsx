@@ -72,6 +72,23 @@ export default function CreateDoapProject() {
   
   const handleSubmit  = (event: React.FormEvent) => {
     event.preventDefault();
+    let wiki_triple = ``
+    if (state.project_wiki) {
+      wiki_triple = `doap:wiki <${state.project_wiki}>`
+    }
+    let download_page_triple = ``
+    if (state.project_downloadpage) {
+      download_page_triple = `doap:download-page <${state.project_downloadpage}> ;`
+    }
+    let service_endpoint_triple = ``
+    if (state.project_service_endpoint) {
+      service_endpoint_triple = `doap:service-endpoint <${state.project_service_endpoint}> ;`
+    }
+    let mailinglist_triple = ``
+    if (state.project_mailinglist) {
+      mailinglist_triple = `doap:mailing-list <${state.project_mailinglist}> ;`
+    }
+
     let doap_content = `@prefix doap: <http://usefulinc.com/ns/doap#> .
 @prefix asf: <http://projects.apache.org/ns/asfext#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
@@ -85,11 +102,10 @@ export default function CreateDoapProject() {
   doap:license "` + state.project_license + `" ;
   doap:homepage <` + state.project_homepage + `> ;
   doap:bug-database <` + state.project_issues + `> ;
-  doap:mailing-list <` + state.project_mailinglist + `> ;
-  doap:download-page <` + state.project_downloadpage + `> ;
-  doap:wiki <` + state.project_wiki + `>
-  doap:service-endpoint <` + state.project_service_endpoint + `>
-
+  ${wiki_triple}
+  ${download_page_triple}
+  ${service_endpoint_triple}
+  ${mailinglist_triple}
   doap:category "` + state.category_dropdown + `" ;
   doap:repository [
     a doap:GitRepository ;
@@ -213,7 +229,7 @@ export default function CreateDoapProject() {
               multiple
               id="language_autocomplete"
               options={['Python', 'R', 'Java', 'JavaScript', 'TypeScript', 'PHP', 'Ruby', 'Perl', 'Julia', 'Scala', 'Go', 'Haskell', 'C', 'C#', 'C++', 'Objective-C', 'Cocoa', 'ActionScript', 'D', 'Delphi', 'Erlang', 'OCaml', 'Smalltalk', 'SVG', 'Tcl']}
-              onChange={(event, newInputValue) => {
+              onChange={(event, newInputValue: any) => {
                 setState({...state, 'language_autocomplete': newInputValue})
               }}
               // getOptionLabel={option => option.title}

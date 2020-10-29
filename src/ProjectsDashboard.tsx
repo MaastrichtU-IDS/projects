@@ -22,6 +22,7 @@ import {IQueryOptions, newEngineDynamicArged} from "@comunica/actor-init-sparql/
 
 // Import UM logo from assets
 import iconImage from '../assets/icon.png';
+import idsLogo from '../assets/ids_logo.png';
 import githubData from '../assets/ids_github_data.json';
 // import { ActionYoutubeSearchedFor } from 'material-ui/svg-icons';
 
@@ -136,10 +137,11 @@ export default function ProjectsDashboard() {
 
         // Typescript ridiculously requires to do a forEach to avoid its dumb warnings
         // Default Objects should accepts any fields by default.
-        for (let result of sparqlResultArray) {
+        // for (let result of sparqlResultArray) {
+        sparqlResultArray.map((result: any) =>  {
           language_pie.labels.push(result.programmingLanguage.value);
           language_pie.datasets[0].data.push(result.projectCount.value);
-        }
+        });
 
         console.log('TODO: State of language_pie after ComponentDidMount (got labels)');
         console.log(language_pie);
@@ -223,7 +225,8 @@ export default function ProjectsDashboard() {
     <Container className='mainContainer'>
       <Typography variant="h4" style={{textAlign: 'center'}}>
         {/* <img src={iconImage} style={{height: '1em', width: '1em', marginRight: '10px'}} alt="Logo" /> */}
-        Institute of Data Science
+        <img src={idsLogo} style={{maxWidth: '200px'}} alt="IDS Logo" />
+        {/* Institute of Data Science */}
       </Typography>
       {/* <div style={{textAlign: 'center'}}>
         <img src={iconImage} style={{height: '3em', width: '3em', marginRight: '10px'}} alt="Logo" />
