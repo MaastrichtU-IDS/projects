@@ -37,6 +37,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.API_GITHUB_TOKEN }}
       run: |-
         python get_github_data/get_doap_files.py
+        pwd
         ls doap-rdf
 
     # - name: Clear older graph in the triplestore
@@ -50,7 +51,7 @@ jobs:
     - name: Upload the RDF to the triplestore
       uses: MaastrichtU-IDS/RdfUpload@master
       with:
-        file: doap-rdf/*
+        file: doap-rdf/*.ttl
         endpoint: https://graphdb.dumontierlab.com/repositories/ids-projects/statements
         user: ${{ secrets.GRAPHDB_USER }}
         password: ${{ secrets.GRAPHDB_PASSWORD }}
