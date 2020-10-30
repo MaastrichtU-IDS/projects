@@ -57,9 +57,9 @@ jobs:
       with:
         name: rdf-output
 
-    - run: |
-        pwd
-        ls rdf-ouput
+    # - run: |
+    #     pwd
+    #     ls rdf-output
 
     # - name: Clear older graph in the triplestore
     #   uses: vemonet/sparql-operations-action@v1
