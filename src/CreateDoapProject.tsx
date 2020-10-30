@@ -9,6 +9,15 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles(theme => ({
+  link: {
+    color: theme.palette.primary.main,
+    textDecoration: 'none',
+    // color: 'inherit',
+    '&:hover': {
+      color: theme.palette.primary.light,
+      textDecoration: 'none',
+    },
+  },
   settingsForm: {
     width: '100%',
     // textAlign: 'center',
@@ -148,6 +157,12 @@ export default function CreateDoapProject() {
       <Typography variant="h4" style={{textAlign: 'center', marginBottom: '20px'}}>
         📝 Create a DOAP description for your project
       </Typography>
+
+      <Typography variant="body1" style={{textAlign: 'center', marginBottom: '20px'}}>
+        Fill the form, then download the description file (<code>doap-project.ttl</code>), and add the file to your project GitHub repository in the <a href="https://github.com/MaastrichtU-IDS" className={classes.link}>MaastrichtU-IDS organization</a>.
+        <br/>Your project will be automatically be added to the website tomorrow.
+      </Typography>
+
       
       <form onSubmit={handleSubmit}>
         <FormControl className={classes.settingsForm}>

@@ -52,7 +52,10 @@ docker-compose up
 
 ## Get data from GitHub GraphQL API
 
-A Python script runs everyday at 03:00am and 13:00pm via GitHub Actions, and automatically updates the file [`assets/ids_github_data.json`](https://github.com/MaastrichtU-IDS/ids-projects-website/blob/main/assets/ids_github_data.json) on the `main` branch. This JSON file is then used to display informations on the IDS projects website, such as the latest releases of the MaastrichtU-IDS organization on GitHub.
+A workflow runs everyday via GitHub Actions at 03:00am and 13:00pm to:
+
+* Update the file [`assets/ids_github_data.json`](https://github.com/MaastrichtU-IDS/ids-projects-website/blob/main/assets/ids_github_data.json) on the `main` branch using a Python script. This JSON file is then used to display informations on the IDS projects website, such as the latest releases of the MaastrichtU-IDS organization on GitHub.
+* Retrieve DOAP files (`doap-project.ttl` in RDF turtle) from MaastrichtU-IDS GitHub repositories using a Python script, then load their RDF data to the SPARQL endpoint https://graphdb.dumontierlab.com/repositories/ids-projects/statements in the graph https://w3id.org/umids/graph/projects
 
 > Checkout the [`get-github-data.yml` workflow file](https://github.com/MaastrichtU-IDS/ids-projects-website/blob/main/.github/workflows/get-github-data.yml) to see how to run the Python script to retrieve data from the GitHub GraphQL API.
 
