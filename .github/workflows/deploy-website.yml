@@ -20,7 +20,7 @@ jobs:
 
   deploy:
     needs: test-build
-    runs-on: [self-hosted, linux, X64, staging, node2]
+    runs-on: [self-hosted, linux, X64, node2]
     #runs-on: ubuntu-latest
 
     steps:
