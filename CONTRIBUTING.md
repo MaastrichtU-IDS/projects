@@ -1,10 +1,27 @@
 # Contributing
 
-When contributing to this repository, please first discuss the change you wish to make via an [issue](https://github.com/MaastrichtU-IDS/ids-projects-website/issues).
+When contributing to this repository, please first discuss the change you wish to make via an [issue](https://github.com/MaastrichtU-IDS/ids-projects-website/issues) if applicable.
 
-## Development process
+If you are part of the [MaastrichtU-IDS organization on GitHub](https://github.com/MaastrichtU-IDS) you can directly create a branch in this repository. Otherwise you will need to first [fork this repository](https://github.com/MaastrichtU-IDS/ids-projects-website/fork).
 
-See how to run the API in development at https://github.com/MaastrichtU-IDS/ids-projects-website
+To contribute:
+
+1. Clone the repository
+
+```bash
+git clone https://github.com/MaastrichtU-IDS/ids-projects-website.git
+cd ids-projects-website
+```
+
+2. Create a new branch from the `main` branch and add your changes to this branch.
+
+```bash
+git checkout -b my-branch
+```
+
+3. See how to run the API in development at https://github.com/MaastrichtU-IDS/ids-projects-website
+4. Add your change in this branch.
+5. Send a pull request to the `main` branch when your changes are done
 
 ## Pull Request process
 
