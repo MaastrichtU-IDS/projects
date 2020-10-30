@@ -11,20 +11,20 @@ on:
     #     default: 'warning'
 
 jobs:
-  test-build:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: docker build -t ids-projects-website .
+  # test-build:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - name: Build the Docker image
+  #     run: docker build -t ids-projects-website .
 
   deploy:
-    needs: test-build
+    # needs: test-build
     runs-on: [self-hosted, linux, X64, node2]
     #runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
     
-    - name: Run docker-compose up
+    - name: Deploy website using docker-compose up
       run: docker-compose up --build -d
