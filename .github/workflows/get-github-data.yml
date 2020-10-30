@@ -57,6 +57,10 @@ jobs:
       with:
         name: rdf-output
 
+    - run: |
+        pwd
+        ls rdf-ouput
+
     # - name: Clear older graph in the triplestore
     #   uses: vemonet/sparql-operations-action@v1
     #   with:
@@ -68,6 +72,7 @@ jobs:
     - name: Upload the RDF to the triplestore
       uses: MaastrichtU-IDS/RdfUpload@master
       with:
+        # Wildcard does not work
         file: rdf-output/
         endpoint: https://graphdb.dumontierlab.com/repositories/ids-projects/statements
         user: ${{ secrets.GRAPHDB_USER }}

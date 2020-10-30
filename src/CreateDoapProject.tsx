@@ -76,7 +76,7 @@ export default function CreateDoapProject() {
     const project_uri = `https://w3id.org/umids/project/` + encodeURI(state.project_name.toLowerCase().trim().replaceAll(' ', '-'))
     let wiki_triple = ``
     if (state.project_wiki) {
-      wiki_triple = `doap:wiki <${state.project_wiki}>`
+      wiki_triple = `doap:wiki <${state.project_wiki}> ;`
     }
     let download_page_triple = ``
     if (state.project_downloadpage) {
