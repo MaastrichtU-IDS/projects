@@ -20,17 +20,18 @@ git checkout -b my-branch
 ```
 
 3. See how to run the API in development at https://github.com/MaastrichtU-IDS/ids-projects-website
+
+```bash
+yarn install
+yarn web
+```
+
 4. Add your change in this branch.
 5. Send a pull request to the `main` branch when your changes are done
 
 ## Pull Request process
 
-1. Before sending a pull request make sure the project still work as expected with the new changes properly integrated:
-```
-cd website
-yarn install
-yarn start
-```
+1. Before sending a pull request make sure the project still work as expected with the new changes properly integrated.
 2. [Send a pull request](https://github.com/MaastrichtU-IDS/ids-projects-website/compare) to the `main` branch.
 3. Project contributors will review your change as soon as they can!
 
