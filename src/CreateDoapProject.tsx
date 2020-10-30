@@ -230,7 +230,7 @@ export default function CreateDoapProject() {
             <Autocomplete
               multiple
               id="language_autocomplete"
-              options={['Python', 'R', 'Java', 'JavaScript', 'TypeScript', 'PHP', 'Ruby', 'Perl', 'Julia', 'Scala', 'Go', 'Haskell', 'C', 'C#', 'C++', 'Objective-C', 'Cocoa', 'ActionScript', 'D', 'Delphi', 'Erlang', 'OCaml', 'Smalltalk', 'SVG', 'Tcl']}
+              options={['Python', 'R', 'Java', 'JavaScript', 'TypeScript', 'React', 'Angular', 'VueJS', 'PHP', 'Drupal', 'Symfony', 'Ruby', 'Perl', 'Julia', 'Kubernetes', 'Scala', 'Go', 'Haskell', 'C', 'C#', 'C++', 'Objective-C', 'Cocoa', 'ActionScript', 'D', 'Delphi', 'Erlang', 'OCaml', 'Smalltalk', 'SVG', 'Tcl']}
               onChange={(event, newInputValue: any) => {
                 setState({...state, 'language_autocomplete': newInputValue})
               }}
