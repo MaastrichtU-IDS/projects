@@ -107,7 +107,7 @@ export default function CreateDoapProject() {
 <${project_uri}>
   a doap:Project ;
   doap:name "` + state.project_name + `" ;
-  doap:description "` + state.project_description + `" ;
+  doap:description '''` + state.project_description + `''' ;
 
   doap:programming-language "` + state.language_autocomplete.join('", "') + `" ;
   doap:license <` + state.project_license + `> ;

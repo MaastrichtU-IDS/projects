@@ -61,9 +61,9 @@ export default function NavBar() {
             <MenuBookIcon />
           </Button>
         </Tooltip>
-        <Tooltip title='Go to https://github.com/MaastrichtU-IDS'>
+        <Tooltip title='Go to https://github.com/MaastrichtU-IDS/ids-projects-website'>
           <Button className={classes.menuButton} target="_blank"
-          href="https://github.com/MaastrichtU-IDS">
+          href="https://github.com/MaastrichtU-IDS/ids-projects-website">
             <GitHubIcon />
           </Button>
         </Tooltip>
