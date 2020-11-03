@@ -1,25 +1,25 @@
 {
   "files": {
-    "app.js": "/ids-projects-website/static/js/app.d4ecac6b.chunk.js",
-    "app.js.map": "/ids-projects-website/static/js/app.d4ecac6b.chunk.js.map",
-    "runtime~app.js": "/ids-projects-website/static/js/runtime~app.1dd66514.js",
-    "runtime~app.js.map": "/ids-projects-website/static/js/runtime~app.1dd66514.js.map",
-    "static/js/2.a0d990f3.chunk.js": "/ids-projects-website/static/js/2.a0d990f3.chunk.js",
-    "static/js/2.a0d990f3.chunk.js.map": "/ids-projects-website/static/js/2.a0d990f3.chunk.js.map",
-    "fonts/MaterialCommunityIcons.ttf": "/ids-projects-website/./fonts/MaterialCommunityIcons.ttf",
-    "favicon-16.png": "/ids-projects-website/favicon-16.png",
-    "favicon-32.png": "/ids-projects-website/favicon-32.png",
-    "favicon.ico": "/ids-projects-website/favicon.ico",
-    "index.html": "/ids-projects-website/index.html",
-    "manifest.json": "/ids-projects-website/manifest.json",
-    "serve.json": "/ids-projects-website/serve.json",
-    "static/js/2.a0d990f3.chunk.js.LICENSE.txt": "/ids-projects-website/static/js/2.a0d990f3.chunk.js.LICENSE.txt",
-    "static/media/icon.png": "/ids-projects-website/static/media/icon.72626586.png",
-    "static/media/ids_logo.png": "/ids-projects-website/static/media/ids_logo.7cae7f31.png"
+    "app.js": "/projects/static/js/app.408fd45c.chunk.js",
+    "app.js.map": "/projects/static/js/app.408fd45c.chunk.js.map",
+    "runtime~app.js": "/projects/static/js/runtime~app.757d5589.js",
+    "runtime~app.js.map": "/projects/static/js/runtime~app.757d5589.js.map",
+    "static/js/2.253272ad.chunk.js": "/projects/static/js/2.253272ad.chunk.js",
+    "static/js/2.253272ad.chunk.js.map": "/projects/static/js/2.253272ad.chunk.js.map",
+    "fonts/MaterialCommunityIcons.ttf": "/projects/./fonts/MaterialCommunityIcons.ttf",
+    "favicon-16.png": "/projects/favicon-16.png",
+    "favicon-32.png": "/projects/favicon-32.png",
+    "favicon.ico": "/projects/favicon.ico",
+    "index.html": "/projects/index.html",
+    "manifest.json": "/projects/manifest.json",
+    "serve.json": "/projects/serve.json",
+    "static/js/2.253272ad.chunk.js.LICENSE.txt": "/projects/static/js/2.253272ad.chunk.js.LICENSE.txt",
+    "static/media/icon.png": "/projects/static/media/icon.72626586.png",
+    "static/media/ids_logo.png": "/projects/static/media/ids_logo.7cae7f31.png"
   },
   "entrypoints": [
-    "static/js/runtime~app.1dd66514.js",
-    "static/js/2.a0d990f3.chunk.js",
-    "static/js/app.d4ecac6b.chunk.js"
+    "static/js/runtime~app.757d5589.js",
+    "static/js/2.253272ad.chunk.js",
+    "static/js/app.408fd45c.chunk.js"
   ]
 }
