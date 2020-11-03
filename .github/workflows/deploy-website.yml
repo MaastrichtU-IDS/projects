@@ -1,5 +1,4 @@
 name: Deploy IDS projects website
-
 on:
   push:
     branches: [ main ]

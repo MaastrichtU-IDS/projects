@@ -40,7 +40,7 @@
     "eject": "expo eject",
     "build": "expo build:web",
     "serve": "serve -s web-build",
-    "start": "npm run build && npm run serve "
+    "start": "npm run build && npm run serve"
   },
   "private": true
 }
