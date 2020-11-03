@@ -45,5 +45,6 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d web-build"
   },
+  "homepage": "https://maastrichtu-ids.github.io/ids-projects-website",
   "private": true
 }
