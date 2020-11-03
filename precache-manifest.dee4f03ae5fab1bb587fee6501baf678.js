@@ -1,7 +1,7 @@
 self.__precacheManifest = [
   {
-    "revision": "fc1d39da1ef741873495",
-    "url": "/ids-projects-website/static/js/app.12ecff76.chunk.js"
+    "revision": "c40f0f5cb62ac3b5a02b",
+    "url": "/ids-projects-website/static/js/app.57d5dbec.chunk.js"
   },
   {
     "revision": "580806012778d97a75b4",
@@ -24,7 +24,7 @@ self.__precacheManifest = [
     "url": "/ids-projects-website/./fonts/MaterialCommunityIcons.ttf"
   },
   {
-    "revision": "a34f6a21f718722e6e03927178a38fe9",
+    "revision": "f8a5e95fbeda4138e7ccdbf0207015e0",
     "url": "/ids-projects-website/index.html"
   },
   {
