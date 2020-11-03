@@ -30,7 +30,7 @@ const theme = createMuiTheme({
 
 const App = () => (
   <MuiThemeProvider theme={theme}>
-    <Router basename="/ids-projects-website/">
+    <Router basename="/projects/">
       <View style={{height: '100%', backgroundColor: '#eceff1'}}>
         <NavBar />
 
