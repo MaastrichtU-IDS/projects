@@ -158,9 +158,11 @@ export default function CreateDoapProject() {
         📝 Create a DOAP description for your project
       </Typography>
 
-      <Typography variant="body1" style={{textAlign: 'center', marginBottom: '20px'}}>
-        Fill the form, then download the description file (<code>doap-project.ttl</code>), and add the file to your project GitHub repository in the <a href="https://github.com/MaastrichtU-IDS" className={classes.link}>MaastrichtU-IDS organization</a>.
-        <br/>Your project will be automatically be added to the website tomorrow.
+      <Typography variant="body1" style={{textAlign: 'left', marginLeft: '30px', marginBottom: '20px'}}>
+        1. Fill the form
+        <br/>2. Download the description file (<code>doap-project.ttl</code>)
+        <br/>3. add the file to your project GitHub repository in the <a href="https://github.com/MaastrichtU-IDS" className={classes.link}>MaastrichtU-IDS organization</a>.
+        <br/>Your project will be automatically be added to the website tomorrow 📊
       </Typography>
 
       
@@ -426,6 +428,10 @@ export default function CreateDoapProject() {
               // defaultValue={triplestore.search_query}
             />
           </Paper>
+
+          <Typography variant="body1" style={{textAlign: 'center', marginBottom: '20px'}}>
+            Feel free to manually add more <a href="https://vemonet.github.io/doap/class-doapproject.html" className={classes.link} target="_blank">DOAP project properties</a> or contributors after downloading the turtle file.
+          </Typography>
 
           <div style={{width: '100%', textAlign: 'center'}}>
             <Button type="submit" 
