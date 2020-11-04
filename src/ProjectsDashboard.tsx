@@ -312,14 +312,19 @@ export default function ProjectsDashboard() {
             {project.programmingLanguage.map((language: string, key: number) => {
               return <Chip label={language} color='primary' style={{marginRight: '5px'}} key={key.toString()}/>
             })}
+            {project.category && ( 
+              <Chip label={project.category} color='secondary' style={{marginRight: '5px'}}/>
+            )}
           </Typography>
           <Typography style={{marginBottom: '10px', marginTop: '5px'}}>
             {project.description}
           </Typography>
-          {project.category && ( 
-            <Typography style={{marginBottom: '10px'}}>
-              Category: {project.category}
-            </Typography>
+          {project.gitUrl && ( 
+            <div>
+              <a href={project.gitUrl} key={project.gitUrl} >
+                <img src={'https://gh-card.dev/repos/' + project.gitUrl.replace('https://github.com/', '') + '.svg?fullname'} alt={project.gitUrl} key={'img' + project.gitUrl}/>
+              </a>
+            </div>
           )}
           {project.gitUrl && ( 
             <Tooltip title='Git repository'>
@@ -369,7 +374,7 @@ export default function ProjectsDashboard() {
 
 const getProjectsQuery = `PREFIX doap: <http://usefulinc.com/ns/doap#>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-select * where { 
+select distinct * where { 
     ?project a doap:Project ;
         doap:name ?name ;
         doap:description ?description ;
@@ -377,7 +382,7 @@ select * where {
     OPTIONAL {
         ?project doap:repository [
             a doap:GitRepository ;
-            doap:browse ?gitUrl
+            doap:location ?gitUrl
           ] .
     }
     OPTIONAL {
