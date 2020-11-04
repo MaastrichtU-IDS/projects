@@ -1,10 +1,14 @@
-[![Get data from GitHub GraphQL API](https://github.com/MaastrichtU-IDS/projects/workflows/Get%20data%20from%20GitHub%20GraphQL%20API/badge.svg)](https://github.com/MaastrichtU-IDS/projects/actions?query=workflow%3A%22Get+data+from+GitHub+GraphQL+API%22) [![Build Docker Image](https://github.com/MaastrichtU-IDS/projects/workflows/Build%20Docker%20Image/badge.svg)](https://github.com/MaastrichtU-IDS/projects/actions?query=workflow%3A%22Build+Docker+Image%22) [![CodeQL analysis](https://github.com/MaastrichtU-IDS/projects/workflows/CodeQL%20analysis/badge.svg)](https://github.com/MaastrichtU-IDS/projects/actions?query=workflow%3A%22CodeQL+analysis%22) [![Deploy to GitHub Pages](https://github.com/MaastrichtU-IDS/projects/workflows/Deploy%20to%20GitHub%20Pages/badge.svg)](https://github.com/MaastrichtU-IDS/projects/actions?query=workflow%3A%22Deploy+to+GitHub+Pages%22)
+[![Get data from GitHub GraphQL API](https://github.com/MaastrichtU-IDS/projects/workflows/Get%20data%20from%20GitHub%20GraphQL%20API/badge.svg)](https://github.com/MaastrichtU-IDS/projects/actions?query=workflow%3A%22Get+data+from+GitHub+GraphQL+API%22) [![Deploy to GitHub Pages](https://github.com/MaastrichtU-IDS/projects/workflows/Deploy%20to%20GitHub%20Pages/badge.svg)](https://github.com/MaastrichtU-IDS/projects/actions?query=workflow%3A%22Deploy+to+GitHub+Pages%22) [![CodeQL analysis](https://github.com/MaastrichtU-IDS/projects/workflows/CodeQL%20analysis/badge.svg)](https://github.com/MaastrichtU-IDS/projects/actions?query=workflow%3A%22CodeQL+analysis%22)
 
 Website for projects at the [Institute of Data Science](http://maastrichtuniversity.nl/ids/) at Maastricht University.
 
-Requirements:  [npm](https://www.npmjs.com/get-npm) and [yarn](https://classic.yarnpkg.com/en/docs/install/#debian-stable) installed.
+This website allow to browse IDS projects and show the latest releases at IDS. Informations about the projects and releases are retrieved from their GitHub repository in the MaastrichtU-IDS organization using a GitHub Actions workflow.
+
+The website is automatically deployed by a [GitHub Actions worklow](https://github.com/MaastrichtU-IDS/projects/actions?query=workflow%3A%22Deploy+to+GitHub+Pages%22) to GitHub Pages at https://maastrichtu-ids.github.io/projects
 
 ### Run in development :construction:
+
+Requirements:  [npm](https://www.npmjs.com/get-npm) and [yarn](https://classic.yarnpkg.com/en/docs/install/#debian-stable) installed.
 
 Clone the repository:
 
@@ -19,7 +23,7 @@ Install dependencies :inbox_tray:
 yarn
 ```
 
-Run on http://localhost:19006
+Web app will run on http://localhost:19006
 
 ```bash
 yarn web
@@ -27,13 +31,15 @@ yarn web
 
 > The website should reload automatically at each changes to the code :arrows_clockwise:
 
-Upgrade the packages in `yarn.lock`
+Upgrade the packages versions in `yarn.lock`
 
 ```bash
 yarn upgrade
 ```
 
 ### Run in production :rocket:
+
+> This website is automatically deployed by a [GitHub Actions worklow](https://github.com/MaastrichtU-IDS/projects/actions?query=workflow%3A%22Deploy+to+GitHub+Pages%22) to GitHub Pages at https://maastrichtu-ids.github.io/projects
 
 You can build locally in `/web-build` folder and serve on [http://localhost:5000 :package:](http://localhost:5000)
 
@@ -86,13 +92,3 @@ python3 get_github_data/query_graphql.py
 ## Contribute
 
 Contributions are welcome! See the [guidelines to contribute 👨‍💻](/CONTRIBUTING.md).
-
-### Deploy to Netlify
-
-When you visit pages other than the root (ex: `coolproject.netlify.com/about`), Netlify won't know how to redirect the route. To fix it, create a `web/_redirects` file to redirect all routes to the `index.html` with this content:
-
-```
-/*    /index.html   200
-```
-
-> Creating files in the `web/` folder will copy them to the build folder (`web-build/`). Think of this like `public/` in React projects.
