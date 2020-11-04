@@ -13,7 +13,7 @@ import GavelIcon from '@material-ui/icons/Gavel';
 import BugReportIcon from '@material-ui/icons/BugReport';
 import SearchIcon from '@material-ui/icons/Search';
 import axios from 'axios';
-import { Doughnut, Pie } from 'react-chartjs-2';
+import { Doughnut, Pie, Bar, HorizontalBar } from 'react-chartjs-2';
 import 'chartjs-plugin-labels';
 
 import {newEngine} from '@comunica/actor-init-sparql';
@@ -125,9 +125,10 @@ export default function ProjectsDashboard() {
     let language_pie = {
       labels: [],
       datasets: [{
+        label: 'Number of projects using the programming languages',
         data: [],
-        backgroundColor: ['#4caf50','#FF6384', '#36A2EB', '#FFCE56'],
-        hoverBackgroundColor: ['#4caf50','#FF6384','#36A2EB','#FFCE56']
+        backgroundColor: ['#4caf50','#FF6384', '#36A2EB', '#FFCE56', '#0277bd', '#ef6c00']
+        // hoverBackgroundColor: ['#4caf50','#FF6384','#36A2EB','#FFCE56', '#0277bd', '#ef6c00']
       }]
     }
     axios.get(endpointToQuery + `?query=` + encodeURIComponent(countLanguagesQuery))
@@ -161,8 +162,11 @@ export default function ProjectsDashboard() {
         labels: [],
         datasets: [{
           data: [],
-          backgroundColor: ['#4caf50','#FF6384', '#36A2EB', '#FFCE56'],
-          hoverBackgroundColor: ['#4caf50','#FF6384','#36A2EB','#FFCE56']
+          label: 'Number of projects per categories',
+          backgroundColor: ['#4caf50','#FF6384', '#36A2EB', '#FFCE56', '#0277bd', '#ef6c00'],
+          // borderColor: ['#4caf50','#FF6384', '#36A2EB', '#FFCE56'],
+          // hoverBackgroundColor: ['#4caf50','#FF6384','#36A2EB', '#FFCE56'],
+          // hoverBorderColor: ['#4caf50','#FF6384','#36A2EB', '#FFCE56']
         }]
       }
       axios.get(endpointToQuery + `?query=` + encodeURIComponent(countCategoryQuery))
@@ -268,18 +272,19 @@ export default function ProjectsDashboard() {
       <Typography variant="h6" style={{marginBottom: '1em', marginTop: '1em'}}>
         🗂️ Projects
       </Typography>
-      {/* Pie charts */}
+      {/* Pie charts https://github.com/jerairrest/react-chartjs-2 */}
       <Grid container spacing={3} style={{textAlign: 'center'}}>
         <Grid item xs={6}>
           <Paper>
             <Typography variant="h6">Categories</Typography>
-            <Doughnut data={state.category_pie} options={pie_options}/>
+            <Bar data={state.category_pie} options={pie_options}/>
           </Paper>
         </Grid>
         <Grid item xs={6}>
           <Paper>
             <Typography variant="h6">Programming languages</Typography>
-            <Pie data={state.language_pie} options={pie_options}/>
+            <HorizontalBar data={state.language_pie} options={pie_options}/>
+            {/* <Pie data={state.language_pie} options={pie_options}/> */}
           </Paper>
         </Grid>
       </Grid>
@@ -422,32 +427,44 @@ select ?category (count(?project) as ?projectCount) where {
              doap:category ?category .
 } GROUP BY ?category`
 
-const pie_data = {
-  labels: [
-    'Python',
-    'PHP',
-    'Java'
-  ],
-  datasets: [{
-    data: [4, 1, 2],
-    backgroundColor: ['#4caf50','#FF6384', '#36A2EB', '#FFCE56'],
-    hoverBackgroundColor: ['#4caf50','#FF6384','#36A2EB','#FFCE56']
-  }]
-};
+// const pie_data = {
+//   labels: [
+//     'Python',
+//     'PHP',
+//     'Java'
+//   ],
+//   datasets: [{
+//     data: [4, 1, 2],
+//     backgroundColor: ['#4caf50','#FF6384', '#36A2EB', '#FFCE56'],
+//     hoverBackgroundColor: ['#4caf50','#FF6384','#36A2EB','#FFCE56']
+//   }]
+// };
 
 const pie_options = {
+  scales: {
+    yAxes: [{
+      ticks: {
+        beginAtZero: true
+      }
+    }],
+    xAxes: [{
+      ticks: {
+        beginAtZero: true
+      }
+    }]
+  },
   // legend: {
   //   display: false
   // },
+  // maintainAspectRatio: false,
   plugins: {
     labels: {
       // render 'label', 'value', 'percentage', 'image' or custom function, default is 'percentage'
-      // render: 'label',
+      render: 'value',
       // fontSize: 12,
 
       // font color, can be color array for each data or function for dynamic color, default is defaultFontColor
-      fontColor: '#fff',
-
+      // fontColor: '#fff',
       // // draw text shadows under labels, default is false
       // textShadow: true,
       // text shadow intensity, default is 6
