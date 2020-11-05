@@ -159,7 +159,9 @@ export default function CreateDoapProject() {
       </Typography>
 
       <Typography variant="body1" style={{textAlign: 'left', marginLeft: '30px', marginBottom: '20px'}}>
-        1. Fill the form
+        You can find more details about why and how we use DOAP projects descriptions at IDS <a href="https://maastrichtu-ids.github.io/best-practices/docs/create-doap" className={classes.link}>here</a>. 
+        Follow those instructions to register a project as an IDS project:
+        <br/>1. Fill the form
         <br/>2. Download the description file (<code>doap-project.ttl</code>)
         <br/>3. add the file to your project GitHub repository in the <a href="https://github.com/MaastrichtU-IDS" className={classes.link}>MaastrichtU-IDS organization</a>.
         <br/>Your project will be automatically be added to the website tomorrow 📊
