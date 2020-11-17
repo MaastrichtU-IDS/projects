@@ -68,6 +68,7 @@ export default function CreateDoapProject() {
     project_git_repository: '',
     project_name: '',
     project_description: '',
+    project_status: '',
     project_homepage: '',
     project_issues: '',
     project_mailinglist: '',
@@ -103,11 +104,13 @@ export default function CreateDoapProject() {
     let doap_content = `@prefix doap: <http://usefulinc.com/ns/doap#> .
 @prefix asf: <http://projects.apache.org/ns/asfext#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix bibo: <http://purl.org/ontology/bibo/> .
 
 <${project_uri}>
   a doap:Project ;
   doap:name "` + state.project_name + `" ;
   doap:description '''` + state.project_description + `''' ;
+  bibo:status "` + state.project_status + `" ;
 
   doap:programming-language "` + state.language_autocomplete.join('", "') + `" ;
   doap:license <` + state.project_license + `> ;
@@ -151,6 +154,9 @@ export default function CreateDoapProject() {
   const handleCategoryDropdown = (event: React.ChangeEvent<HTMLInputElement>) => {
     setState({...state, category_dropdown: event.target.value})
   }
+  const handleStatusDropdown = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setState({...state, project_status: event.target.value})
+  }
 
   return(
     <Container className='mainContainer'>
@@ -162,9 +168,10 @@ export default function CreateDoapProject() {
         You can find more details about why and how we use DOAP projects descriptions at IDS <a href="https://maastrichtu-ids.github.io/best-practices/docs/create-doap" className={classes.link}>here</a>. 
         Follow those instructions to register a project as an IDS project:
         <br/>1. Fill the form
-        <br/>2. Download the description file <code>doap-project.ttl</code>
-        <br/>3. add the file to your project GitHub repository in the <a href="https://github.com/MaastrichtU-IDS" className={classes.link}>MaastrichtU-IDS organization</a>.
+        <br/>2. Download the description file <code>doap-project.ttl</code> by clicking on the green button at the bottom of the page after filling the form.
+        <br/>3. Add the file to your project GitHub repository.
         <br/>Your project will be automatically be added to the website tomorrow 📊
+        <br/>N.B. your project needs to be in <a href="https://github.com/MaastrichtU-IDS" className={classes.link}>MaastrichtU-IDS organization</a> to be retrieved automatically, <a href="https://github.com/MaastrichtU-IDS/projects/issues" className={classes.link}>create an issue</a> if it is hosted under a different name.
       </Typography>
 
       
@@ -193,6 +200,24 @@ export default function CreateDoapProject() {
               </Select>
             </FormControl>
             <FormHelperText id="helper-graphs-overview">Is your project for <b>research</b>, <b>education</b>, or <b>development</b> of a tool?</FormHelperText>
+
+            <FormControl size='small' variant="outlined" className={classes.fullWidth}>
+              <InputLabel id="form-graph-overview-label">
+                ✔️ Status of the project *
+              </InputLabel>
+              <Select
+                id="project_status"
+                // value={state.category_dropdown}
+                onChange={handleStatusDropdown}
+                label="✔️ Status of the project *"
+                autoWidth
+              >
+                {/* <MenuItem value="Work in Progress">🚧 Work in Progress</MenuItem> */}
+                <MenuItem value="Active">🚀 Active</MenuItem>
+                <MenuItem value="Inactive">🗑️ Inactive</MenuItem>
+              </Select>
+            </FormControl>
+            <FormHelperText id="helper-status">Is your project a <b>work in progress</b>, <b>active</b>, or <b>inactive</b> of a tool?</FormHelperText>
 
             <TextField
               id="project_name"
@@ -442,7 +467,7 @@ export default function CreateDoapProject() {
               className={classes.saveButton} 
               startIcon={<GetAppIcon />}
               color="secondary" >
-                Download DOAP description
+                Download DOAP description file
             </Button>
           </div>
 
