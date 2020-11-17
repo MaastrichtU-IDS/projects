@@ -321,6 +321,9 @@ export default function ProjectsDashboard() {
             {project.category && ( 
               <Chip label={project.category} color='secondary' style={{marginRight: '5px'}}/>
             )}
+            {project.status && ( 
+              <Chip label={project.status} color='default' style={{marginRight: '5px'}}/>
+            )}
           </Typography>
           <Typography style={{marginBottom: '10px', marginTop: '5px'}}>
             {project.description}
@@ -380,6 +383,8 @@ export default function ProjectsDashboard() {
 
 const getProjectsQuery = `PREFIX doap: <http://usefulinc.com/ns/doap#>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX bibo: <http://purl.org/ontology/bibo/>
+
 select distinct * where { 
     ?project a doap:Project ;
         doap:name ?name ;
@@ -396,6 +401,9 @@ select distinct * where {
     }
     OPTIONAL {
         ?project doap:category ?category .
+    }
+    OPTIONAL {
+        ?project bibo:status ?status .
     }
     OPTIONAL {
         ?project doap:created ?created .
