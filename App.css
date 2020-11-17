@@ -8,6 +8,15 @@
   margin-top: 30px;
   margin-bottom: 20px;
 }
+
+pre, code {
+  font-family: monospace, monospace;
+  border-radius: 6px;
+  padding: 2px;
+  color: white;
+  background-color: #455a64;
+  /* background-color: #1976d2; */
+}
   
 /* @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 body {

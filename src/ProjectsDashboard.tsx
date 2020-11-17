@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Container, Button, Chip, Tooltip, Grid, Paper } from "@material-ui/core";
+import { Typography, Container, Button, Chip, Tooltip, Grid, Paper, Box } from "@material-ui/core";
 import { IconButton, InputBase } from "@material-ui/core";
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -213,7 +213,7 @@ export default function ProjectsDashboard() {
   const searchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setState({...state, search: event.target.value})
   }
-
+  
   const filteredProjects = state.projects_list.filter( (project: any) =>{
     if (project.name) {
       return (project.name.toLowerCase().indexOf( state.search.toLowerCase() ) !== -1 
@@ -290,18 +290,19 @@ export default function ProjectsDashboard() {
       </Grid>
     
       {/* Search box */}
-      <Paper component="form" className={classes.paperSearch}
-        style={{marginTop: '20px' }}
-      >
-        <InputBase  // https://material-ui.com/api/input-base/
-          className={classes.searchInput} inputProps={{ 'aria-label': 'search' }}
-          placeholder={"Search projects"}
-          onChange={searchChange}
-        />
-        <IconButton aria-label="search">
-          <SearchIcon />
-        </IconButton>
-      </Paper>
+      <Box display="flex" style={{marginTop: '20px' }}>
+        <Paper component="form" className={classes.paperSearch}>
+          <InputBase  // https://material-ui.com/api/input-base/
+            className={classes.searchInput} inputProps={{ 'aria-label': 'search' }}
+            placeholder={"Search projects"}
+            onChange={searchChange}
+          />
+          <IconButton aria-label="search">
+            <SearchIcon />
+          </IconButton>
+        </Paper>
+        <Typography style={{marginTop: '10px', marginLeft: '20px' }}>{filteredProjects.length} projects</Typography>
+      </Box>
       
       {/* Iterate over projects */}
       {/* TODO: Changing key here at some pointbroke the search, 
