@@ -3,6 +3,9 @@ import json
 import pathlib
 import os
 
+
+## DEPRECATED, now included in get_doap_files.py
+
 root = pathlib.Path(__file__).parent.resolve()
 client = GraphqlClient(endpoint="https://api.github.com/graphql")
 
