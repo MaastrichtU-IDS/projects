@@ -6,6 +6,10 @@ This website allow to browse IDS projects and show the latest releases at IDS. I
 
 The website is automatically deployed by a [GitHub Actions worklow](https://github.com/MaastrichtU-IDS/projects/actions?query=workflow%3A%22Deploy+to+GitHub+Pages%22) to GitHub Pages at https://maastrichtu-ids.github.io/projects
 
+## Add an external GitHub repository
+
+GitHub repositories not published under the MaastrichtU-IDS organization can be added here: https://github.com/MaastrichtU-IDS/projects/blob/main/EXTERNAL_REPOSITORIES.txt
+
 ### Run in development :construction:
 
 Requirements:  [npm](https://www.npmjs.com/get-npm) and [yarn](https://classic.yarnpkg.com/en/docs/install/#debian-stable) installed.
@@ -84,7 +88,7 @@ pip3 install -r get_github_data/requirements.txt
 Run script:
 
 ```bash
-python3 get_github_data/query_graphql.py
+python3 get_github_data/get_doap_files.py
 ```
 
 > Try out the GitHub GraphQL API [here](https://developer.github.com/v4/explorer/).
