@@ -5,6 +5,8 @@ import os
 
 
 ## DEPRECATED, now included in get_doap_files.py
+# But then the releases are only retrieved for DOAP projects
+# This script will get all releases in the IDS organization even if no DOAP
 
 root = pathlib.Path(__file__).parent.resolve()
 client = GraphqlClient(endpoint="https://api.github.com/graphql")

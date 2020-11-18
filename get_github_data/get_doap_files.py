@@ -152,6 +152,8 @@ def get_extra_graphql_query(repo):
             }
         }
     }
+    }
+  }
   '''
 
 def fetch_extra_doap_files(oauth_token):
