@@ -3,12 +3,15 @@ import json
 import pathlib
 import os
 
-EXTRA_DOAP_REPOSITORIES = ['carlosug/IDS-RDM-202019-FSFDAWR']
-
 def main():
+    external_doap_repositories = []
+    with open(root / '../EXTERNAL_REPOSITORIES.txt', 'r') as f:
+        for line in f:
+            external_doap_repositories.append(line)
+
     fetch_doap_files(TOKEN)
 
-    fetch_extra_doap_files(TOKEN)
+    fetch_extra_doap_files(TOKEN, external_doap_repositories)
 
     releases.sort(key=lambda r: r["published_at"], reverse=True)
 
@@ -156,10 +159,10 @@ def get_extra_graphql_query(repo):
   }
   '''
 
-def fetch_extra_doap_files(oauth_token):
+def fetch_extra_doap_files(oauth_token, external_doap_repositories):
   """Fetch additional Shapes files from a list of GitHub repos
   """
-  for extra_repo in EXTRA_DOAP_REPOSITORIES:
+  for extra_repo in external_doap_repositories:
     data = client.execute(
         query=get_extra_graphql_query(extra_repo),
         headers={"Authorization": "Bearer {}".format(oauth_token)},
