@@ -1,7 +1,7 @@
 self.__precacheManifest = [
   {
-    "revision": "38e6512794f18c9d1cee",
-    "url": "/projects/static/js/app.0d1de015.chunk.js"
+    "revision": "d1416f63a9ad941461c4",
+    "url": "/projects/static/js/app.16f27c2e.chunk.js"
   },
   {
     "revision": "603dcdd999eee7e2d1a0",
@@ -24,7 +24,7 @@ self.__precacheManifest = [
     "url": "/projects/./fonts/MaterialCommunityIcons.ttf"
   },
   {
-    "revision": "05f702d3f33026df77e7aeab181d91c2",
+    "revision": "cb7b30917925323e91ee247b1741d3f5",
     "url": "/projects/index.html"
   },
   {
