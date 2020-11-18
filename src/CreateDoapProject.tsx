@@ -84,6 +84,10 @@ export default function CreateDoapProject() {
     event.preventDefault();
     // Generate the project URI based on its name:
     const project_uri = `https://w3id.org/umids/project/` + encodeURI(state.project_name.toLowerCase().trim().replaceAll(' ', '-'))
+    let homepage_triple = ``
+    if (state.project_homepage) {
+      homepage_triple = `doap:homepage <${state.project_homepage}> ;`
+    }
     let wiki_triple = ``
     if (state.project_wiki) {
       wiki_triple = `doap:wiki <${state.project_wiki}> ;`
@@ -114,8 +118,8 @@ export default function CreateDoapProject() {
 
   doap:programming-language "` + state.language_autocomplete.join('", "') + `" ;
   doap:license <` + state.project_license + `> ;
-  doap:homepage <` + state.project_homepage + `> ;
   doap:bug-database <` + state.project_issues + `> ;
+  ${homepage_triple}
   ${wiki_triple}
   ${download_page_triple}
   ${service_endpoint_triple}
@@ -318,9 +322,9 @@ export default function CreateDoapProject() {
               }}
             />
             <TextField
-              id="project_homepage"
-              label="🏠 Project homepage URL"
-              placeholder="🏠 Project homepage URL"
+              id="project_issues"
+              label="🚧 Issue tracker URL"
+              placeholder="🚧 Issue tracker URL"
               required
               className={classes.fullWidth}
               variant="outlined"
@@ -334,10 +338,9 @@ export default function CreateDoapProject() {
               }}
             />
             <TextField
-              id="project_issues"
-              label="🚧 Issue tracker URL"
-              placeholder="🚧 Issue tracker URL"
-              required
+              id="project_homepage"
+              label="🏠 Project homepage URL"
+              placeholder="🏠 Project homepage URL"
               className={classes.fullWidth}
               variant="outlined"
               onChange={handleChange}
