@@ -177,7 +177,7 @@ export default function CreateDoapProject() {
       </Typography>
       <Typography variant="body1" style={{textAlign: 'left', marginLeft: '30px', marginBottom: '20px'}}>
         <br/>Your project will be automatically be added to the website tomorrow 📊
-        <br/>N.B. your project needs to be in <a href="https://github.com/MaastrichtU-IDS" className={classes.link}>MaastrichtU-IDS organization</a> to be retrieved automatically, <a href="https://github.com/MaastrichtU-IDS/projects/issues" className={classes.link}>create an issue</a> if it is hosted under a different name.
+        <br/>N.B. your project needs to be in <a href="https://github.com/MaastrichtU-IDS" className={classes.link}>MaastrichtU-IDS organization</a> to be retrieved automatically, <a href="https://github.com/MaastrichtU-IDS/projects/issues" className={classes.link}>create an issue</a> if it is hosted under a different name, we will add it to the list of external repositories.
       </Typography>
 
       
