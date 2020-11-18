@@ -3,7 +3,7 @@ import json
 import pathlib
 import os
 
-EXTRA_DOAP_REPOSITORIES = ['w3c/data-shapes']
+EXTRA_DOAP_REPOSITORIES = ['carlosug/IDS-RDM-202019-FSFDAWR']
 
 def main():
     fetch_doap_files(TOKEN)
