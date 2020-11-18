@@ -168,12 +168,14 @@ export default function CreateDoapProject() {
         📝 Create a DOAP description for your project
       </Typography>
 
-      <Typography variant="body1" style={{textAlign: 'left', marginLeft: '30px', marginBottom: '20px'}}>
+      <Typography variant="body1" style={{textAlign: 'left', marginLeft: '30px'}}>
         You can find more details about why and how we use DOAP projects descriptions at IDS <a href="https://maastrichtu-ids.github.io/best-practices/docs/create-doap" className={classes.link}>here</a>. 
         Follow those instructions to register a project as an IDS project:
         <br/>1. Fill the form
         <br/>2. Download the description file <code>doap-project.ttl</code> by clicking on the green button at the bottom of the page after filling the form.
         <br/>3. Add the file to your project GitHub repository.
+      </Typography>
+      <Typography variant="body1" style={{textAlign: 'left', marginLeft: '30px', marginBottom: '20px'}}>
         <br/>Your project will be automatically be added to the website tomorrow 📊
         <br/>N.B. your project needs to be in <a href="https://github.com/MaastrichtU-IDS" className={classes.link}>MaastrichtU-IDS organization</a> to be retrieved automatically, <a href="https://github.com/MaastrichtU-IDS/projects/issues" className={classes.link}>create an issue</a> if it is hosted under a different name.
       </Typography>
@@ -221,7 +223,7 @@ export default function CreateDoapProject() {
                 <MenuItem value="Inactive">🗑️ Inactive</MenuItem>
               </Select>
             </FormControl>
-            <FormHelperText id="helper-status">Is your project a <b>work in progress</b>, <b>active</b>, or <b>inactive</b> of a tool?</FormHelperText>
+            <FormHelperText id="helper-status">Is your project <b>actively used</b> or <b>inactive</b> of a tool?</FormHelperText>
 
             <TextField
               id="project_name"
