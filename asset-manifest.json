@@ -1,25 +1,24 @@
 {
   "files": {
-    "app.js": "/projects/static/js/app.3343622b.chunk.js",
-    "app.js.map": "/projects/static/js/app.3343622b.chunk.js.map",
+    "app.js": "/projects/static/js/app.b7dc7760.chunk.js",
+    "app.js.map": "/projects/static/js/app.b7dc7760.chunk.js.map",
     "runtime~app.js": "/projects/static/js/runtime~app.757d5589.js",
     "runtime~app.js.map": "/projects/static/js/runtime~app.757d5589.js.map",
-    "static/js/2.b353115c.chunk.js": "/projects/static/js/2.b353115c.chunk.js",
-    "static/js/2.b353115c.chunk.js.map": "/projects/static/js/2.b353115c.chunk.js.map",
-    "fonts/MaterialCommunityIcons.ttf": "/projects/./fonts/MaterialCommunityIcons.ttf",
+    "static/js/2.7e77369e.chunk.js": "/projects/static/js/2.7e77369e.chunk.js",
+    "static/js/2.7e77369e.chunk.js.map": "/projects/static/js/2.7e77369e.chunk.js.map",
     "favicon-16.png": "/projects/favicon-16.png",
     "favicon-32.png": "/projects/favicon-32.png",
     "favicon.ico": "/projects/favicon.ico",
     "index.html": "/projects/index.html",
     "manifest.json": "/projects/manifest.json",
     "serve.json": "/projects/serve.json",
-    "static/js/2.b353115c.chunk.js.LICENSE.txt": "/projects/static/js/2.b353115c.chunk.js.LICENSE.txt",
+    "static/js/2.7e77369e.chunk.js.LICENSE.txt": "/projects/static/js/2.7e77369e.chunk.js.LICENSE.txt",
     "static/media/icon.png": "/projects/static/media/icon.72626586.png",
     "static/media/ids_logo.png": "/projects/static/media/ids_logo.7cae7f31.png"
   },
   "entrypoints": [
     "static/js/runtime~app.757d5589.js",
-    "static/js/2.b353115c.chunk.js",
-    "static/js/app.3343622b.chunk.js"
+    "static/js/2.7e77369e.chunk.js",
+    "static/js/app.b7dc7760.chunk.js"
   ]
 }
