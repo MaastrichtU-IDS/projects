@@ -83,7 +83,7 @@ export default function CreateDoapProject() {
   const handleSubmit  = (event: React.FormEvent) => {
     event.preventDefault();
     // Generate the project URI based on its name:
-    const project_uri = `https://w3id.org/umids/project/` + encodeURI(state.project_name.toLowerCase().trim().replaceAll(' ', '-'))
+    const project_uri = `https://w3id.org/um/ids/projects/` + encodeURI(state.project_name.toLowerCase().trim().replaceAll(' ', '-'))
     let homepage_triple = ``
     if (state.project_homepage) {
       homepage_triple = `doap:homepage <${state.project_homepage}> ;`

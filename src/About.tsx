@@ -70,7 +70,7 @@ export default function About() {
 
       {/* image: {iconImage} */}
       {/* Color: https://perfectgraph-5c619.web.app/?path=/story/components-components--view */}
-      <Graph
+      {/* <Graph
         style={{ width: '100%', height: 250 }}
         nodes={[
           {
@@ -105,7 +105,7 @@ export default function About() {
           style={{ backgroundColor: '#eceff1' }}
         />
       )}
-      />
+      /> */}
       
       
 
