@@ -7,7 +7,7 @@ def main():
     external_doap_repositories = []
     with open(root / '../EXTERNAL_REPOSITORIES.txt', 'r') as f:
         for line in f:
-            external_doap_repositories.append(line)
+            external_doap_repositories.append(line.rstrip('\n'))
 
     fetch_doap_files(TOKEN)
 
