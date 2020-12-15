@@ -1,6 +1,11 @@
 name: Get data from GitHub GraphQL API
 on:
   workflow_dispatch:
+    inputs:
+      clear:
+        description: 'Clear the projects triplestore'
+        required: true
+        default: 'false'
   push:
     branches: [ main ]
     paths:
@@ -67,13 +72,14 @@ jobs:
       with:
         name: rdf-output
 
-    # - name: Clear older graph in the triplestore
-    #   uses: vemonet/sparql-operations-action@v1
-    #   with:
-    #     query: "CLEAR GRAPH <https://w3id.org/um/ids/projects/graph>"
-    #     endpoint: https://graphdb.dumontierlab.com/repositories/ids-projects/statements
-    #     user: ${{ secrets.GRAPHDB_USER }}
-    #     password: ${{ secrets.GRAPHDB_PASSWORD }}
+    - name: Clear older graph in the triplestore
+      if: ${{ github.event.inputs.graph === 'true' }}
+      uses: vemonet/sparql-operations-action@v1
+      with:
+        query: "CLEAR GRAPH <https://w3id.org/um/ids/projects/graph>"
+        endpoint: https://graphdb.dumontierlab.com/repositories/ids-projects/statements
+        user: ${{ secrets.GRAPHDB_USER }}
+        password: ${{ secrets.GRAPHDB_PASSWORD }}
 
     - name: Upload the RDF to the triplestore
       uses: MaastrichtU-IDS/RdfUpload@master
