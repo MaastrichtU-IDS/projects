@@ -73,7 +73,7 @@ jobs:
         name: rdf-output
 
     - name: Clear older graph in the triplestore
-      if: ${{ github.event.inputs.graph === 'true' }}
+      if: ${{ github.event.inputs.graph }}
       uses: vemonet/sparql-operations-action@v1
       with:
         query: "CLEAR GRAPH <https://w3id.org/um/ids/projects/graph>"
