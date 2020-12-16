@@ -391,8 +391,8 @@ export default function ProjectsDashboard() {
               </Button>
             </Tooltip> 
           )}
-          <Typography>
-            Maintainers:&nbsp;
+          <Typography variant="body2">
+            Maintained by&nbsp;
             {project.maintainers.map((maintainer: any, key: number) => {
               return <Tooltip title={maintainer.name + ' ' + maintainer.email}>
                 <a href={maintainer.email} target='_blank'>
