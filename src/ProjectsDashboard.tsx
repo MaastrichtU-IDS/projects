@@ -12,6 +12,7 @@ import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import GavelIcon from '@material-ui/icons/Gavel';
 import BugReportIcon from '@material-ui/icons/BugReport';
 import SearchIcon from '@material-ui/icons/Search';
+import SendIcon from '@material-ui/icons/Send';
 import axios from 'axios';
 import { Doughnut, Pie, Bar, HorizontalBar } from 'react-chartjs-2';
 import 'chartjs-plugin-labels';
@@ -97,7 +98,7 @@ export default function ProjectsDashboard() {
           const projectName = projects_converted_hash[project]['project']['value']
           // Use the project URI as key in the hash
           if (!projects_hash[projectName]){
-            projects_hash[projectName] = {programmingLanguage: []}
+            projects_hash[projectName] = {programmingLanguage: [], maintainers: []}
           }
           // Iterate over project properties
           Object.keys(projects_converted_hash[project]).forEach(function(property: any) {
@@ -106,6 +107,13 @@ export default function ProjectsDashboard() {
               if (property == 'programmingLanguage') {
                 // Exception for programming language which is a list
                 projects_hash[projectName][property].push(propertyHash.value);
+              } else if (property == 'maintainer_name') {
+                projects_hash[projectName]['maintainers'].push({
+                  name: projects_converted_hash[project]['maintainer_name']['value'],
+                  email: projects_converted_hash[project]['maintainer_email']['value']
+                });
+              } else if (property == 'maintainer_name') {
+                // Handled with maintainer_name
               } else {
                 projects_hash[projectName][property] = propertyHash.value 
               }
@@ -375,6 +383,25 @@ export default function ProjectsDashboard() {
               </Button>
             </Tooltip> 
           )}
+          {project.service_endpoint && (
+            <Tooltip title={'Service endpoint: ' + project.service_endpoint}>
+              <Button target="_blank"
+              href={project.service_endpoint}>
+                <SendIcon />
+              </Button>
+            </Tooltip> 
+          )}
+          <Typography>
+            Maintainers:&nbsp;
+            {project.maintainers.map((maintainer: any, key: number) => {
+              return <Tooltip title={maintainer.name + ' ' + maintainer.email}>
+                <a href={maintainer.email} target='_blank'>
+                  <Chip label={maintainer.name} color='default' 
+                    style={{marginRight: '5px', cursor: 'pointer'}} key={key.toString()}/>
+                </a>
+                </Tooltip>
+            })}
+          </Typography>
         </Paper>
       })}
     </Container>
@@ -419,6 +446,16 @@ select distinct * where {
     }
     OPTIONAL {
         ?project doap:shortdesc ?shortdesc .
+    }
+    OPTIONAL {
+        ?project doap:service-endpoint ?service_endpoint .
+    }
+    OPTIONAL {
+      ?project doap:maintainer [
+          a foaf:Person ;
+          foaf:name ?maintainer_name ;
+          foaf:mbox ?maintainer_email
+        ] .
     }
 }`
 
