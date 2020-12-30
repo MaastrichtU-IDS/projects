@@ -345,7 +345,7 @@ export default function ProjectsDashboard() {
           )}
           {project.gitUrl && ( 
             <Tooltip title='Git repository'>
-              <Button target="_blank"
+              <Button target="_blank" rel="noopener noreferrer"
               href={project.gitUrl}>
                 <GitHubIcon />
               </Button>
@@ -353,7 +353,7 @@ export default function ProjectsDashboard() {
           )}
           {project.homepage && ( 
             <Tooltip title='Project homepage'>
-              <Button target="_blank"
+              <Button target="_blank" rel="noopener noreferrer"
               href={project.homepage}>
                 <HomeIcon />
               </Button>
@@ -361,7 +361,7 @@ export default function ProjectsDashboard() {
           )}
           {project.downloadpage && ( 
             <Tooltip title='Download page'>
-              <Button target="_blank"
+              <Button target="_blank" rel="noopener noreferrer"
               href={project.downloadpage}>
                 <CloudDownloadIcon />
               </Button>
@@ -369,7 +369,7 @@ export default function ProjectsDashboard() {
           )}
           {project.bugdatabase && ( 
             <Tooltip title='Issue tracker'>
-              <Button target="_blank"
+              <Button target="_blank" rel="noopener noreferrer"
               href={project.bugdatabase}>
                 <BugReportIcon />
               </Button>
@@ -377,7 +377,7 @@ export default function ProjectsDashboard() {
           )}
           {project.license && (
             <Tooltip title='License'>
-              <Button target="_blank"
+              <Button target="_blank" rel="noopener noreferrer"
               href={project.license}>
                 <GavelIcon />
               </Button>
@@ -385,7 +385,7 @@ export default function ProjectsDashboard() {
           )}
           {project.service_endpoint && (
             <Tooltip title={'Service endpoint: ' + project.service_endpoint}>
-              <Button target="_blank"
+              <Button target="_blank" rel="noopener noreferrer"
               href={project.service_endpoint}>
                 <SendIcon />
               </Button>
@@ -395,7 +395,7 @@ export default function ProjectsDashboard() {
             Maintained by&nbsp;
             {project.maintainers.map((maintainer: any, key: number) => {
               return <Tooltip title={maintainer.name + ' ' + maintainer.email}>
-                <a href={maintainer.email} target='_blank'>
+                <a href={maintainer.email} target='_blank' rel="noopener noreferrer">
                   <Chip label={maintainer.name} color='default' 
                     style={{marginRight: '5px', cursor: 'pointer'}} key={key.toString()}/>
                 </a>
