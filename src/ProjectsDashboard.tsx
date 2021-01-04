@@ -17,18 +17,18 @@ import axios from 'axios';
 import { Doughnut, Pie, Bar, HorizontalBar } from 'react-chartjs-2';
 import 'chartjs-plugin-labels';
 
-import {newEngine} from '@comunica/actor-init-sparql';
-import {ActorInitSparql} from '@comunica/actor-init-sparql/lib/ActorInitSparql-browser';
-import {IQueryOptions, newEngineDynamicArged} from "@comunica/actor-init-sparql/lib/QueryDynamic";
-
 // Import UM logo from assets
-import iconImage from '../assets/icon.png';
+// import iconImage from '../assets/icon.png';
 import idsLogo from '../assets/ids_logo.png';
 import githubData from '../assets/ids_github_data.json';
 // import { ActionYoutubeSearchedFor } from 'material-ui/svg-icons';
 
 // import { normalize, schema } from 'normalizr';
 // import { ColorPropType } from 'react-native';
+
+// import {newEngine} from '@comunica/actor-init-sparql';
+// import {ActorInitSparql} from '@comunica/actor-init-sparql/lib/ActorInitSparql-browser';
+// import {IQueryOptions, newEngineDynamicArged} from "@comunica/actor-init-sparql/lib/QueryDynamic";
 
 const useStyles = makeStyles(theme => ({
   paperSearch: {
@@ -250,7 +250,7 @@ export default function ProjectsDashboard() {
       <Grid container spacing={2} style={{textAlign: 'center', marginBottom: '1em'}}>
         {/* Iterate over the 6 most recent releases from JSON file */}
         {githubData['recent_releases'].slice(0, 6).map(function(release: any, key: number){
-          return <Grid item xs={4}>
+          return <Grid item xs={12} md={4}>
             <Tooltip title={release.release_description}>
               <Card style={{height: '100%'}}>
                 <CardContent style={{padding: '1em'}}>
@@ -282,13 +282,13 @@ export default function ProjectsDashboard() {
       </Typography>
       {/* Pie charts https://github.com/jerairrest/react-chartjs-2 */}
       <Grid container spacing={3} style={{textAlign: 'center'}}>
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6}>
           <Paper>
             <Typography variant="h6">Categories</Typography>
             <Bar data={state.category_pie} options={pie_options}/>
           </Paper>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6}>
           <Paper>
             <Typography variant="h6">Programming languages</Typography>
             <HorizontalBar data={state.language_pie} options={pie_options}/>
