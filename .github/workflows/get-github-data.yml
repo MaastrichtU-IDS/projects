@@ -10,7 +10,7 @@ on:
     branches: [ main ]
     paths:
     - '.github/workflows/get-github-data.yml'
-    - 'get_github_data/query_graphql.py'
+    - 'datasets/doap-github/query_graphql.py'
   schedule:
     - cron:  '00 03,13 * * *'
     # Everyday at 03:00am and 13:00

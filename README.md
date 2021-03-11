@@ -69,7 +69,7 @@ A workflow runs everyday via GitHub Actions at 03:00am and 13:00pm to:
 
 > Checkout the [`get-github-data.yml` workflow file](https://github.com/MaastrichtU-IDS/projects/blob/main/.github/workflows/get-github-data.yml) to see how to run the Python script to retrieve data from the GitHub GraphQL API.
 
-You can find the scripts and requirements in the [`get_github_data`](https://github.com/MaastrichtU-IDS/projects/tree/main/get_github_data) folder.
+You can find the scripts and requirements in the [`datasets/doap-github`](https://github.com/MaastrichtU-IDS/projects/tree/main/datasets/doap-github) folder.
 
 Use this command to locally define the `GITHUB_APIKEY` environment variable:
 
@@ -82,13 +82,13 @@ export GITHUB_APIKEY=MYKEY000
 Install requirements:
 
 ```bash
-pip3 install -r get_github_data/requirements.txt
+pip3 install -r datasets/doap-github/requirements.txt
 ```
 
 Run script:
 
 ```bash
-python3 get_github_data/get_doap_files.py
+python3 datasets/doap-github/get_doap_files.py
 ```
 
 > Try out the GitHub GraphQL API [here](https://developer.github.com/v4/explorer/).
