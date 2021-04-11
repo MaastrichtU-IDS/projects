@@ -40,18 +40,22 @@ jobs:
         git stash
         git fetch
         git checkout gh-pages
-        apt update
-        apt install wget
+        # sudo apt update
+        # sudo apt install wget
         pip install 'pandas==1.2.2'
         wget https://raw.githubusercontent.com/kodymoodley/fair-metadata-html-page-generator/main/jsonld_to_html.py
         
+        echo "[\n" > datasets_list.json
         # Generate html for each .jsonld in datasets/*
         find datasets/ -name '*.jsonld' | while read NAME ; do 
           FOLDER=$(echo "${NAME}" | sed -r 's/([^\/]*)\/([^\/]*)\/(.*)$/\2/')
           FILENAME=$(echo "${NAME}" | sed -r 's/([^\/]*)\/([^\/]*)\/(.*)$/\3/')
           mkdir -p $FOLDER
           python jsonld_to_html.py datasets/$FOLDER/$FILENAME $FOLDER/index.html
+          cat datasets/$FOLDER/$FILENAME >> datasets_list.json
+          echo ",\n" >> datasets_list.json
         done
+        echo "\n]" >> datasets_list.json
 
         rm -rf datasets
         rm -f jsonld_to_html.py
@@ -60,3 +64,5 @@ jobs:
         git add *
         git commit -m "Update schema:Dataset HTML pages" || exit 0
         git push || exit 0
+      # Concatenate files in the queries folder to assets/datasets_list.json
+      # sed -s '$a,' queries/*.rq | head -n -1 > assets/queries.rq
