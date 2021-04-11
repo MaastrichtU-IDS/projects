@@ -51,7 +51,8 @@ jobs:
           cat ../datasets/$FOLDER/$FILENAME >> ../datasets_list.json
           echo "," >> ../datasets_list.json
         done
-        echo ${$(cat ../datasets_list.json)::-1} > ../datasets_list.json
+        DATASETS_JSON=$(cat ../datasets_list.json)
+        echo ${DATASETS_JSON::-1} > ../datasets_list.json
         echo "]" >> ../datasets_list.json
 
         cd ..
