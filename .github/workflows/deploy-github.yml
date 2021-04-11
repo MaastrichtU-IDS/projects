@@ -37,7 +37,8 @@ jobs:
       #   GIT_SERVICE: ${{ matrix.git-service }}
         # RUN_LABEL: ${{ matrix.search-string }}
       run: |
-        git stash
+        rm -rf node_modules
+        rm -rf web-build
         git fetch
         git checkout gh-pages
         # sudo apt update
@@ -47,9 +48,9 @@ jobs:
         
         echo "[\n" > datasets_list.json
         # Generate html for each .jsonld in datasets/*
-        find datasets/ -name '*.jsonld' | while read NAME ; do 
-          FOLDER=$(echo "${NAME}" | sed -r 's/([^\/]*)\/([^\/]*)\/(.*)$/\2/')
-          FILENAME=$(echo "${NAME}" | sed -r 's/([^\/]*)\/([^\/]*)\/(.*)$/\3/')
+        find ./datasets/ -name '*.jsonld' | while read NAME ; do 
+          FOLDER=$(echo "${NAME}" | sed -r 's/\.\/([^\/]*)\/([^\/]*)\/(.*)$/\2/')
+          FILENAME=$(echo "${NAME}" | sed -r 's/\.\/([^\/]*)\/([^\/]*)\/(.*)$/\3/')
           mkdir -p $FOLDER
           python jsonld_to_html.py datasets/$FOLDER/$FILENAME $FOLDER/index.html
           cat datasets/$FOLDER/$FILENAME >> datasets_list.json
