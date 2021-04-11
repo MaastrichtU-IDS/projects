@@ -31,3 +31,32 @@ jobs:
 
     # - name: Deploy on GitHub
     #   run: yarn deploy
+
+    - name: Convert JSON-LD schema:Dataset to HTML pages
+      # env:
+      #   GIT_SERVICE: ${{ matrix.git-service }}
+        # RUN_LABEL: ${{ matrix.search-string }}
+      run: |
+        git stash
+        git fetch
+        git checkout gh-pages
+        apt update
+        apt install wget
+        pip install 'pandas==1.2.2'
+        wget https://raw.githubusercontent.com/kodymoodley/fair-metadata-html-page-generator/main/jsonld_to_html.py
+        
+        # Generate html for each .jsonld in datasets/*
+        find datasets/ -name '*.jsonld' | while read NAME ; do 
+          FOLDER=$(echo "${NAME}" | sed -r 's/([^\/]*)\/([^\/]*)\/(.*)$/\2/')
+          FILENAME=$(echo "${NAME}" | sed -r 's/([^\/]*)\/([^\/]*)\/(.*)$/\3/')
+          mkdir -p $FOLDER
+          python jsonld_to_html.py datasets/$FOLDER/$FILENAME $FOLDER/index.html
+        done
+
+        rm -rf datasets
+        rm -f jsonld_to_html.py
+        git config --global user.email "vincent.emonet@gmail.com"
+        git config --global user.name "Vincent Emonet"
+        git add *
+        git commit -m "Update schema:Dataset HTML pages" || exit 0
+        git push || exit 0
