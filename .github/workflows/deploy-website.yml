@@ -18,6 +18,7 @@ jobs:
       run: |
         git config --global user.email "vincent.emonet@maastrichtuniversity.nl"
         git config --global user.name "Vincent Emonet"
+        cd website
         yarn install
         yarn build
 
@@ -26,28 +27,25 @@ jobs:
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BRANCH: gh-pages
-        FOLDER: web-build
+        FOLDER: website/web-build
         CLEAN: true
 
     - name: Convert JSON-LD schema:Dataset to HTML pages
       run: |
-        rm -rf node_modules
-        rm -rf web-build
         mv datasets tmp-datasets
         git fetch
         git checkout gh-pages
         mv tmp-datasets datasets
         git clone --depth=1 https://github.com/kodymoodley/fair-metadata-html-page-generator.git
         pip install -r fair-metadata-html-page-generator/requirements.txt
-        ls
         # Generate html for each .jsonld in datasets/*
         cd fair-metadata-html-page-generator
         echo "[" > ../datasets_list.json
         find ../datasets/ -name '*.jsonld' | while read NAME ; do 
           FOLDER=$(echo "${NAME}" | sed -r 's/\.\.\/([^\/]*)\/([^\/]*)\/(.*)$/\2/')
           FILENAME=$(echo "${NAME}" | sed -r 's/\.\.\/([^\/]*)\/([^\/]*)\/(.*)$/\3/')
-          mkdir -p ../$FOLDER
-          python jsonld_to_html.py ../datasets/$FOLDER/$FILENAME ../$FOLDER/index.html
+          mkdir -p ../datasets/$FOLDER
+          python jsonld_to_html.py ../datasets/$FOLDER/$FILENAME ../datasets/$FOLDER/index.html
           cat ../datasets/$FOLDER/$FILENAME >> ../datasets_list.json
           echo "," >> ../datasets_list.json
         done
@@ -56,13 +54,8 @@ jobs:
         echo "]" >> ../datasets_list.json
 
         cd ..
-        rm -rf fair-metadata-html-page-generator
-        rm -rf datasets
-        rm -rf .expo
-        rm -rf node_modules
-        rm -f jsonld_to_html.py
         git config --global user.email "vincent.emonet@gmail.com"
         git config --global user.name "Vincent Emonet"
-        git add .
+        git add datasets
         git commit -m "Update schema:Dataset HTML pages" || exit 0
         git push || exit 0
