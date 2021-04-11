@@ -1,11 +1,12 @@
 import React from 'react';
+import { useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Container, Button, Chip, Tooltip, Grid, Paper, Box } from "@material-ui/core";
+import { Typography, Container, Button, Chip, Tooltip, Grid, Paper, Box, Card, CardContent, CardHeader, Collapse, useTheme, } from "@material-ui/core";
 import { IconButton, InputBase } from "@material-ui/core";
-import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
 
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import HomeIcon from '@material-ui/icons/Home';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
@@ -62,9 +63,14 @@ const useStyles = makeStyles(theme => ({
 
 export default function ProjectsDashboard() {
   const classes = useStyles();
+  const theme = useTheme();
+  let history = useHistory();
   
   const [state, setState] = React.useState({
     projects_list: [],
+    show_projects: false,
+    show_datasets: false,
+    show_releases: false,
     search: '',
     language_pie: {},
     category_pie: {}
@@ -233,6 +239,14 @@ export default function ProjectsDashboard() {
   console.log('Filtered project:')
   console.log(state.projects_list);
 
+  const datasetsList = [
+    {
+      'path': 'https://maastrichtu-ids.github.io/projects/datasets/cbcm/',
+      'name': 'ECJ case law text similarity analysis',
+      'description': ' results from a study to analyse how closely the textual similarity of ECJ cases resembles the citation network of the cases.'
+    }
+  ]
+
   return(
     <Container className='mainContainer'>
       <Typography variant="h4" style={{textAlign: 'center'}}>
@@ -244,166 +258,281 @@ export default function ProjectsDashboard() {
         <img src={iconImage} style={{height: '3em', width: '3em', marginRight: '10px'}} alt="Logo" />
       </div> */}
 
-      <Typography variant="h6" style={{marginBottom: '1em'}}>
-        🏷️ Recent releases
-      </Typography>
-      <Grid container spacing={2} style={{textAlign: 'center', marginBottom: '1em'}}>
-        {/* Iterate over the 6 most recent releases from JSON file */}
-        {githubData['recent_releases'].slice(0, 6).map(function(release: any, key: number){
-          return <Grid item xs={12} md={4}>
-            <Tooltip title={release.release_description}>
-              <Card style={{height: '100%'}}>
-                <CardContent style={{padding: '1em'}}>
-                  <a href={release.release_url} className={classes.link}>
-                    <Typography variant="h6" component="h2">
-                      {release.repo}
-                      <Chip label={release.release_tag} color='primary' style={{marginLeft: '0.5em', cursor: 'pointer'}}/>
-                    </Typography>
-                  </a>
-                  <Typography className={classes.pos} color="textSecondary">
-                    {release.release_name}
-                  </Typography>
-                  <Typography className={classes.cardSubtitle} color="textSecondary" gutterBottom>
-                    📅 Released on the {release.published_at}<br/>
-                    👤 By {release.release_author}
-                  </Typography>
-                </CardContent>
-                {/* <CardActions>
-                  <Button size="small">Learn More</Button>
-                </CardActions> */}
-              </Card>
-            </Tooltip>
-          </Grid>
-        })}
-      </Grid>
+      {/* Show releases */}
+      <Card >
+        <CardHeader
+          action={
+            <IconButton style={{fontSize: '16px'}}
+              onClick={() => { updateState({ show_releases: !state.show_releases}) }}
+              name='show_releases'
+              aria-expanded={state.show_releases}
+              aria-label="show releases"
+            >
+              {!state.show_releases &&
+                <>
+                  Show releases&nbsp;
+                  <ExpandMoreIcon />
+                </>
+              }
+              {state.show_releases &&
+                <>
+                  Hide releases&nbsp;
+                  <ExpandLessIcon />
+                </>
+              }
+            </IconButton>
+          }
+          title="🏷️ Recent releases"
+          subheader={"The latest releases of programs developed at the Institute of Data Science"}
+        />
+        <Collapse in={state.show_releases} timeout="auto" unmountOnExit>
+          <CardContent>
+            <Grid container spacing={2} style={{textAlign: 'center', marginBottom: '1em'}}>
+              {/* Iterate over the 6 most recent releases from JSON file */}
+              {githubData['recent_releases'].slice(0, 6).map(function(release: any, key: number){
+                return <Grid item xs={12} md={4}>
+                  <Tooltip title={release.release_description}>
+                    <Card style={{height: '100%'}}>
+                      <CardContent style={{padding: '1em'}}>
+                        <a href={release.release_url} className={classes.link}>
+                          <Typography variant="h6" component="h2">
+                            {release.repo}
+                            <Chip label={release.release_tag} color='primary' style={{marginLeft: '0.5em', cursor: 'pointer'}}/>
+                          </Typography>
+                        </a>
+                        <Typography className={classes.pos} color="textSecondary">
+                          {release.release_name}
+                        </Typography>
+                        <Typography className={classes.cardSubtitle} color="textSecondary" gutterBottom>
+                          📅 Released on the {release.published_at}<br/>
+                          👤 By {release.release_author}
+                        </Typography>
+                      </CardContent>
+                      {/* <CardActions>
+                        <Button size="small">Learn More</Button>
+                      </CardActions> */}
+                    </Card>
+                  </Tooltip>
+                </Grid>
+              })}
+            </Grid>
+          </CardContent>
+        </Collapse>
+      </Card>
 
-      <Typography variant="h6" style={{marginBottom: '1em', marginTop: '1em'}}>
-        🗂️ Projects
-      </Typography>
-      {/* Pie charts https://github.com/jerairrest/react-chartjs-2 */}
-      <Grid container spacing={3} style={{textAlign: 'center'}}>
-        <Grid item xs={12} md={6}>
-          <Paper>
-            <Typography variant="h6">Categories</Typography>
-            <Bar data={state.category_pie} options={pie_options}/>
-          </Paper>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Paper>
-            <Typography variant="h6">Programming languages</Typography>
-            <HorizontalBar data={state.language_pie} options={pie_options}/>
-            {/* <Pie data={state.language_pie} options={pie_options}/> */}
-          </Paper>
-        </Grid>
-      </Grid>
-    
-      {/* Search box */}
-      <Box display="flex" style={{marginTop: '20px' }}>
-        <Paper component="form" className={classes.paperSearch}>
-          <InputBase  // https://material-ui.com/api/input-base/
-            className={classes.searchInput} inputProps={{ 'aria-label': 'search' }}
-            placeholder={"Search projects"}
-            onChange={searchChange}
-          />
-          <IconButton aria-label="search">
-            <SearchIcon />
-          </IconButton>
-        </Paper>
-        <Typography style={{marginTop: '10px', marginLeft: '20px' }}>{filteredProjects.length} projects</Typography>
-      </Box>
-      
-      {/* Iterate over projects */}
-      {/* TODO: Changing key here at some pointbroke the search, 
-          but fixed the pie chart which is completly independant!
-          Fucking geniuses */}
+      {/* Show projects */}
+      <Card style={{marginTop: theme.spacing(3), marginBottom: theme.spacing(3) }}>
+        <CardHeader
+          action={
+            <IconButton style={{fontSize: '16px'}}
+              onClick={() => { updateState({ show_projects: !state.show_projects}) }}
+              name='show_projects'
+              aria-expanded={state.show_projects}
+              aria-label="show projects"
+            >
+              {!state.show_projects &&
+                <>
+                  Show projects&nbsp;
+                  <ExpandMoreIcon />
+                </>
+              }
+              {state.show_projects &&
+                <>
+                  Hide projects&nbsp;
+                  <ExpandLessIcon />
+                </>
+              }
+            </IconButton>
+          }
+          title="🗂️ Projects"
+          subheader={"Browse projects at the Institute of Data Science"}
+        />
+        <Collapse in={state.show_projects} timeout="auto" unmountOnExit>
+          <CardContent>
+            {/* Pie charts https://github.com/jerairrest/react-chartjs-2 */}
+            <Grid container spacing={3} style={{textAlign: 'center'}}>
+              <Grid item xs={12} md={6}>
+                <Paper>
+                  <Typography variant="h6">Categories</Typography>
+                  <Bar data={state.category_pie} options={pie_options}/>
+                </Paper>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <Paper>
+                  <Typography variant="h6">Programming languages</Typography>
+                  <HorizontalBar data={state.language_pie} options={pie_options}/>
+                  {/* <Pie data={state.language_pie} options={pie_options}/> */}
+                </Paper>
+              </Grid>
+            </Grid>
+          
+            {/* Search box */}
+            <Box display="flex" style={{marginTop: '20px' }}>
+              <Paper component="form" className={classes.paperSearch}>
+                <InputBase  // https://material-ui.com/api/input-base/
+                  className={classes.searchInput} inputProps={{ 'aria-label': 'search' }}
+                  placeholder={"Search projects"}
+                  onChange={searchChange}
+                />
+                <IconButton aria-label="search">
+                  <SearchIcon />
+                </IconButton>
+              </Paper>
+              <Typography style={{marginTop: theme.spacing(1), marginLeft: theme.spacing(2) }}>{filteredProjects.length} projects</Typography>
+            </Box>
+            
+            {/* Iterate over projects */}
+            {/* TODO: Changing key here at some pointbroke the search, 
+                but fixed the pie chart which is completly independant!
+                Fucking geniuses */}
 
-      {/* {filteredProjects.map(function(project: any, key: number){ */}
-      {/* return <Paper key={key} elevation={4} style={{padding: '15px', marginTop: '25px', marginBottom: '25px'}}> */}
-      {filteredProjects.map(function(project: any, key: number){
-        return <Paper key={key.toString()} elevation={4} style={{padding: '15px', marginTop: '25px', marginBottom: '25px'}}>
-          <Typography variant="h5">
-            {project.name}&nbsp;&nbsp;
-            {project.programmingLanguage.map((language: string, key: number) => {
-              return <Chip label={language} color='primary' style={{marginRight: '5px'}} key={key.toString()}/>
+            {/* {filteredProjects.map(function(project: any, key: number){ */}
+            {/* return <Paper key={key} elevation={4} style={{padding: '15px', marginTop: '25px', marginBottom: '25px'}}> */}
+            {filteredProjects.map(function(project: any, key: number){
+              return <Paper key={key.toString()} elevation={4} style={{padding: theme.spacing(2), marginTop: theme.spacing(2), marginBottom: theme.spacing(2)}}>
+                <Typography variant="h5">
+                  {project.name}&nbsp;&nbsp;
+                  {project.programmingLanguage.map((language: string, key: number) => {
+                    return <Chip label={language} color='primary' style={{marginRight: theme.spacing(1)}} key={key.toString()}/>
+                  })}
+                  {project.category && ( 
+                    <Chip label={project.category} color='secondary' style={{marginRight: theme.spacing(1)}}/>
+                  )}
+                  {project.status && ( 
+                    <Chip label={project.status} color='default' style={{marginRight: theme.spacing(1)}}/>
+                  )}
+                </Typography>
+                <Typography style={{marginBottom: theme.spacing(2), marginTop: theme.spacing(2)}}>
+                  {project.description}
+                </Typography>
+                {/* {project.gitUrl && ( 
+                  <div>
+                    <a href={project.gitUrl} key={project.gitUrl} >
+                      <img src={'https://gh-card.dev/repos/' + project.gitUrl.replace('https://github.com/', '') + '.svg?fullname'} alt={project.gitUrl} key={'img' + project.gitUrl}/>
+                    </a>
+                  </div>
+                )} */}
+                {project.gitUrl && ( 
+                  <Tooltip title='Git repository'>
+                    <Button target="_blank" rel="noopener noreferrer"
+                    href={project.gitUrl}>
+                      <GitHubIcon />
+                    </Button>
+                  </Tooltip>
+                )}
+                {project.homepage && ( 
+                  <Tooltip title='Project homepage'>
+                    <Button target="_blank" rel="noopener noreferrer"
+                    href={project.homepage}>
+                      <HomeIcon />
+                    </Button>
+                  </Tooltip>
+                )}
+                {project.downloadpage && ( 
+                  <Tooltip title='Download page'>
+                    <Button target="_blank" rel="noopener noreferrer"
+                    href={project.downloadpage}>
+                      <CloudDownloadIcon />
+                    </Button>
+                  </Tooltip>
+                )}
+                {project.bugdatabase && ( 
+                  <Tooltip title='Issue tracker'>
+                    <Button target="_blank" rel="noopener noreferrer"
+                    href={project.bugdatabase}>
+                      <BugReportIcon />
+                    </Button>
+                  </Tooltip>
+                )}
+                {project.license && (
+                  <Tooltip title='License'>
+                    <Button target="_blank" rel="noopener noreferrer"
+                    href={project.license}>
+                      <GavelIcon />
+                    </Button>
+                  </Tooltip> 
+                )}
+                {project.service_endpoint && (
+                  <Tooltip title={'Service endpoint: ' + project.service_endpoint}>
+                    <Button target="_blank" rel="noopener noreferrer"
+                    href={project.service_endpoint}>
+                      <SendIcon />
+                    </Button>
+                  </Tooltip> 
+                )}
+                <Typography variant="body2">
+                  Maintained by&nbsp;
+                  {project.maintainers.map((maintainer: any, key: number) => {
+                    return <Tooltip title={maintainer.name + ' ' + maintainer.email}>
+                      <a href={maintainer.email} target='_blank' rel="noopener noreferrer">
+                        <Chip label={maintainer.name} color='default' 
+                          style={{marginRight: '5px', cursor: 'pointer'}} key={key.toString()}/>
+                      </a>
+                      </Tooltip>
+                  })}
+                </Typography>
+              </Paper>
             })}
-            {project.category && ( 
-              <Chip label={project.category} color='secondary' style={{marginRight: '5px'}}/>
-            )}
-            {project.status && ( 
-              <Chip label={project.status} color='default' style={{marginRight: '5px'}}/>
-            )}
-          </Typography>
-          <Typography style={{marginBottom: '10px', marginTop: '5px'}}>
-            {project.description}
-          </Typography>
-          {project.gitUrl && ( 
-            <div>
-              <a href={project.gitUrl} key={project.gitUrl} >
-                <img src={'https://gh-card.dev/repos/' + project.gitUrl.replace('https://github.com/', '') + '.svg?fullname'} alt={project.gitUrl} key={'img' + project.gitUrl}/>
-              </a>
-            </div>
-          )}
-          {project.gitUrl && ( 
-            <Tooltip title='Git repository'>
-              <Button target="_blank" rel="noopener noreferrer"
-              href={project.gitUrl}>
-                <GitHubIcon />
-              </Button>
-            </Tooltip>
-          )}
-          {project.homepage && ( 
-            <Tooltip title='Project homepage'>
-              <Button target="_blank" rel="noopener noreferrer"
-              href={project.homepage}>
-                <HomeIcon />
-              </Button>
-            </Tooltip>
-          )}
-          {project.downloadpage && ( 
-            <Tooltip title='Download page'>
-              <Button target="_blank" rel="noopener noreferrer"
-              href={project.downloadpage}>
-                <CloudDownloadIcon />
-              </Button>
-            </Tooltip>
-          )}
-          {project.bugdatabase && ( 
-            <Tooltip title='Issue tracker'>
-              <Button target="_blank" rel="noopener noreferrer"
-              href={project.bugdatabase}>
-                <BugReportIcon />
-              </Button>
-            </Tooltip>
-          )}
-          {project.license && (
-            <Tooltip title='License'>
-              <Button target="_blank" rel="noopener noreferrer"
-              href={project.license}>
-                <GavelIcon />
-              </Button>
-            </Tooltip> 
-          )}
-          {project.service_endpoint && (
-            <Tooltip title={'Service endpoint: ' + project.service_endpoint}>
-              <Button target="_blank" rel="noopener noreferrer"
-              href={project.service_endpoint}>
-                <SendIcon />
-              </Button>
-            </Tooltip> 
-          )}
-          <Typography variant="body2">
-            Maintained by&nbsp;
-            {project.maintainers.map((maintainer: any, key: number) => {
-              return <Tooltip title={maintainer.name + ' ' + maintainer.email}>
-                <a href={maintainer.email} target='_blank' rel="noopener noreferrer">
-                  <Chip label={maintainer.name} color='default' 
-                    style={{marginRight: '5px', cursor: 'pointer'}} key={key.toString()}/>
-                </a>
-                </Tooltip>
+          </CardContent>
+        </Collapse>
+      </Card>
+
+      {/* Browse schema:Datasets */}
+      <Card >
+        <CardHeader
+          action={
+            <IconButton style={{fontSize: '16px'}}
+              onClick={() => { updateState({ show_datasets: !state.show_datasets}) }}
+              name='show_datasets'
+              aria-expanded={state.show_datasets}
+              aria-label="show datasets"
+            >
+              {!state.show_datasets &&
+                <>
+                  Show datasets&nbsp;
+                  <ExpandMoreIcon />
+                </>
+              }
+              {state.show_datasets &&
+                <>
+                  Hide datasets&nbsp;
+                  <ExpandLessIcon />
+                </>
+              }
+            </IconButton>
+          }
+          title="🗃️ Datasets"
+          subheader={"Browse datasets published at the Institute of Data Science"}
+        />
+        <Collapse in={state.show_datasets} timeout="auto" unmountOnExit>
+          <CardContent>
+
+            {datasetsList.map(function(dataset: any, key: number){
+              return <Paper key={key.toString()} elevation={4} style={{padding: theme.spacing(2), marginTop: theme.spacing(2), marginBottom: theme.spacing(2)}}>
+                <Typography variant="h5">
+                  {dataset.name}&nbsp;&nbsp;
+                  {/* {project.category && ( 
+                    <Chip label={project.category} color='secondary' style={{marginRight: theme.spacing(1)}}/>
+                  )} */}
+                </Typography>
+                <Typography style={{marginBottom: theme.spacing(2), marginTop: theme.spacing(2)}}>
+                  {dataset.description}
+                </Typography>
+                {dataset.path && ( 
+                  <Tooltip title='Dataset homepage'>
+                    <Button 
+                      target="_blank" rel="noopener noreferrer"
+                      href={dataset.path}
+                    >
+                      <HomeIcon />
+                    </Button>
+                  </Tooltip>
+                )}
+              </Paper>
             })}
-          </Typography>
-        </Paper>
-      })}
+          </CardContent>
+        </Collapse>
+      </Card>
     </Container>
   )
 }

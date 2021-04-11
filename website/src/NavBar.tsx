@@ -48,13 +48,13 @@ export default function NavBar() {
           </Tooltip>
         </Link>
         <div className="flexGrow"></div>
-        <Link to="/about" className={classes.linkButton}>
+        {/* <Link to="/about" className={classes.linkButton}>
           <Tooltip title='About the Institute of Data Science'>
             <Button className={classes.menuButton}>
               <InfoIcon />
             </Button>
           </Tooltip>
-        </Link>
+        </Link> */}
         <Tooltip title='Go to IDS Best Practices documentation'>
           <Button className={classes.menuButton} target="_blank"
           href="https://maastrichtu-ids.github.io/best-practices">
