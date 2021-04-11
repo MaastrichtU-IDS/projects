@@ -39,8 +39,10 @@ jobs:
       run: |
         rm -rf node_modules
         rm -rf web-build
+        mv datasets tmp-datasets
         git fetch
         git checkout gh-pages
+        mv tmp-datasets datasets
         # sudo apt update
         # sudo apt install wget
         pip install 'pandas==1.2.2'
@@ -59,6 +61,7 @@ jobs:
         echo "]" >> datasets_list.json
 
         rm -rf datasets
+        rm -rf node_modules
         rm -f jsonld_to_html.py
         git config --global user.email "vincent.emonet@gmail.com"
         git config --global user.name "Vincent Emonet"
