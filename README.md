@@ -95,7 +95,7 @@ Install requirements:
 pip3 install -r etl/requirements.txt
 ```
 
-Run script:
+Run script to retrieve IDS projects DOAP metadata using GitHub GraphQL API:
 
 ```bash
 python3 etl/get_doap_projects.py

@@ -21,11 +21,6 @@ git checkout -b my-branch
 
 3. See how to run the API in development at https://github.com/MaastrichtU-IDS/projects
 
-```bash
-yarn install
-yarn web
-```
-
 4. Add your change in this branch.
 5. Send a pull request to the `main` branch when your changes are done
 

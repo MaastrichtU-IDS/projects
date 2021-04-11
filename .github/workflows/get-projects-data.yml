@@ -10,7 +10,7 @@ on:
     branches: [ main ]
     paths:
     - '.github/workflows/get-projects-data.yml'
-    - 'datasets/doap-github/query_graphql.py'
+    - 'etl/get_doap_projects.py'
   schedule:
     - cron:  '00 03,13 * * *'
     # Everyday at 03:00am and 13:00
@@ -51,7 +51,7 @@ jobs:
         git diff
         git config --global user.email "vincent.emonet@gmail.com"
         git config --global user.name "Vincent Emonet"
-        git add assets/ids_github_data.json
+        git add website/assets/ids_github_data.json
         git commit -m "Update GitHub JSON data content" || exit 0
         git push
 
@@ -116,7 +116,7 @@ jobs:
   #     env:
   #       GITHUB_TOKEN: ${{ secrets.API_GITHUB_TOKEN }}
   #     run: |-
-  #       python get_github_data/query_graphql.py
+  #       python get_github_data/get_doap_projects.py
   #       cat assets/ids_github_data.json
 
   #   - name: Commit and push releases JSON file if changed

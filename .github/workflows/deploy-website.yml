@@ -30,7 +30,7 @@ jobs:
         FOLDER: website/web-build
         CLEAN: true
 
-    - name: Convert JSON-LD schema:Dataset to HTML pages
+    - name: Generate HTML pages from JSON-LD in datasets folder
       run: |
         mv datasets tmp-datasets
         git fetch
