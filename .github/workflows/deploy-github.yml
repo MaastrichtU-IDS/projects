@@ -49,29 +49,31 @@ jobs:
         mv tmp-datasets datasets
         # sudo apt update
         # sudo apt install wget
-        git clone https://github.com/kodymoodley/fair-metadata-html-page-generator.git
+        git clone --depth=1 https://github.com/kodymoodley/fair-metadata-html-page-generator.git
         pip install -r fair-metadata-html-page-generator/requirements.txt
         # wget https://raw.githubusercontent.com/kodymoodley/fair-metadata-html-page-generator/main/jsonld_to_html.py
         ls
-        echo "[" > datasets_list.json
+        cd fair-metadata-html-page-generator
+        echo "[" > ../datasets_list.json
         # Generate html for each .jsonld in datasets/*
-        find ./datasets/ -name '*.jsonld' | while read NAME ; do 
-          FOLDER=$(echo "${NAME}" | sed -r 's/\.\/([^\/]*)\/([^\/]*)\/(.*)$/\2/')
-          FILENAME=$(echo "${NAME}" | sed -r 's/\.\/([^\/]*)\/([^\/]*)\/(.*)$/\3/')
-          mkdir -p $FOLDER
-          python fair-metadata-html-page-generator/jsonld_to_html.py datasets/$FOLDER/$FILENAME $FOLDER/index.html
-          cat datasets/$FOLDER/$FILENAME >> datasets_list.json
-          echo "," >> datasets_list.json
+        find ../datasets/ -name '*.jsonld' | while read NAME ; do 
+          FOLDER=$(echo "${NAME}" | sed -r 's/\.\.\/([^\/]*)\/([^\/]*)\/(.*)$/\2/')
+          FILENAME=$(echo "${NAME}" | sed -r 's/\.\.\/([^\/]*)\/([^\/]*)\/(.*)$/\3/')
+          mkdir -p ../$FOLDER
+          python jsonld_to_html.py ../datasets/$FOLDER/$FILENAME ../$FOLDER/index.html
+          cat ../datasets/$FOLDER/$FILENAME >> ../datasets_list.json
+          echo "," >> ../datasets_list.json
         done
-        echo "]" >> datasets_list.json
+        echo "]" >> ../datasets_list.json
 
+        cd ..
         rm -rf fair-metadata-html-page-generator
         rm -rf datasets
         rm -rf node_modules
         rm -f jsonld_to_html.py
         git config --global user.email "vincent.emonet@gmail.com"
         git config --global user.name "Vincent Emonet"
-        git add *
+        git add .
         git commit -m "Update schema:Dataset HTML pages" || exit 0
         git push || exit 0
       # Concatenate files in the queries folder to assets/datasets_list.json
