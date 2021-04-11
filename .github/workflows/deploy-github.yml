@@ -32,6 +32,10 @@ jobs:
     # - name: Deploy on GitHub
     #   run: yarn deploy
 
+    # - uses: actions/checkout@v2
+    #   with:
+    #     repository: 'kodymoodley/fair-metadata-html-page-generator'
+
     - name: Convert JSON-LD schema:Dataset to HTML pages
       # env:
       #   GIT_SERVICE: ${{ matrix.git-service }}
@@ -45,8 +49,9 @@ jobs:
         mv tmp-datasets datasets
         # sudo apt update
         # sudo apt install wget
-        pip install 'pandas==1.2.2'
-        wget https://raw.githubusercontent.com/kodymoodley/fair-metadata-html-page-generator/main/jsonld_to_html.py
+        git clone https://github.com/kodymoodley/fair-metadata-html-page-generator.git
+        pip install -r fair-metadata-html-page-generator/requirements.txt
+        # wget https://raw.githubusercontent.com/kodymoodley/fair-metadata-html-page-generator/main/jsonld_to_html.py
         ls
         echo "[" > datasets_list.json
         # Generate html for each .jsonld in datasets/*
@@ -54,12 +59,13 @@ jobs:
           FOLDER=$(echo "${NAME}" | sed -r 's/\.\/([^\/]*)\/([^\/]*)\/(.*)$/\2/')
           FILENAME=$(echo "${NAME}" | sed -r 's/\.\/([^\/]*)\/([^\/]*)\/(.*)$/\3/')
           mkdir -p $FOLDER
-          python jsonld_to_html.py datasets/$FOLDER/$FILENAME $FOLDER/index.html
+          python fair-metadata-html-page-generator/jsonld_to_html.py datasets/$FOLDER/$FILENAME $FOLDER/index.html
           cat datasets/$FOLDER/$FILENAME >> datasets_list.json
           echo "," >> datasets_list.json
         done
         echo "]" >> datasets_list.json
 
+        rm -rf fair-metadata-html-page-generator
         rm -rf datasets
         rm -rf node_modules
         rm -f jsonld_to_html.py
