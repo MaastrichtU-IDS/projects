@@ -45,8 +45,8 @@ jobs:
         # sudo apt install wget
         pip install 'pandas==1.2.2'
         wget https://raw.githubusercontent.com/kodymoodley/fair-metadata-html-page-generator/main/jsonld_to_html.py
-        
-        echo "[\n" > datasets_list.json
+        ls
+        echo "[" > datasets_list.json
         # Generate html for each .jsonld in datasets/*
         find ./datasets/ -name '*.jsonld' | while read NAME ; do 
           FOLDER=$(echo "${NAME}" | sed -r 's/\.\/([^\/]*)\/([^\/]*)\/(.*)$/\2/')
@@ -54,9 +54,9 @@ jobs:
           mkdir -p $FOLDER
           python jsonld_to_html.py datasets/$FOLDER/$FILENAME $FOLDER/index.html
           cat datasets/$FOLDER/$FILENAME >> datasets_list.json
-          echo ",\n" >> datasets_list.json
+          echo "," >> datasets_list.json
         done
-        echo "\n]" >> datasets_list.json
+        echo "]" >> datasets_list.json
 
         rm -rf datasets
         rm -f jsonld_to_html.py
