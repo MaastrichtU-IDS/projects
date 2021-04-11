@@ -1,6 +1,8 @@
 import React from "react";
 import { Text, View, Platform } from "react-native";
-import { Router, Route, Link } from "./react-router";
+// import { Router, Route, Link } from "./react-router";
+
+import { Route, Link, BrowserRouter as Router, Switch } from "react-router-dom";
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
 import './App.css';
@@ -31,14 +33,16 @@ const theme = createMuiTheme({
 const App = () => (
   <MuiThemeProvider theme={theme}>
     <Router basename="/projects/">
-      <View style={{height: '100%', backgroundColor: '#eceff1'}}>
-        <NavBar />
+      <Switch>
+        <View style={{height: '100%', backgroundColor: '#eceff1'}}>
+          <NavBar />
 
-        <Route exact path="/" component={ProjectsDashboard} />
-        <Route path="/create-doap" component={CreateDoapProject} />
-        <Route path="/about" component={About} />
-        <Footer />
-      </View>
+          <Route exact path="/" component={ProjectsDashboard} />
+          <Route path="/create-doap" component={CreateDoapProject} />
+          <Route path="/about" component={About} />
+          <Footer />
+        </View>
+      </Switch>
     </Router>
   </MuiThemeProvider>
 );
