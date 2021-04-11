@@ -4,7 +4,7 @@ import pathlib
 import os
 
 
-## DEPRECATED, now included in get_doap_files.py
+## DEPRECATED, now included in get_doap_projects.py
 # But then the releases are only retrieved for DOAP projects
 # This script will get all releases in the IDS organization even if no DOAP
 

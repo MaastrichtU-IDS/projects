@@ -1,4 +1,4 @@
-name: Get data from GitHub GraphQL API
+name: Get Projects data from GitHub GraphQL API
 on:
   workflow_dispatch:
     inputs:
@@ -9,7 +9,7 @@ on:
   push:
     branches: [ main ]
     paths:
-    - '.github/workflows/get-github-data.yml'
+    - '.github/workflows/get-projects-data.yml'
     - 'datasets/doap-github/query_graphql.py'
   schedule:
     - cron:  '00 03,13 * * *'
@@ -36,13 +36,13 @@ jobs:
     # Important part here (can be reused to run locally):
     - name: Install Python dependencies
       run: |
-        python -m pip install -r get_github_data/requirements.txt
+        python -m pip install -r etl/requirements.txt
     
     - name: Query GitHub GraphQL API with Python
       env:
         GITHUB_TOKEN: ${{ secrets.API_GITHUB_TOKEN }}
       run: |-
-        python get_github_data/get_doap_files.py
+        python etl/get_doap_projects.py
         echo 'File generated:'
         ls doap-rdf
 

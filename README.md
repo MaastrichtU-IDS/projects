@@ -6,20 +6,30 @@ This website allow to browse IDS projects and show the latest releases at IDS. I
 
 The website is automatically deployed by a [GitHub Actions worklow](https://github.com/MaastrichtU-IDS/projects/actions?query=workflow%3A%22Deploy+to+GitHub+Pages%22) to GitHub Pages at https://maastrichtu-ids.github.io/projects
 
-## Add an external GitHub repository
-
-GitHub repositories not published under the MaastrichtU-IDS organization can be added here: https://github.com/MaastrichtU-IDS/projects/blob/main/EXTERNAL_REPOSITORIES.txt
-
-### Run in development :construction:
-
-Requirements:  [npm](https://www.npmjs.com/get-npm) and [yarn](https://classic.yarnpkg.com/en/docs/install/#debian-stable) installed.
-
-Clone the repository:
+If you want to edit the code and propose improvements, start by cloning the repository:
 
 ```bash
 git clone https://github.com/MaastrichtU-IDS/projects
 cd projects
 ```
+
+## Add an external GitHub repository
+
+GitHub repositories not published under the MaastrichtU-IDS organization can be added in the [`etl/EXTERNAL_REPOSITORIES.txt`](https://github.com/MaastrichtU-IDS/projects/blob/main/etl/EXTERNAL_REPOSITORIES.txt)
+
+Your project will be indexed the next time the workflow will run.
+
+## Start the website
+
+Requirements:  [npm](https://www.npmjs.com/get-npm) and [yarn](https://classic.yarnpkg.com/en/docs/install/#debian-stable) installed.
+
+Go to the `website` folder:
+
+```bash
+cd website
+```
+
+### Run in development :construction:
 
 Install dependencies :inbox_tray:
 
@@ -30,7 +40,7 @@ yarn
 Web app will run on http://localhost:19006
 
 ```bash
-yarn web
+yarn dev
 ```
 
 > The website should reload automatically at each changes to the code :arrows_clockwise:
@@ -60,14 +70,14 @@ docker-compose up
 
 > Checkout the [docker-compose.yml](/docker-compose.yml) file to see how we run the Docker image.
 
-## Get data from GitHub GraphQL API
+## Get Projects data from GitHub API
 
-A workflow runs everyday via GitHub Actions at 03:00am and 13:00pm to:
+A workflow runs everyday via GitHub Actions at 03:00am and 13:00pm to get Projects metadata from GitHub GraphQL API:
 
 * Update the file [`assets/ids_github_data.json`](https://github.com/MaastrichtU-IDS/projects/blob/main/assets/ids_github_data.json) on the `main` branch using a Python script. This JSON file is then used to display informations on the IDS projects website, such as the latest releases of the MaastrichtU-IDS organization on GitHub.
 * Retrieve DOAP files (`doap-project.ttl` in RDF turtle) from MaastrichtU-IDS GitHub repositories using a Python script, then load their RDF data to the SPARQL endpoint https://graphdb.dumontierlab.com/repositories/ids-projects/statements in the graph https://w3id.org/um/ids/projects/graph
 
-> Checkout the [`get-github-data.yml` workflow file](https://github.com/MaastrichtU-IDS/projects/blob/main/.github/workflows/get-github-data.yml) to see how to run the Python script to retrieve data from the GitHub GraphQL API.
+> Checkout the [`get-projects-data.yml` workflow file](https://github.com/MaastrichtU-IDS/projects/blob/main/.github/workflows/get-projects-data.yml) to see how to run the Python script to retrieve data from the GitHub GraphQL API.
 
 You can find the scripts and requirements in the [`datasets/doap-github`](https://github.com/MaastrichtU-IDS/projects/tree/main/datasets/doap-github) folder.
 
@@ -82,16 +92,20 @@ export GITHUB_APIKEY=MYKEY000
 Install requirements:
 
 ```bash
-pip3 install -r datasets/doap-github/requirements.txt
+pip3 install -r etl/requirements.txt
 ```
 
 Run script:
 
 ```bash
-python3 datasets/doap-github/get_doap_files.py
+python3 etl/get_doap_projects.py
 ```
 
 > Try out the GitHub GraphQL API [here](https://developer.github.com/v4/explorer/).
+
+## Generate HTML pages for schema:Dataset
+
+At the end of the workflow `deploy-website.yml` (in `.github/workflows`) we run a python script from [kodymoodley/fair-metadata-html-page-generator](https://github.com/kodymoodley/fair-metadata-html-page-generator) to generate HTML pages from JSON-LD metadata describing datasets following the Schema.org vocabulary.
 
 ## Contribute
 

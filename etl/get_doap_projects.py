@@ -5,7 +5,7 @@ import os
 
 def main():
     external_doap_repositories = []
-    with open(root / '../EXTERNAL_REPOSITORIES.txt', 'r') as f:
+    with open(root / 'EXTERNAL_REPOSITORIES.txt', 'r') as f:
         for line in f:
             external_doap_repositories.append(line.rstrip('\n'))
 
@@ -16,7 +16,7 @@ def main():
     releases.sort(key=lambda r: r["published_at"], reverse=True)
 
     # Store retrieved releases to JSON file in assets folder
-    with open(root / '../assets/ids_github_data.json', 'w') as f:
+    with open(root / '../website/assets/ids_github_data.json', 'w') as f:
         json.dump({'recent_releases': releases}, f)
 
 

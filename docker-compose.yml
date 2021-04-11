@@ -2,7 +2,7 @@ version: "3"
 
 services:
   projects:
-    build: .
+    build: ./website
     container_name: projects
     ports:
       - 5000:5000
