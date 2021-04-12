@@ -350,7 +350,7 @@ export default function ProjectsDashboard() {
             {/* Iterate over projects */}
             {filteredProjects.map(function(project: any, key: number){
               return <Paper key={key.toString()} elevation={4} style={{padding: theme.spacing(2), marginTop: theme.spacing(2), marginBottom: theme.spacing(2)}}>
-                <Typography variant="h5">
+                <Typography variant="h6">
                   {project.name}&nbsp;&nbsp;
                   {project.programmingLanguage.map((language: string, key: number) => {
                     return <Chip label={language} color='primary' style={{marginRight: theme.spacing(1)}} key={key.toString()}/>
@@ -362,7 +362,7 @@ export default function ProjectsDashboard() {
                     <Chip label={project.status} color='default' style={{marginRight: theme.spacing(1)}}/>
                   )}
                 </Typography>
-                <Typography style={{marginBottom: theme.spacing(2), marginTop: theme.spacing(2)}}>
+                <Typography variant="body2" style={{marginBottom: theme.spacing(1), marginTop: theme.spacing(1)}}>
                   {project.description}
                 </Typography>
                 {project.gitUrl && ( 
@@ -413,7 +413,7 @@ export default function ProjectsDashboard() {
                     </Button>
                   </Tooltip> 
                 )}
-                <Typography variant="body2">
+                <Typography variant="body2" color='textSecondary'>
                   Maintained by&nbsp;
                   {project.maintainers.map((maintainer: any, key: number) => {
                     return <Tooltip title={maintainer.name + ' ' + maintainer.email}>
@@ -462,7 +462,7 @@ export default function ProjectsDashboard() {
 
             {datasetsList.map(function(dataset: any, key: number){
               return <Paper key={key.toString()} elevation={4} style={{padding: theme.spacing(2), marginBottom: theme.spacing(2)}}>
-                <Typography variant="h5">
+                <Typography variant="h6">
                   {dataset.name}
                   {dataset.version && ( 
                     <Chip label={dataset.version} color='primary' style={{marginLeft: theme.spacing(2)}}/>
@@ -471,7 +471,7 @@ export default function ProjectsDashboard() {
                     <Chip label={project.category} color='secondary' style={{marginRight: theme.spacing(1)}}/>
                   )} */}
                 </Typography>
-                <Typography style={{marginBottom: theme.spacing(2), marginTop: theme.spacing(2)}}>
+                <Typography variant="body2" style={{marginBottom: theme.spacing(1), marginTop: theme.spacing(1)}}>
                   {dataset.description}
                 </Typography>
                 {dataset.usageInfo && ( 
