@@ -1,7 +1,7 @@
 {
     "@context": "https://schema.org/",
     "@type": "Dataset",
-    "usageInfo": "https://maastrichtu-ids.github.io/projects/datasets/cbcm/index.html",
+    "usageInfo": "https://maastrichtu-ids.github.io/projects/datasets/case-law-similarity/index.html",
     "name": "ECJ case law text similarity analysis",
     "description": "results from a study to analyse how closely the textual similarity of ECJ cases resembles the citation network of the cases.",
     "version": "v2.0",
