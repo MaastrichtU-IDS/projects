@@ -1,4 +1,4 @@
-[![Get data from GitHub GraphQL API](https://github.com/MaastrichtU-IDS/projects/workflows/Get%20data%20from%20GitHub%20GraphQL%20API/badge.svg)](https://github.com/MaastrichtU-IDS/projects/actions?query=workflow%3A%22Get+data+from+GitHub+GraphQL+API%22) [![Deploy to GitHub Pages](https://github.com/MaastrichtU-IDS/projects/workflows/Deploy%20website%20to%20GitHub%20Pages/badge.svg)](https://github.com/MaastrichtU-IDS/projects/actions?query=workflow%3A%22Deploy+website+to+GitHub+Pages%22) [![CodeQL analysis](https://github.com/MaastrichtU-IDS/projects/workflows/CodeQL%20analysis/badge.svg)](https://github.com/MaastrichtU-IDS/projects/actions?query=workflow%3A%22CodeQL+analysis%22)
+[![Deploy website to GitHub Pages](https://github.com/MaastrichtU-IDS/projects/actions/workflows/deploy-website.yml/badge.svg)](https://github.com/MaastrichtU-IDS/projects/actions/workflows/deploy-website.yml) [![Get Projects data from GitHub GraphQL API](https://github.com/MaastrichtU-IDS/projects/actions/workflows/get-projects-data.yml/badge.svg)](https://github.com/MaastrichtU-IDS/projects/actions/workflows/get-projects-data.yml) [![CodeQL analysis](https://github.com/MaastrichtU-IDS/projects/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/MaastrichtU-IDS/projects/actions/workflows/codeql-analysis.yml)
 
 **Access the website: https://maastrichtu-ids.github.io/projects**
 
@@ -25,7 +25,7 @@ cd projects
 
 We automatically index `doap-project.ttl` metadata files from repositories in the [MaastrichtU-IDS organization](https://github.com/MaastrichtU-IDS) on GitHub. You can easily
 
-For projects in GitHub repositories that are not published under the [MaastrichtU-IDS organization](https://github.com/MaastrichtU-IDS) can be  easily added in the file [`etl/EXTERNAL_REPOSITORIES.txt`](https://github.com/MaastrichtU-IDS/projects/blob/main/etl/EXTERNAL_REPOSITORIES.txt)
+For projects in GitHub repositories that are not published under the [MaastrichtU-IDS organization](https://github.com/MaastrichtU-IDS) can be  easily added in the file [`EXTERNAL_REPOSITORIES.txt`](https://github.com/MaastrichtU-IDS/projects/blob/main/EXTERNAL_REPOSITORIES.txt)
 
 The `doap-project.ttl` file at the root of your repository will be indexed the next time the workflow will run.
 

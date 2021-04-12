@@ -1,4 +1,4 @@
-name: Get Projects data from GitHub GraphQL API
+name: Get projects data from GitHub API
 on:
   workflow_dispatch:
     inputs:

@@ -1,7 +1,7 @@
 {
     "expo": {
       "name": "IDS Projects website",
-      "description": "Website for projects at the Institute of Data Science at Maastricht University",
+      "description": "Website for projects and datasets published at the Institute of Data Science at Maastricht University",
       "slug": "ids-projects",
       "privacy": "public",
       "sdkVersion": "35.0.0",

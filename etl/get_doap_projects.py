@@ -5,7 +5,7 @@ import os
 
 def main():
     external_doap_repositories = []
-    with open(root / 'EXTERNAL_REPOSITORIES.txt', 'r') as f:
+    with open(root / '../EXTERNAL_REPOSITORIES.txt', 'r') as f:
         for line in f:
             external_doap_repositories.append(line.rstrip('\n'))
 

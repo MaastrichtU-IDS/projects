@@ -22,10 +22,8 @@ import CreateDoapProject from './CreateDoapProject'
 // import iconImage from '../assets/icon.png';
 // import idsLogo from '../assets/ids_logo.png';
 import githubData from '../assets/ids_github_data.json';
-// import { ActionYoutubeSearchedFor } from 'material-ui/svg-icons';
+// import datasetsList from '../assets/datasets_list.json';
 
-// import { normalize, schema } from 'normalizr';
-// import { ColorPropType } from 'react-native';
 
 // import {newEngine} from '@comunica/actor-init-sparql';
 // import {ActorInitSparql} from '@comunica/actor-init-sparql/lib/ActorInitSparql-browser';
