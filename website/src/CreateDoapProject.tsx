@@ -104,8 +104,11 @@ export default function CreateDoapProject() {
     if (state.project_mailinglist) {
       mailinglist_triple = `doap:mailing-list <${state.project_mailinglist}> ;`
     }
+    const d = new Date();
+    const date = [d.getFullYear(), d.getMonth(), d.getDate()].join('-')
 
-    let doap_content = `@prefix doap: <http://usefulinc.com/ns/doap#> .
+    let doap_content = `@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix doap: <http://usefulinc.com/ns/doap#> .
 @prefix asf: <http://projects.apache.org/ns/asfext#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix bibo: <http://purl.org/ontology/bibo/> .
@@ -118,6 +121,7 @@ export default function CreateDoapProject() {
 
   doap:programming-language "` + state.language_autocomplete.join('", "') + `" ;
   doap:license <` + state.project_license + `> ;
+  doap:created "` + date + `"^^xsd:date ;
   doap:bug-database <` + state.project_issues + `> ;
   ${homepage_triple}
   ${wiki_triple}
