@@ -20,7 +20,7 @@ import CreateDoapProject from './CreateDoapProject'
 
 // Import UM logo from assets
 import githubData from '../assets/ids_github_data.json';
-// import datasetsList from '../assets/datasets_list.json';
+import datasetsList from '../assets/datasets_list.json';
 // import idsLogo from '../assets/ids_logo.png';
 
 const useStyles = makeStyles(theme => ({
@@ -213,14 +213,6 @@ export default function ProjectsDashboard() {
   })
   // console.log('Filtered project:')
   // console.log(state.projects_list);
-
-  const datasetsList = [
-    {
-      'path': 'https://maastrichtu-ids.github.io/projects/datasets/cbcm/index.html',
-      'name': 'ECJ case law text similarity analysis',
-      'description': ' results from a study to analyse how closely the textual similarity of ECJ cases resembles the citation network of the cases.'
-    }
-  ]
 
   return(
     <Container className='mainContainer'>
@@ -438,7 +430,7 @@ export default function ProjectsDashboard() {
         </Collapse>
       </Card>
 
-      {/* Browse schema:Datasets */}
+      {/* Browse Datasets */}
       <Card >
         <CardHeader
           action={
@@ -469,9 +461,12 @@ export default function ProjectsDashboard() {
           <CardContent>
 
             {datasetsList.map(function(dataset: any, key: number){
-              return <Paper key={key.toString()} elevation={4} style={{padding: theme.spacing(2), marginTop: theme.spacing(2), marginBottom: theme.spacing(2)}}>
+              return <Paper key={key.toString()} elevation={4} style={{padding: theme.spacing(2), marginBottom: theme.spacing(2)}}>
                 <Typography variant="h5">
-                  {dataset.name}&nbsp;&nbsp;
+                  {dataset.name}
+                  {dataset.version && ( 
+                    <Chip label={dataset.version} color='primary' style={{marginLeft: theme.spacing(2)}}/>
+                  )}
                   {/* {project.category && ( 
                     <Chip label={project.category} color='secondary' style={{marginRight: theme.spacing(1)}}/>
                   )} */}
@@ -479,11 +474,11 @@ export default function ProjectsDashboard() {
                 <Typography style={{marginBottom: theme.spacing(2), marginTop: theme.spacing(2)}}>
                   {dataset.description}
                 </Typography>
-                {dataset.path && ( 
+                {dataset.usageInfo && ( 
                   <Tooltip title='Dataset homepage'>
                     <Button 
                       target="_blank" rel="noopener noreferrer"
-                      href={dataset.path}
+                      href={dataset.usageInfo}
                     >
                       <HomeIcon />
                     </Button>
