@@ -1,9 +1,7 @@
 import React from 'react';
-import { useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Container, Button, Chip, Tooltip, Grid, Paper, Box, Card, CardContent, CardHeader, Collapse, useTheme, } from "@material-ui/core";
 import { IconButton, InputBase } from "@material-ui/core";
-import CardActions from '@material-ui/core/CardActions';
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
@@ -22,7 +20,7 @@ import CreateDoapProject from './CreateDoapProject'
 
 // Import UM logo from assets
 // import iconImage from '../assets/icon.png';
-import idsLogo from '../assets/ids_logo.png';
+// import idsLogo from '../assets/ids_logo.png';
 import githubData from '../assets/ids_github_data.json';
 // import { ActionYoutubeSearchedFor } from 'material-ui/svg-icons';
 
@@ -66,7 +64,6 @@ const useStyles = makeStyles(theme => ({
 export default function ProjectsDashboard() {
   const classes = useStyles();
   const theme = useTheme();
-  let history = useHistory();
   
   const [state, setState] = React.useState({
     projects_list: [],
@@ -141,7 +138,7 @@ export default function ProjectsDashboard() {
       })
 
     // Get programming languages counts
-    let language_pie = {
+    let language_pie: any = {
       labels: [],
       datasets: [{
         label: 'Number of projects using the programming languages',
@@ -177,7 +174,7 @@ export default function ProjectsDashboard() {
       // to make sure the state is properly passed
 
       // Get project Categories count
-      let category_pie = {
+      let category_pie: any = {
         labels: [],
         datasets: [{
           data: [],
@@ -255,13 +252,12 @@ export default function ProjectsDashboard() {
   return(
     <Container className='mainContainer'>
       <Typography variant="h4" style={{textAlign: 'center'}}>
-        {/* <img src={iconImage} style={{height: '1em', width: '1em', marginRight: '10px'}} alt="Logo" /> */}
-        <img src={idsLogo} style={{maxWidth: '200px'}} alt="IDS Logo" />
-        {/* Institute of Data Science */}
+        Institute of Data Science
+        {/* <img src={idsLogo} style={{maxWidth: '200px'}} alt="IDS Logo" /> */}
       </Typography>
-      {/* <div style={{textAlign: 'center'}}>
-        <img src={iconImage} style={{height: '3em', width: '3em', marginRight: '10px'}} alt="Logo" />
-      </div> */}
+      <Typography variant="body1" color='textSecondary' style={{textAlign: 'center'}}>
+        at Maastricht University
+      </Typography>
 
       {/* Show releases */}
       <Card style={{marginTop: theme.spacing(2) }}>
@@ -372,7 +368,7 @@ export default function ProjectsDashboard() {
             </Grid>
           
             {/* Search box */}
-            <Box display="flex" style={{marginTop: '20px' }}>
+            <Box display="flex" style={{marginTop: theme.spacing(3) }}>
               <Paper component="form" className={classes.paperSearch}>
                 <InputBase  // https://material-ui.com/api/input-base/
                   className={classes.searchInput} inputProps={{ 'aria-label': 'search' }}
@@ -387,12 +383,6 @@ export default function ProjectsDashboard() {
             </Box>
             
             {/* Iterate over projects */}
-            {/* TODO: Changing key here at some pointbroke the search, 
-                but fixed the pie chart which is completly independant!
-                Fucking geniuses */}
-
-            {/* {filteredProjects.map(function(project: any, key: number){ */}
-            {/* return <Paper key={key} elevation={4} style={{padding: '15px', marginTop: '25px', marginBottom: '25px'}}> */}
             {filteredProjects.map(function(project: any, key: number){
               return <Paper key={key.toString()} elevation={4} style={{padding: theme.spacing(2), marginTop: theme.spacing(2), marginBottom: theme.spacing(2)}}>
                 <Typography variant="h5">
@@ -410,13 +400,6 @@ export default function ProjectsDashboard() {
                 <Typography style={{marginBottom: theme.spacing(2), marginTop: theme.spacing(2)}}>
                   {project.description}
                 </Typography>
-                {/* {project.gitUrl && ( 
-                  <div>
-                    <a href={project.gitUrl} key={project.gitUrl} >
-                      <img src={'https://gh-card.dev/repos/' + project.gitUrl.replace('https://github.com/', '') + '.svg?fullname'} alt={project.gitUrl} key={'img' + project.gitUrl}/>
-                    </a>
-                  </div>
-                )} */}
                 {project.gitUrl && ( 
                   <Tooltip title='Git repository'>
                     <Button target="_blank" rel="noopener noreferrer"
@@ -471,7 +454,7 @@ export default function ProjectsDashboard() {
                     return <Tooltip title={maintainer.name + ' ' + maintainer.email}>
                       <a href={maintainer.email} target='_blank' rel="noopener noreferrer">
                         <Chip label={maintainer.name} color='default' 
-                          style={{marginRight: '5px', cursor: 'pointer'}} key={key.toString()}/>
+                          style={{marginRight: theme.spacing(1), cursor: 'pointer'}} key={key.toString()}/>
                       </a>
                       </Tooltip>
                   })}
@@ -564,7 +547,7 @@ export default function ProjectsDashboard() {
             </IconButton>
           }
           title="📝 Publish your project"
-          subheader={"Describe your project with a simple form, then download the RDF file which use the DOAP vocabulary for projects metadata, and store the file in your project Git repository"}
+          subheader={"Describe your project with a simple form, then download the RDF file, and store it in your project Git repository"}
         />
         <Collapse in={state.show_create_project} timeout="auto" unmountOnExit>
           <CardContent>

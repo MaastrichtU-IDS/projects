@@ -11,6 +11,7 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import CreateNewFolderIcon from '@material-ui/icons/CreateNewFolder';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 
+// @ts-ignore
 import iconImage from '../assets/icon.png';
 
 const useStyles = makeStyles(theme => ({

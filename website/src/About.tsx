@@ -1,16 +1,16 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Container, Paper, Button } from "@material-ui/core";
-import { Graph } from "perfect-graph";
+import { Typography, Container } from "@material-ui/core";
+// import { Graph } from "perfect-graph";
 
-import iconImage from '../assets/icon.png';
+// import iconImage from '../assets/icon.png';
 
-import { FormControl, TextField, Input, InputLabel, FormHelperText, Select } from '@material-ui/core';
-import GetAppIcon from '@material-ui/icons/GetApp';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import MenuItem from '@material-ui/core/MenuItem';
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
+// import { FormControl, TextField, Input, InputLabel, FormHelperText, Select } from '@material-ui/core';
+// import GetAppIcon from '@material-ui/icons/GetApp';
+// import Autocomplete from '@material-ui/lab/Autocomplete';
+// import MenuItem from '@material-ui/core/MenuItem';
+// import Snackbar from '@material-ui/core/Snackbar';
+// import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles(theme => ({
   settingsForm: {
@@ -64,9 +64,9 @@ export default function About() {
 
   return(
     <Container className='mainContainer'>
-        {/* <Typography variant="h4" style={{textAlign: 'center', marginBottom: '20px'}}>
+        <Typography variant="h4" style={{textAlign: 'center', marginBottom: '20px'}}>
           About
-        </Typography> */}
+        </Typography>
 
       {/* image: {iconImage} */}
       {/* Color: https://perfectgraph-5c619.web.app/?path=/story/components-components--view */}
@@ -107,8 +107,6 @@ export default function About() {
       )}
       /> */}
       
-      
-
     </Container>
   )
 }

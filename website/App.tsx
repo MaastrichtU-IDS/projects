@@ -1,8 +1,8 @@
 import React from "react";
-import { Text, View, Platform } from "react-native";
+import { View, Platform } from "react-native";
 
+import { Route, BrowserRouter as Router } from "react-router-dom";
 // import { Route, Link, HashRouter as Router, Switch } from "react-router-dom";
-import { Route, Link, BrowserRouter as Router, Switch } from "react-router-dom";
 // OLD: import { Router, Route, Link } from "./react-router";
 
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
@@ -12,7 +12,7 @@ import NavBar from "./src/NavBar";
 import Footer from "./src/Footer";
 import ProjectsDashboard from "./src/ProjectsDashboard";
 import CreateDoapProject from "./src/CreateDoapProject";
-import About from "./src/About";
+// import About from "./src/About";
 
 // Change theme color and typography here
 const theme = createMuiTheme({
@@ -35,17 +35,19 @@ const theme = createMuiTheme({
 const App = () => (
   <MuiThemeProvider theme={theme}>
     {/* For HashRouter: <Router basename="/"> */}
-    <Router basename="/projects/" forceRefresh={true}>
+    {/* <Router basename="/projects/" forceRefresh={true}> */}
+    <Router basename="/projects/" >
       {/* https://create-react-app.dev/docs/deployment/#github-pages
       https://stackoverflow.com/questions/46056414/getting-404-for-links-with-create-react-app-deployed-to-github-pages
       Try HashRouter? https://reactrouter.com/web/api/HashRouter
       https://medium.com/@bennirus/deploying-a-create-react-app-with-routing-to-github-pages-f386b6ce84c2 */}
+      
+      {/* Grey background defined here */}
       <View style={{height: '100%', backgroundColor: '#eceff1'}}>
         <NavBar />
-
         <Route exact path="/" component={ProjectsDashboard} />
         <Route path="/create-doap" component={CreateDoapProject} />
-        <Route path="/about" component={About} />
+        {/* <Route path="/about" component={About} /> */}
         <Footer />
       </View>
     </Router>
