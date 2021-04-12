@@ -251,8 +251,8 @@ export default function ProjectsDashboard() {
               }
             </IconButton>
           }
-          title="🏷️ Recent releases"
-          subheader={"The latest releases of programs developed at the Institute of Data Science"}
+          title="🏷️ Software releases"
+          subheader={"The latest releases of softwares developed at the Institute of Data Science"}
         />
         <Collapse in={state.show_releases} timeout="auto" unmountOnExit>
           <CardContent>
