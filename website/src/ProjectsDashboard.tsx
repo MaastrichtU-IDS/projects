@@ -94,7 +94,7 @@ export default function ProjectsDashboard() {
     const endpointToQuery = 'https://graphdb.dumontierlab.com/repositories/ids-projects';
     console.log(endpointToQuery);
 
-    // Query directly using Axios
+    // Query directly using Axios, get projects metadata
     axios.get(endpointToQuery + `?query=` + encodeURIComponent(getProjectsQuery))
       .then(res => {
         const sparqlResultArray = res.data.results.bindings;
@@ -115,7 +115,9 @@ export default function ProjectsDashboard() {
             if (propertyHash) {
               if (property == 'programmingLanguage') {
                 // Exception for programming language which is a list
-                projects_hash[projectName][property].push(propertyHash.value);
+                if (!projects_hash[projectName][property].includes(propertyHash.value)) {
+                  projects_hash[projectName][property].push(propertyHash.value);
+                }
               } else if (property == 'maintainer_name') {
                 projects_hash[projectName]['maintainers'].push({
                   name: projects_converted_hash[project]['maintainer_name']['value'],

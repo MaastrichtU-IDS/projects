@@ -62,7 +62,7 @@ yarn build
 yarn serve
 ```
 
-Or run directly using [Docker :whale:](https://docs.docker.com/get-docker/) (requires [docker installed](https://docs.docker.com/get-docker/))
+Or run directly using [Docker :whale:](https://docs.docker.com/get-docker/) (requires [docker installed](https://docs.docker.com/get-docker/)), from the root folder:
 
 ```bash
 docker-compose up
