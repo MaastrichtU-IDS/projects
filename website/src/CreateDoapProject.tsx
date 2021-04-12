@@ -164,9 +164,9 @@ export default function CreateDoapProject() {
 
   return(
     <Container className='mainContainer'>
-      <Typography variant="h4" style={{textAlign: 'center', marginBottom: '20px'}}>
+      {/* <Typography variant="h4" style={{textAlign: 'center', marginBottom: '20px'}}>
         📝 Create a DOAP description for your project
-      </Typography>
+      </Typography> */}
 
       <Typography variant="body1" style={{textAlign: 'left', marginLeft: '30px'}}>
         You can find more details about why and how we use DOAP projects descriptions at IDS <a href="https://maastrichtu-ids.github.io/best-practices/docs/create-doap" className={classes.link}>here</a>. 

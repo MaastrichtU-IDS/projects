@@ -18,6 +18,8 @@ import axios from 'axios';
 import { Doughnut, Pie, Bar, HorizontalBar } from 'react-chartjs-2';
 import 'chartjs-plugin-labels';
 
+import CreateDoapProject from './CreateDoapProject'
+
 // Import UM logo from assets
 // import iconImage from '../assets/icon.png';
 import idsLogo from '../assets/ids_logo.png';
@@ -71,6 +73,7 @@ export default function ProjectsDashboard() {
     show_projects: false,
     show_datasets: false,
     show_releases: false,
+    show_create_project: false,
     search: '',
     language_pie: {},
     category_pie: {}
@@ -241,7 +244,7 @@ export default function ProjectsDashboard() {
 
   const datasetsList = [
     {
-      'path': 'https://maastrichtu-ids.github.io/projects/datasets/cbcm/',
+      'path': 'https://maastrichtu-ids.github.io/projects/datasets/cbcm/index.html',
       'name': 'ECJ case law text similarity analysis',
       'description': ' results from a study to analyse how closely the textual similarity of ECJ cases resembles the citation network of the cases.'
     }
@@ -259,7 +262,7 @@ export default function ProjectsDashboard() {
       </div> */}
 
       {/* Show releases */}
-      <Card >
+      <Card style={{marginTop: theme.spacing(2) }}>
         <CardHeader
           action={
             <IconButton style={{fontSize: '16px'}}
@@ -345,7 +348,7 @@ export default function ProjectsDashboard() {
             </IconButton>
           }
           title="🗂️ Projects"
-          subheader={"Browse projects at the Institute of Data Science"}
+          subheader={"Browse projects published at the Institute of Data Science"}
         />
         <Collapse in={state.show_projects} timeout="auto" unmountOnExit>
           <CardContent>
@@ -530,6 +533,40 @@ export default function ProjectsDashboard() {
                 )}
               </Paper>
             })}
+          </CardContent>
+        </Collapse>
+      </Card>
+
+      {/* Show form to create DOAP project */}
+      <Card style={{marginTop: theme.spacing(3), marginBottom: theme.spacing(3) }}>
+        <CardHeader
+          action={
+            <IconButton style={{fontSize: '16px'}}
+              onClick={() => { updateState({ show_create_project: !state.show_create_project}) }}
+              name='show_releases'
+              aria-expanded={state.show_create_project}
+              aria-label="show releases"
+            >
+              {!state.show_create_project &&
+                <>
+                  Show project form&nbsp;
+                  <ExpandMoreIcon />
+                </>
+              }
+              {state.show_create_project &&
+                <>
+                  Hide project form&nbsp;
+                  <ExpandLessIcon />
+                </>
+              }
+            </IconButton>
+          }
+          title="📝 Publish your project"
+          subheader={"Describe your project with a simple form, then download the RDF file which use the DOAP vocabulary for projects metadata, and store the file in your project Git repository"}
+        />
+        <Collapse in={state.show_create_project} timeout="auto" unmountOnExit>
+          <CardContent>
+            <CreateDoapProject />
           </CardContent>
         </Collapse>
       </Card>

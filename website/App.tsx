@@ -34,13 +34,12 @@ const theme = createMuiTheme({
 
 const App = () => (
   <MuiThemeProvider theme={theme}>
-    {/* <Router basename="/"> */}
+    {/* For HashRouter: <Router basename="/"> */}
     <Router basename="/projects/" forceRefresh={true}>
       {/* https://create-react-app.dev/docs/deployment/#github-pages
       https://stackoverflow.com/questions/46056414/getting-404-for-links-with-create-react-app-deployed-to-github-pages
       Try HashRouter? https://reactrouter.com/web/api/HashRouter
       https://medium.com/@bennirus/deploying-a-create-react-app-with-routing-to-github-pages-f386b6ce84c2 */}
-      {/* <Switch> */}
       <View style={{height: '100%', backgroundColor: '#eceff1'}}>
         <NavBar />
 
@@ -49,7 +48,6 @@ const App = () => (
         <Route path="/about" component={About} />
         <Footer />
       </View>
-      {/* </Switch> */}
     </Router>
   </MuiThemeProvider>
 );
