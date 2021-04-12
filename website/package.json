@@ -1,6 +1,7 @@
 {
+  "homepage": "https://maastrichtu-ids.github.io/projects",
+  "private": true,
   "dependencies": {
-    "@comunica/actor-init-sparql": "^1.17.0",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
@@ -8,7 +9,6 @@
     "chart.js": "^2.9.3",
     "chartjs-plugin-labels": "^1.1.0",
     "expo": "~39.0.0",
-    "normalizr": "^3.6.0",
     "react": "~16.13.0",
     "react-chartjs-2": "^2.10.0",
     "react-dom": "~16.13.0",
@@ -41,7 +41,5 @@
     "start": "npm run build && npm run serve",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d web-build"
-  },
-  "homepage": "https://maastrichtu-ids.github.io/projects",
-  "private": true
+  }
 }
