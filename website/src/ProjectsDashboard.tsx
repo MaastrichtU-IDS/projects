@@ -21,6 +21,7 @@ import CreateDoapProject from './CreateDoapProject'
 // Import UM logo from assets
 import githubData from '../assets/ids_github_data.json';
 import datasetsList from '../assets/datasets_list.json';
+import JsonldEditor from './components/JsonldEditor';
 // import idsLogo from '../assets/ids_logo.png';
 
 const useStyles = makeStyles(theme => ({
@@ -37,10 +38,11 @@ const useStyles = makeStyles(theme => ({
     flex: 1,
   },
   link: {
+    color: theme.palette.primary.main,
     textDecoration: 'none',
-    color: 'inherit',
+    // color: 'inherit',
     '&:hover': {
-      color: theme.palette.primary.main,
+      color: theme.palette.primary.light,
       textDecoration: 'none',
     },
   },
@@ -63,6 +65,7 @@ export default function ProjectsDashboard() {
     show_datasets: false,
     show_releases: false,
     show_create_project: false,
+    show_create_dataset: false,
     search: '',
     language_pie: {},
     category_pie: {}
@@ -523,6 +526,54 @@ export default function ProjectsDashboard() {
           </CardContent>
         </Collapse>
       </Card>
+
+      {/* Show form to create DOAP project */}
+      <Card style={{marginTop: theme.spacing(3), marginBottom: theme.spacing(3) }}>
+        <CardHeader
+          action={
+            <IconButton style={{fontSize: '16px'}}
+              onClick={() => { updateState({ show_create_dataset: !state.show_create_dataset}) }}
+              name='show_create_dataset'
+              aria-expanded={state.show_create_dataset}
+              aria-label="show create dataset form"
+            >
+              {!state.show_create_dataset &&
+                <>
+                  Show dataset form&nbsp;
+                  <ExpandMoreIcon />
+                </>
+              }
+              {state.show_create_dataset &&
+                <>
+                  Hide dataset form&nbsp;
+                  <ExpandLessIcon />
+                </>
+              }
+            </IconButton>
+          }
+          title="🧙‍♂️ Publish your dataset"
+          subheader={"Describe your dataset with a simple form, then download the RDF file, and store it in this projects Git repository"}
+        />
+        <Collapse in={state.show_create_dataset} timeout="auto" unmountOnExit>
+          <CardContent>
+            {/* <Typography variant='body2'>
+              To publish this dataset as an IDS dataset:
+            </Typography> */}
+            <Typography variant='body2' style={{marginBottom: theme.spacing(1)}}>
+              1. Fill this form with your dataset metadata, then download the <code>dataset.jsonld</code>. 
+            </Typography>
+            <Typography variant='body2' style={{marginBottom: theme.spacing(1)}}>
+              2. In the <a href='https://github.com/MaastrichtU-IDS/projects' className={classes.link} target='_blank' rel="noopener noreferrer">MaastrichtU-IDS/projects</a> GitHub repository: create a new folder in the <code>datasets</code> folder, and put your dataset metadata file in this folder.
+            </Typography>
+            <Typography variant='body2' color='textSecondary' style={{marginBottom: theme.spacing(2)}}>
+              This is an extensive example, you are free to delete some properties that you don't have informations for.
+            </Typography>
+
+            <JsonldEditor />
+          </CardContent>
+        </Collapse>
+      </Card>
+
     </Container>
   )
 }
