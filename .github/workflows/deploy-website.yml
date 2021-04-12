@@ -14,6 +14,27 @@ jobs:
       with:
         node-version: 12
 
+    - name: Generate HTML pages from JSON-LD in datasets folder
+      run: |
+        git clone --depth=1 https://github.com/kodymoodley/fair-metadata-html-page-generator.git
+        pip install -r fair-metadata-html-page-generator/requirements.txt
+        # Generate html for each .jsonld in datasets
+        cd fair-metadata-html-page-generator
+        echo "[" > ../datasets_list.json
+        find ../datasets/ -name '*.jsonld' | while read NAME ; do 
+          FOLDER=$(echo "${NAME}" | sed -r 's/\.\.\/([^\/]*)\/([^\/]*)\/(.*)$/\2/')
+          FILENAME=$(echo "${NAME}" | sed -r 's/\.\.\/([^\/]*)\/([^\/]*)\/(.*)$/\3/')
+          mkdir -p ../datasets/$FOLDER
+          python jsonld_to_html.py ../datasets/$FOLDER/$FILENAME ../datasets/$FOLDER/index.html
+          cat ../datasets/$FOLDER/$FILENAME >> ../datasets_list.json
+          echo "," >> ../datasets_list.json
+        done
+        DATASETS_JSON=$(cat ../datasets_list.json)
+        echo ${DATASETS_JSON::-1} > ../datasets_list.json
+        echo "]" >> ../datasets_list.json
+        cd ..
+        mv datasets_list.json website/assets/datasets_list.json
+
     - name: Install dependencies and build
       run: |
         git config --global user.email "vincent.emonet@maastrichtuniversity.nl"
@@ -30,32 +51,12 @@ jobs:
         FOLDER: website/web-build
         CLEAN: true
 
-    - name: Generate HTML pages from JSON-LD in datasets folder
+    - name: Commit HTML pages for datasets
       run: |
         mv datasets tmp-datasets
         git fetch
         git checkout gh-pages
         mv tmp-datasets datasets
-        git clone --depth=1 https://github.com/kodymoodley/fair-metadata-html-page-generator.git
-        pip install -r fair-metadata-html-page-generator/requirements.txt
-        # Generate html for each .jsonld in datasets/*
-        cd fair-metadata-html-page-generator
-        echo "[" > ../datasets_list.json
-        find ../datasets/ -name '*.jsonld' | while read NAME ; do 
-          FOLDER=$(echo "${NAME}" | sed -r 's/\.\.\/([^\/]*)\/([^\/]*)\/(.*)$/\2/')
-          FILENAME=$(echo "${NAME}" | sed -r 's/\.\.\/([^\/]*)\/([^\/]*)\/(.*)$/\3/')
-          mkdir -p ../datasets/$FOLDER
-          python jsonld_to_html.py ../datasets/$FOLDER/$FILENAME ../datasets/$FOLDER/index.html
-          cat ../datasets/$FOLDER/$FILENAME >> ../datasets_list.json
-          echo "," >> ../datasets_list.json
-        done
-        DATASETS_JSON=$(cat ../datasets_list.json)
-        echo ${DATASETS_JSON::-1} > ../datasets_list.json
-        echo "]" >> ../datasets_list.json
-
-        cd ..
-        git config --global user.email "vincent.emonet@gmail.com"
-        git config --global user.name "Vincent Emonet"
         git add datasets
         git commit -m "Update schema:Dataset HTML pages" || exit 0
         git push || exit 0

@@ -19,15 +19,9 @@ import 'chartjs-plugin-labels';
 import CreateDoapProject from './CreateDoapProject'
 
 // Import UM logo from assets
-// import iconImage from '../assets/icon.png';
-// import idsLogo from '../assets/ids_logo.png';
 import githubData from '../assets/ids_github_data.json';
 // import datasetsList from '../assets/datasets_list.json';
-
-
-// import {newEngine} from '@comunica/actor-init-sparql';
-// import {ActorInitSparql} from '@comunica/actor-init-sparql/lib/ActorInitSparql-browser';
-// import {IQueryOptions, newEngineDynamicArged} from "@comunica/actor-init-sparql/lib/QueryDynamic";
+// import idsLogo from '../assets/ids_logo.png';
 
 const useStyles = makeStyles(theme => ({
   paperSearch: {
@@ -202,27 +196,8 @@ export default function ProjectsDashboard() {
         console.log(error)
       })
 
-    // TODO: this seems to interfer with the pies states
-    // Query with the Comunica engine
-    // Not working on SPARQL endpoint, only on the examples they provide
-    // https://comunica.dev/docs/query/getting_started/query_app/
-    // const comunicaEngine = newEngine();
-    // comunicaEngine.query(`
-    //   SELECT ?s ?o WHERE {
-    //    ?s a ?o .
-    //   } LIMIT 100`, {
-    //   sources: ['https://dbpedia.org/sparql'],
-    // }).then((res: any) => {
-    //   console.log(res);
-    //   res.bindingsStream.on('data', (binding: any) => {
-    //     // console.log(binding.get('?s').value);
-    //     // console.log(binding.get('?s').termType);
-    //     // console.log(binding.get('?o').value);
-    //   });
-    // });
-
   }, [])
-  // This useless array needs to be added for React to understand he needs to use the state inside...
+  // Array needs to be added for React to understand he needs to use the state inside
 
   const searchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setState({...state, search: event.target.value})
@@ -236,8 +211,8 @@ export default function ProjectsDashboard() {
       )
     }
   })
-  console.log('Filtered project:')
-  console.log(state.projects_list);
+  // console.log('Filtered project:')
+  // console.log(state.projects_list);
 
   const datasetsList = [
     {
