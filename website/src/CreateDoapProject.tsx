@@ -205,11 +205,11 @@ export default function CreateDoapProject() {
                 autoWidth
               >
                 <MenuItem value="Research">🧪 Research</MenuItem>
-                <MenuItem value="Development">👨‍💻 Development</MenuItem>
+                {/* <MenuItem value="Development">👨‍💻 Development</MenuItem> */}
                 <MenuItem value="Education">🎓 Education</MenuItem>
               </Select>
             </FormControl>
-            <FormHelperText id="helper-graphs-overview">Is your project for <b>research</b>, <b>education</b>, or <b>development</b> of a tool?</FormHelperText>
+            <FormHelperText id="helper-graphs-overview">Is your project for <b>research</b> or <b>education</b>?</FormHelperText>
 
             <FormControl size='small' variant="outlined" className={classes.fullWidth}>
               <InputLabel id="form-graph-overview-label">
