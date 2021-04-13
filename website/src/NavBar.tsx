@@ -2,12 +2,12 @@ import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from "react-router-dom";
 
-import { AppBar, Toolbar, Button } from '@material-ui/core';
+import { useTheme, AppBar, Toolbar, Button } from '@material-ui/core';
 import Tooltip from '@material-ui/core/Tooltip';
 
 import GitHubIcon from '@material-ui/icons/GitHub';
-import InfoIcon from '@material-ui/icons/Info';
-import DashboardIcon from '@material-ui/icons/Dashboard';
+// import InfoIcon from '@material-ui/icons/Info';
+// import DashboardIcon from '@material-ui/icons/Dashboard';
 import CreateNewFolderIcon from '@material-ui/icons/CreateNewFolder';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 
@@ -32,6 +32,7 @@ const useStyles = makeStyles(theme => ({
   
 export default function NavBar() {
   const classes = useStyles();
+  const theme = useTheme();
 
   return (
     <AppBar title="" position='sticky'>
@@ -62,10 +63,18 @@ export default function NavBar() {
             <MenuBookIcon />
           </Button>
         </Tooltip>
-        <Tooltip title='Go to https://github.com/MaastrichtU-IDS/projects'>
+        {/* <Tooltip title='Go to https://github.com/MaastrichtU-IDS/projects'>
           <Button className={classes.menuButton} target="_blank"
           href="https://github.com/MaastrichtU-IDS/projects">
             <GitHubIcon />
+          </Button>
+        </Tooltip> */}
+        <Tooltip title='Login with GitHub'>
+          <Button className={classes.menuButton} target="_blank"
+          // href="http://localhost:3000/login?scope=public_repo">
+          href="https://github-ids-projects.137.120.31.102.nip.io/login?scope=public_repo">
+            Login
+            <GitHubIcon style={{marginLeft: theme.spacing(1)}} />
           </Button>
         </Tooltip>
       </Toolbar>

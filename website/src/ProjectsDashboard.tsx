@@ -1,6 +1,7 @@
 import React from 'react';
+import { useLocation } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Container, Button, Chip, Tooltip, Grid, Paper, Box, Card, CardContent, CardHeader, Collapse, useTheme, } from "@material-ui/core";
+import { useTheme, Typography, Container, Button, Chip, Tooltip, Grid, Paper, Box, Card, CardContent, CardHeader, Collapse } from "@material-ui/core";
 import { IconButton, InputBase } from "@material-ui/core";
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -23,6 +24,8 @@ import githubData from '../assets/ids_github_data.json';
 import datasetsList from '../assets/datasets_list.json';
 import JsonldEditor from './components/JsonldEditor';
 // import idsLogo from '../assets/ids_logo.png';
+
+import GitHubLogin from 'react-github-login';
 
 const useStyles = makeStyles(theme => ({
   paperSearch: {
@@ -58,6 +61,7 @@ const useStyles = makeStyles(theme => ({
 export default function ProjectsDashboard() {
   const classes = useStyles();
   const theme = useTheme();
+  let location = useLocation(); 
   
   const [state, setState] = React.useState({
     projects_list: [],
@@ -70,11 +74,8 @@ export default function ProjectsDashboard() {
     language_pie: {},
     category_pie: {}
   });
-
   const stateRef = React.useRef(state);
-
   // Avoid conflict when async calls
-  // Can be done with another lib (cf. Turgay)
   const updateState = React.useCallback((update) => {
     stateRef.current = {...stateRef.current, ...update};
     setState(stateRef.current);
@@ -82,9 +83,16 @@ export default function ProjectsDashboard() {
 
   // componentDidMount: Query SPARQL endpoint to get the projects infos
   React.useEffect(() => {
-    console.log(githubData['recent_releases']);
+    const params = new URLSearchParams(location.search + location.hash);
+    let oauthCode = params.get('access_token');
+    if (oauthCode) {
+      console.log('GitHub access token:')
+      console.log(oauthCode)
+    }
+
+    // console.log(githubData['recent_releases']);
     const endpointToQuery = 'https://graphdb.dumontierlab.com/repositories/ids-projects';
-    console.log(endpointToQuery);
+    // console.log(endpointToQuery);
 
     // Query directly using Axios, get projects metadata
     axios.get(endpointToQuery + `?query=` + encodeURIComponent(getProjectsQuery))
@@ -259,7 +267,7 @@ export default function ProjectsDashboard() {
             <Grid container spacing={2} style={{textAlign: 'center', marginBottom: '1em'}}>
               {/* Iterate over the 6 most recent releases from JSON file */}
               {githubData['recent_releases'].slice(0, 6).map(function(release: any, key: number){
-                return <Grid item xs={12} md={4}>
+                return <Grid item xs={12} md={4} key={key}>
                   <Tooltip title={release.release_description}>
                     <Card style={{height: '100%'}}>
                       <CardContent style={{padding: '1em'}}>
@@ -419,7 +427,7 @@ export default function ProjectsDashboard() {
                 <Typography variant="body2" color='textSecondary'>
                   Maintained by&nbsp;
                   {project.maintainers.map((maintainer: any, key: number) => {
-                    return <Tooltip title={maintainer.name + ' ' + maintainer.email}>
+                    return <Tooltip title={maintainer.name + ' ' + maintainer.email} key={key}>
                       <a href={maintainer.email} target='_blank' rel="noopener noreferrer">
                         <Chip label={maintainer.name} color='default' 
                           style={{marginRight: theme.spacing(1), cursor: 'pointer'}} key={key.toString()}/>
