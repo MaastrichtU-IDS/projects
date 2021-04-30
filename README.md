@@ -33,7 +33,7 @@ The `doap-project.ttl` file at the root of your repository will be indexed the n
 
 Requirements:  [npm](https://www.npmjs.com/get-npm) and [yarn](https://classic.yarnpkg.com/en/docs/install/#debian-stable) installed.
 
-Go to the `website` folder:
+Go to the `website` folder (every command related to the website will be done from this folder):
 
 ```bash
 cd website
@@ -61,22 +61,22 @@ Upgrade the packages versions in `yarn.lock`
 yarn upgrade
 ```
 
-### Run in production 🛩️
+### Or run in production 🛩️
 
 > This website is automatically deployed by a [GitHub Actions worklow](https://github.com/MaastrichtU-IDS/projects/actions?query=workflow%3A%22Deploy+to+GitHub+Pages%22) to GitHub Pages at https://maastrichtu-ids.github.io/projects
 
-You can build locally in `/web-build` folder and serve on [http://localhost:5000 :package:](http://localhost:5000)
+You can build locally in `/web-build` folder and serve on [http://localhost:5000 :package:](http://localhost:5000) for production
 
 ```bash
 yarn build
 yarn serve
 ```
 
-### Run with Docker 🐳
+### Or run with Docker 🐳
 
 Requires [Docker installed](https://docs.docker.com/get-docker/)
 
-You can build the website:
+You can build the website in a Docker image:
 
 ```bash
 docker build -t projects-website .

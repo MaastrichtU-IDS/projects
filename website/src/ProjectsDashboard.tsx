@@ -25,8 +25,6 @@ import datasetsList from '../assets/datasets_list.json';
 import JsonldEditor from './components/JsonldEditor';
 // import idsLogo from '../assets/ids_logo.png';
 
-import GitHubLogin from 'react-github-login';
-
 const useStyles = makeStyles(theme => ({
   paperSearch: {
     padding: '2px 4px',
