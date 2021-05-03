@@ -21,3 +21,7 @@ about: Propose an idea you had that could make an interesting small development 
 #### GitHub repository to use
 
 <!-- If you already have started a GitHub repository for this idea, and would like the development to start from this repository: copy the link here. -->
+
+#### Expected output
+
+<!-- what do you expect to be produced for this project? Presentation/report, website/service deployed publicy, new dataset available -->
