@@ -6,9 +6,9 @@ about: Propose an idea you had that could make an interesting small development 
 # assignees: vemonet,Binosha
 ---
 
-<!-- Use the Labels on the right to tag your idea with the technologies your idea involves: Python, Java, React, RDF... -->
+<!-- Use the Labels on the right to tag the issue with the technologies your idea involves: Python, Java, React, RDF... -->
 
-**Contact:** Your firstname and lastname
+**Contact:** Firstname Lastname
 
 #### Project idea description
 
@@ -24,4 +24,4 @@ about: Propose an idea you had that could make an interesting small development 
 
 #### Expected output
 
-<!-- what do you expect to be produced for this project? Presentation/report, website/service deployed publicy, new dataset available -->
+<!-- What do you expect to be produced for this project? Presentation/report, website/service deployed publicy, new dataset available? -->
